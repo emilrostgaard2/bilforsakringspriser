@@ -10,10 +10,12 @@ import os, json, re, html
 import data, forfattare
 
 BASE = 'https://bilforsakringspriser.se'
-V = '20260824b'           # cache-stämpel — höj vid ändring i css/js
+V = '20260824c'           # cache-stämpel — höj vid ändring i css/js
 ROOT = os.path.dirname(os.path.abspath(__file__))
 os.chdir(ROOT)
 
+# Menyn. Undermenyer hålls under sju poster så att de ryms i en spalt.
+# Ortssidorna ligger medvetet bara i sidfoten — de är för smala för menyn.
 NAV = [
     ('/jamfor-bilforsakring/', 'Jämför'),
     ('Skyddsnivåer', [
@@ -23,26 +25,35 @@ NAV = [
         ('/sjalvrisk/', 'Självrisk'),
     ]),
     ('Guider', [
-        ('§', 'Hitta rätt pris'),
         ('/basta-bilforsakringen/', 'Bästa bilförsäkringen'),
         ('/billigaste-bilforsakringen/', 'Billigaste bilförsäkringen'),
         ('/byta-bilforsakring/', 'Byta bilförsäkring'),
-        ('§', 'För din situation'),
+        ('/bonus-och-skadefria-ar/', 'Bonus och skadefria år'),
+        ('/trafikforsakringsavgift/', 'Trafikförsäkringsavgift'),
+        ('/avstalld-bil/', 'Avställd bil'),
+    ]),
+    ('Din situation', [
         ('/bilforsakring-elbil/', 'Elbil'),
         ('/leasingbil-forsakring/', 'Leasingbil'),
         ('/bilforsakring-ung-forare/', 'Ung förare'),
         ('/bilforsakring-pensionar/', 'Pensionär'),
-        ('§', 'Bra att veta'),
-        ('/bonus-och-skadefria-ar/', 'Bonus och skadefria år'),
-        ('/trafikforsakringsavgift/', 'Trafikförsäkringsavgift'),
-        ('/avstalld-bil/', 'Avställd bil'),
-        ('§', 'Priser per ort'),
-        ('/bilforsakring-stockholm/', 'Stockholm'),
-        ('/bilforsakring-goteborg/', 'Göteborg'),
-        ('/bilforsakring-malmo/', 'Malmö'),
     ]),
-    ('/forsakringsbolag/', 'Bolag'),
-    ('/bilmarken/', 'Bilmärken'),
+    ('Bolag', [
+        ('/forsakringsbolag/folksam/', 'Folksam'),
+        ('/forsakringsbolag/lansforsakringar/', 'Länsförsäkringar'),
+        ('/forsakringsbolag/if/', 'If'),
+        ('/forsakringsbolag/trygg-hansa/', 'Trygg-Hansa'),
+        ('/forsakringsbolag/hedvig/', 'Hedvig'),
+        ('»', '/forsakringsbolag/', 'Se alla 16 bolag'),
+    ]),
+    ('Bilmärken', [
+        ('/bilmarken/volvo/', 'Volvo'),
+        ('/bilmarken/volkswagen/', 'Volkswagen'),
+        ('/bilmarken/toyota/', 'Toyota'),
+        ('/bilmarken/tesla/', 'Tesla'),
+        ('/bilmarken/bmw/', 'BMW'),
+        ('»', '/bilmarken/', 'Se alla 37 märken'),
+    ]),
 ]
 
 DD_ARR = ('<svg class="dd-arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
@@ -50,29 +61,28 @@ DD_ARR = ('<svg class="dd-arr" viewBox="0 0 24 24" fill="none" stroke="currentCo
 
 
 def navbar(slug):
-    """Menyn. Undermenyer är riktiga länkar i HTML — de finns för crawlern
-    även om JavaScript inte körs, och ligger dessutom i sidfoten.
+    """Menyn. Undermenyernas länkar är riktiga <a> i HTML — de finns för
+    crawlern även utan JavaScript, och ligger dessutom i sidfoten.
 
-    En post i en undermeny med url '§' blir en rubrik i stället för en
-    länk, så att långa menyer går att skanna i stället för att läsas."""
+    En post som börjar med '»' blir en avslutande "se alla"-länk."""
     ut = []
     for i, (a, b) in enumerate(NAV):
         if isinstance(b, list):
-            lankar_lista = [(u, t) for u, t in b if u != '§']
-            oppen = any(u.strip('/') == slug for u, t in lankar_lista)
-            bred = ' wide' if len(lankar_lista) > 6 else ''
+            oppen = any(p[-2].strip('/') == slug for p in
+                        [(x if len(x) == 3 else ('', x[0], x[1])) for x in b])
             delar = []
-            for u, t in b:
-                if u == '§':
-                    delar.append(f'<p class="dd-rub">{t}</p>')
-                else:
-                    nu = ' aria-current="page"' if u.strip('/') == slug else ''
-                    delar.append(f'<a href="{u}"{nu}>{t}</a>')
+            for post in b:
+                alla = len(post) == 3
+                u, t = (post[1], post[2]) if alla else post
+                nu = ' aria-current="page"' if u.strip('/') == slug else ''
+                kl = ' class="dd-alla"' if alla else ''
+                pil = ' &rarr;' if alla else ''
+                delar.append(f'<a href="{u}"{nu}{kl}>{t}{pil}</a>')
             ut.append(
                 f'<div class="nav-item{" here" if oppen else ""}">'
                 f'<button type="button" class="nav-btn" aria-expanded="false" '
                 f'aria-controls="dd{i}">{a}{DD_ARR}</button>'
-                f'<div class="dd{bred}" id="dd{i}">{"".join(delar)}</div></div>')
+                f'<div class="dd" id="dd{i}">{"".join(delar)}</div></div>')
         else:
             nu = ' aria-current="page"' if a.strip('/') == slug else ''
             ut.append(f'<a href="{a}"{nu}>{b}</a>')
@@ -297,8 +307,9 @@ def page(d):
 {body_html}
 {faq_html}
 {rel}
-{forfattare.ruta()}
 </main>
+
+{forfattare.ruta()}
 
 {sticky(d.get('sticky', 'Se vad din bil kostar att försäkra'))}
 {footer()}

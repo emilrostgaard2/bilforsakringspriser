@@ -245,6 +245,120 @@ utan trafikförsäkring är olagligt och kan kosta betydligt mer än du sparat.<
 {TODO}
 {METOD}
 
+<h2>Jämförelseschema — fyll i innan du väljer</h2>
+<p>Det här är hela metoden på en sida. Skriv av tabellen, hämta tre offerter och fyll i den
+kolumn för kolumn. Är två rutor olika mellan två offerter är priserna inte jämförbara, och
+då ska du rätta offerten innan du jämför beloppen.</p>
+<div class="tbl"><table>
+<caption>Ta med samma uppgifter till varje bolag</caption>
+<thead><tr><th scope="col">Post</th><th scope="col">Bolag 1</th><th scope="col">Bolag 2</th>
+<th scope="col">Bolag 3</th></tr></thead>
+<tbody>
+<tr><th scope="row">Skyddsnivå</th><td>—</td><td>—</td><td>—</td></tr>
+<tr><th scope="row">Årspremie</th><td>—</td><td>—</td><td>—</td></tr>
+<tr><th scope="row">Grundsjälvrisk</th><td>—</td><td>—</td><td>—</td></tr>
+<tr><th scope="row">Vagnskadesjälvrisk</th><td>—</td><td>—</td><td>—</td></tr>
+<tr><th scope="row">Glassjälvrisk vid lagning</th><td>—</td><td>—</td><td>—</td></tr>
+<tr><th scope="row">Hyrbil, antal dagar</th><td>—</td><td>—</td><td>—</td></tr>
+<tr><th scope="row">Maskinskada, till vilken ålder</th><td>—</td><td>—</td><td>—</td></tr>
+<tr><th scope="row">Fritt verkstadsval</th><td>—</td><td>—</td><td>—</td></tr>
+<tr><th scope="row">Nykundsrabatt år ett</th><td>—</td><td>—</td><td>—</td></tr>
+<tr><th scope="row">Pris år två utan rabatt</th><td>—</td><td>—</td><td>—</td></tr>
+</tbody></table></div>
+<p class="swipe">&larr; Dra i sidled för att se alla kolumner</p>
+
+<h2>Sju fällor som gör jämförelsen missvisande</h2>
+<p>Nästan alla prisskillnader som ser dramatiska ut på papperet visar sig vid närmare
+granskning bero på något av det här. Gå igenom listan innan du drar slutsatsen att ett bolag
+är billigare än ett annat.</p>
+<div class="tbl"><table>
+<caption>Vanliga fel vid jämförelse</caption>
+<thead><tr><th scope="col">Fällan</th><th scope="col">Varför den lurar dig</th>
+<th scope="col">Så undviker du den</th></tr></thead>
+<tbody>
+<tr><th scope="row">Nykundsrabatt i priset</th>
+<td>Rabatten gäller ofta bara första året</td><td>Fråga vad premien blir år två</td></tr>
+<tr><th scope="row">Olika självrisk i offerterna</th>
+<td>Högre självrisk ger lägre premie, inte bättre affär</td>
+<td>Lås samma nivå i alla offerter</td></tr>
+<tr><th scope="row">Månadspris mot årspris</th>
+<td>Månadsbetalning innehåller normalt ett påslag</td><td>Räkna alltid om till år</td></tr>
+<tr><th scope="row">Tillägg som redan ingår hos ett bolag</th>
+<td>Den dyrare offerten kan innehålla mer</td><td>Jämför innehåll rad för rad</td></tr>
+<tr><th scope="row">Fel körsträcka</th>
+<td>Låg angiven sträcka ger lågt pris — och nedsatt ersättning</td>
+<td>Ange den sträcka du faktiskt kör</td></tr>
+<tr><th scope="row">Samlingsrabatt som förutsätter flytt av hemförsäkringen</th>
+<td>Priset gäller bara om du flyttar allt</td><td>Be om priset utan samlingsrabatt</td></tr>
+<tr><th scope="row">Bonus som inte registrerats</th>
+<td>Offerten kan utgå från noll skadefria år</td><td>Skicka intyg innan du jämför</td></tr>
+</tbody></table></div>
+<p class="swipe">&larr; Dra i sidled för att se alla kolumner</p>
+
+<h2>Vad som är värt mest i villkoren</h2>
+<p>Två offerter med samma pris kan skilja med tusenlappar den dag något händer. Det här är de
+poster där skillnaderna mellan bolagen är störst, rangordnade efter hur ofta de faktiskt
+utlöses.</p>
+<div class="tbl"><table>
+<caption>Villkorsposter i fallande ordning efter praktisk betydelse</caption>
+<thead><tr><th scope="col">Post</th><th scope="col">Hur ofta den används</th>
+<th scope="col">Vad du ska titta på</th></tr></thead>
+<tbody>
+<tr><th scope="row">Glassjälvrisk</th><td>Mycket ofta</td>
+<td>Skillnaden mellan lagning och byte</td></tr>
+<tr><th scope="row">Hyrbil</th><td>Ofta</td><td>Antal dagar och andel av kostnaden</td></tr>
+<tr><th scope="row">Räddning och assistans</th><td>Ofta</td>
+<td>Om hemtransport ingår, och varifrån</td></tr>
+<tr><th scope="row">Maskinskada</th><td>Regelbundet på äldre bilar</td>
+<td>Till vilken ålder och körsträcka den gäller</td></tr>
+<tr><th scope="row">Djurkollision</th><td>Säsongsvis, mest höst</td>
+<td>Om självrisken reduceras eller faller bort</td></tr>
+<tr><th scope="row">Allrisk eller drulle</th><td>Sällan, men dyrt</td>
+<td>Om den ingår eller kostar extra</td></tr>
+<tr><th scope="row">Rättsskydd</th><td>Sällan</td><td>Takbeloppet vid tvist</td></tr>
+</tbody></table></div>
+<p class="swipe">&larr; Dra i sidled för att se alla kolumner</p>
+<p>Vill du gå djupare på självriskerna finns en genomgång av alla typer på sidan om
+<a href="/sjalvrisk/">självrisk</a>, och en förklaring av hur bonusen påverkar priset under
+<a href="/bonus-och-skadefria-ar/">skadefria år</a>.</p>
+
+<h2>Var du hämtar offerterna</h2>
+<p>Det finns tre vägar, och de ger olika svar. Använd helst två av dem, eftersom ingen enskild
+källa täcker hela marknaden.</p>
+<div class="tbl"><table>
+<caption>Tre sätt att hämta pris</caption>
+<thead><tr><th scope="col">Väg</th><th scope="col">Styrka</th><th scope="col">Svaghet</th></tr></thead>
+<tbody>
+<tr><th scope="row">Bolagets egen sajt</th><td>Exakt pris, alla rabatter räknas in</td>
+<td>Tar tid — fem till tio minuter per bolag</td></tr>
+<tr><th scope="row">Jämförelsetjänst</th><td>Flera offerter från ett formulär</td>
+<td>Bara anslutna bolag, och tjänsten får provision</td></tr>
+<tr><th scope="row">Ditt nuvarande bolag</th><td>Kan matcha ett konkurrerande pris</td>
+<td>Sker sällan utan att du frågar uttryckligen</td></tr>
+</tbody></table></div>
+<p>Ett samtal till det nuvarande bolaget med en konkret offert i handen är den mest
+underskattade åtgärden i hela processen. Har du ett skriftligt pris från en konkurrent är
+det en förhandling, inte en förfrågan.</p>
+
+<h2>När på året du bör jämföra</h2>
+<p>Du får byta vid huvudförfallodagen med en månads uppsägningstid, vilket i praktiken betyder
+att jämförelsen ska göras ungefär sex veckor innan. Sätt en påminnelse — datumet står på
+försäkringsbrevet och är sällan detsamma som när du tecknade. Utöver det finns fyra
+tillfällen då du får byta omgående: vid bilköp, vid ägarbyte, vid flytt och när bolaget
+aviserar en premiehöjning. Det sista är det som flest missar, och det är samtidigt det bästa
+förhandlingsläget du får. Hela regelverket står på sidan om
+<a href="/byta-bilforsakring/">att byta bilförsäkring</a>.</p>
+
+<h2>Om du bara har tio minuter</h2>
+<p>Gör tre saker, i den här ordningen. Kontrollera att körsträckan i din nuvarande försäkring
+stämmer med hur mycket du faktiskt kör. Kontrollera att alla dina skadefria år är
+registrerade. Hämta sedan en offert hos ett bolag du inte har i dag, på exakt samma
+skyddsnivå och självrisk. De tre stegen tar tio minuter tillsammans och fångar upp det mesta
+av det som brukar vara fel. Vill du gå vidare därifrån är
+<a href="/billigaste-bilforsakringen/">genomgången av vad som styr priset</a> nästa steg,
+och <a href="/basta-bilforsakringen/">vår sammanställning av bolagen</a> hjälper dig välja
+vilka du ska begära offert från.</p>
+
 <div class="cta">
 <h2>Börja med registreringsnumret</h2>
 <p>Bilens uppgifter hämtas automatiskt. Du fyller inte i märke, modell eller årsmodell.</p>
@@ -330,6 +444,70 @@ halvförsäkring liten i förhållande till vad du får.</p>
 {METOD}
 
 <div class="cta">
+<h2>Ersättningen har ingen övre gräns för personskador</h2>
+<p>Det här är den del av trafikförsäkringen som är svårast att föreställa sig, och samtidigt
+den viktigaste. Ersättning för personskador enligt trafikskadelagen är inte beloppsbegränsad.
+En allvarlig personskada kan innebära livslång ersättning för inkomstförlust, vård och
+merkostnader — belopp som ingen privatperson skulle kunna betala själv. Ersättning för
+skador på annans egendom är däremot begränsad, till 300 miljoner kronor per skadehändelse.
+Det är den obegränsade personskadedelen som är hela skälet till att försäkringen är
+lagstadgad.</p>
+
+<div class="tbl"><table>
+<caption>Vem som får ersättning ur trafikförsäkringen</caption>
+<thead><tr><th scope="col">Skadad part</th><th scope="col">Ersätts ur din trafikförsäkring</th>
+<th scope="col">Kommentar</th></tr></thead>
+<tbody>
+<tr><th scope="row">Du som förare</th><td>Ja, personskada</td>
+<td>Även om du själv orsakat olyckan</td></tr>
+<tr><th scope="row">Dina passagerare</th><td>Ja, personskada</td>
+<td>Oavsett vem som var vållande</td></tr>
+<tr><th scope="row">Motpartens förare och passagerare</th><td>Ja, personskada</td>
+<td>Om du var vållande</td></tr>
+<tr><th scope="row">Fotgängare och cyklister</th><td>Ja, personskada</td>
+<td>Skyddet är starkt för oskyddade trafikanter</td></tr>
+<tr><th scope="row">Motpartens bil</th><td>Ja, sakskada</td><td>Om du var vållande</td></tr>
+<tr><th scope="row">Staket, lyktstolpar, byggnader</th><td>Ja, sakskada</td>
+<td>Annans egendom omfattas</td></tr>
+<tr><th scope="row">Din egen bil</th><td>Nej</td>
+<td>Kräver helförsäkring, eller halvförsäkring vid brand och stöld</td></tr>
+<tr><th scope="row">Saker i din egen bil</th><td>Nej</td>
+<td>Hör till halvförsäkringen eller hemförsäkringen</td></tr>
+</tbody></table></div>
+<p class="swipe">&larr; Dra i sidled för att se alla kolumner</p>
+
+<h2>När ersättningen kan sättas ned</h2>
+<p>Trafikförsäkringen är stark, men den är inte villkorslös. Ersättningen till dig själv kan
+jämkas — alltså sättas ned — om du orsakat skadan under vissa omständigheter. Det påverkar
+inte ersättningen till oskyldiga tredje parter, som alltid får sitt.</p>
+<div class="tbl"><table>
+<caption>Situationer som påverkar din egen ersättning</caption>
+<thead><tr><th scope="col">Situation</th><th scope="col">Konsekvens</th></tr></thead>
+<tbody>
+<tr><th scope="row">Rattfylleri</th><td>Ersättningen till dig kan jämkas kraftigt</td></tr>
+<tr><th scope="row">Grov vårdslöshet</th><td>Ersättningen till dig kan jämkas</td></tr>
+<tr><th scope="row">Uppsåtlig skada</th><td>Ingen ersättning till den som orsakat den</td></tr>
+<tr><th scope="row">Bilkörning utan körkort</th><td>Kan påverka ersättningen och är brottsligt</td></tr>
+<tr><th scope="row">Passagerare i bilen</th><td>Får ersättning oavsett förarens beteende</td></tr>
+</tbody></table></div>
+
+<h2>Om motparten är oförsäkrad eller okänd</h2>
+<p>Blir du påkörd av ett fordon som saknar trafikförsäkring, eller av en förare som kör från
+platsen, ersätts din personskada ändå — av Trafikförsäkringsföreningen, som träder in i
+det försäkringsbolagets ställe. Det är samma organisation som tar ut
+<a href="/trafikforsakringsavgift/">trafikförsäkringsavgiften</a> av dem som kör oförsäkrat,
+och avgifterna är det som finansierar skyddet. Skador på din egen bil vid smitning ersätts
+dock inte den vägen — det regleras på vagnskadedelen i en
+<a href="/helforsakring/">helförsäkring</a>, vilket är ett av de starkaste argumenten för
+att inte nöja sig med trafikförsäkring i tätort.</p>
+
+<h2>Utomlands och med släp</h2>
+<p>Svensk trafikförsäkring gäller i hela EU och EES utan särskild åtgärd. Utanför det området
+kan grönt kort krävas — kontrollera med bolaget innan avresa. Ett släpvagn som är kopplat
+till bilen omfattas av bilens trafikförsäkring när det gäller skador släpet orsakar på annan,
+men skador på själva släpet kräver egen försäkring. Samma logik som för bilen alltså: det
+lagstadgade skyddet handlar om andra, inte om din egen egendom.</p>
+
 <h2>Jämför trafikförsäkring</h2>
 <p>Ange registreringsnumret och se priset hos flera bolag.</p>
 <div class="cta-inner">{{PLATE}}</div>
@@ -413,6 +591,66 @@ Passerar bilen gränsen försvinner momentet utan att premien nödvändigtvis sj
 {METOD}
 
 <div class="cta">
+<h2>Momenten ett och ett — vad de faktiskt gör</h2>
+<p>Halvförsäkring säljs som ett paket, men den är sex eller sju separata skydd i samma avtal.
+Det är först när man tittar på dem var för sig som det blir tydligt vilka som är värda något
+för just din bil, och var bolagen faktiskt skiljer sig åt.</p>
+<div class="tbl"><table>
+<caption>Halvförsäkringens delar</caption>
+<thead><tr><th scope="col">Moment</th><th scope="col">Vad det ersätter</th>
+<th scope="col">Var bolagen skiljer sig</th></tr></thead>
+<tbody>
+<tr><th scope="row">Stöld</th><td>Stöld av bilen och inbrott i den</td>
+<td>Krav på godkänt stöldskydd, och självriskens storlek</td></tr>
+<tr><th scope="row">Brand</th><td>Brand, blixtnedslag, explosion</td>
+<td>Om kortslutning i elsystemet räknas som brand</td></tr>
+<tr><th scope="row">Glas</th><td>Vindruta, sidorutor, bakruta</td>
+<td>Skillnaden mellan lagning och byte — ofta stor</td></tr>
+<tr><th scope="row">Räddning</th><td>Bärgning och hemtransport</td>
+<td>Om resan hem för passagerarna ingår</td></tr>
+<tr><th scope="row">Rättsskydd</th><td>Ombudskostnader vid tvist om bilen</td>
+<td>Takbeloppet</td></tr>
+<tr><th scope="row">Maskinskada</th><td>Fel på motor, växellåda, styrsystem</td>
+<td>Åldersgräns och körsträckegräns</td></tr>
+<tr><th scope="row">Kris</th><td>Samtalsstöd efter en olycka</td>
+<td>Antal behandlingar, ingår inte överallt</td></tr>
+</tbody></table></div>
+<p class="swipe">&larr; Dra i sidled för att se alla kolumner</p>
+
+<h2>Maskinskadedelen är den som tar slut först</h2>
+<p>Maskinskada gäller bara upp till en viss ålder och körsträcka — gränserna varierar mellan
+bolagen, och när bilen passerar dem försvinner momentet utan att premien nödvändigtvis
+sjunker. Det är värt att kontrollera vid varje förnyelse, eftersom det är just på en äldre
+bil man tror sig ha skyddet kvar. En motorskada på en bil som passerat gränsen är
+ägarens problem, oavsett vilken nivå som står på försäkringsbrevet.</p>
+
+<h2>Räkna på om halvförsäkring räcker</h2>
+<p>Frågan är egentligen enkel: vad skulle du förlora om bilen blev totalskadad i en olycka du
+själv orsakat? Det är precis den situation halvförsäkringen inte täcker. Sätt bilens
+marknadsvärde mot vagnskadesjälvrisken, så ser du hur mycket
+<a href="/helforsakring/">helförsäkringen</a> faktiskt kan betala ut.</p>
+<div class="tbl"><table>
+<caption>Vad vagnskadedelen skulle betala vid totalskada</caption>
+<thead><tr><th scope="col">Bilens marknadsvärde</th><th scope="col">Vid 4 000 kr självrisk</th>
+<th scope="col">Rimlig nivå</th></tr></thead>
+<tbody>
+<tr><th scope="row">15 000 kr</th><td>Cirka 11 000 kr</td><td>Trafik eller halv</td></tr>
+<tr><th scope="row">30 000 kr</th><td>Cirka 26 000 kr</td><td>Halvförsäkring</td></tr>
+<tr><th scope="row">60 000 kr</th><td>Cirka 56 000 kr</td><td>Halv eller hel — räkna på premien</td></tr>
+<tr><th scope="row">120 000 kr</th><td>Cirka 116 000 kr</td><td>Helförsäkring</td></tr>
+</tbody></table></div>
+<p>Beloppen är räkneexempel på självrisken, inte prisuppgifter. Poängen är proportionen:
+på en bil värd 15 000 kronor kostar vagnskadedelen mer i premie under några år än den
+någonsin kan betala ut.</p>
+
+<h2>Halvförsäkring på en bil som står i stan</h2>
+<p>En invändning mot resonemanget ovan gäller om bilen står på gatan i en tätort.
+Parkeringsskador utan känd motpart och skadegörelse regleras nämligen båda på vagnskadedelen,
+och de drabbar bilar oavsett värde. Står bilen i garage på landsbygden är halvförsäkring
+oftast rätt långt ned i värdeskalan — står den på gatan i
+<a href="/bilforsakring-stockholm/">Stockholm</a> eller
+<a href="/bilforsakring-malmo/">Malmö</a> förskjuts gränsen uppåt.</p>
+
 <h2>Jämför halvförsäkring</h2>
 <p>Ange registreringsnumret och se vad de olika bolagen tar.</p>
 <div class="cta-inner">{{PLATE}}</div>
@@ -496,6 +734,60 @@ antal dagar och om du får bil eller kontant ersättning.</li>
 {METOD}
 
 <div class="cta">
+<h2>Skadetyperna som bara helförsäkringen tar</h2>
+<p>Vagnskada beskrivs ofta som skyddet vid egen vållad krock, men det är den minst vanliga av
+de situationer där momentet används. De flesta vagnskadeärenden handlar om något helt annat.</p>
+<div class="tbl"><table>
+<caption>Vanliga vagnskadeärenden</caption>
+<thead><tr><th scope="col">Situation</th><th scope="col">Varför halvförsäkring inte hjälper</th></tr></thead>
+<tbody>
+<tr><th scope="row">Någon backar in i din parkerade bil och kör vidare</th>
+<td>Ingen känd motpart att kräva ersättning av</td></tr>
+<tr><th scope="row">Skadegörelse på gatan</th><td>Gärningspersonen är okänd</td></tr>
+<tr><th scope="row">Du kör in i en stolpe eller en garageport</th><td>Du är själv vållande</td></tr>
+<tr><th scope="row">Du kör i diket på halka</th><td>Ingen motpart finns</td></tr>
+<tr><th scope="row">Grus från en lastbil skadar plåten</th>
+<td>Motparten går sällan att identifiera</td></tr>
+<tr><th scope="row">Du backar in i en annan bil</th><td>Din egen skada ersätts inte</td></tr>
+</tbody></table></div>
+<p>Mönstret är att det inte finns någon annan att skicka räkningen till. Det är exakt den
+luckan vagnskadedelen fyller, och det är också därför den är den dyraste delen av premien.</p>
+
+<h2>Vagnskadegaranti — därför kan en ny bil klara sig med halv</h2>
+<p>Nya bilar säljs normalt med vagnskadegaranti från tillverkaren, oftast i tre år från första
+registrering. Den täcker samma sak som vagnskadedelen, vilket betyder att helförsäkring är
+onödig under garantitiden — halvförsäkring räcker. Två saker är värda att veta: garantin
+gäller reparation hos märkesverkstad, och den upphör på dagen. Sätt en påminnelse när
+treårsdagen närmar sig, för därefter står bilen utan vagnskadeskydd om ingen gör något.</p>
+<div class="tbl"><table>
+<caption>Skyddsnivå över bilens livslängd</caption>
+<thead><tr><th scope="col">Bilens ålder</th><th scope="col">Vagnskadeskydd kommer från</th>
+<th scope="col">Rimlig nivå</th></tr></thead>
+<tbody>
+<tr><th scope="row">0–3 år</th><td>Vagnskadegaranti från tillverkaren</td>
+<td>Halvförsäkring</td></tr>
+<tr><th scope="row">3–8 år</th><td>Vagnskadeförsäkring</td><td>Helförsäkring</td></tr>
+<tr><th scope="row">8–12 år</th><td>Vagnskadeförsäkring, om värdet motiverar</td>
+<td>Hel eller halv — räkna</td></tr>
+<tr><th scope="row">Över 12 år</th><td>Sällan värt premien</td><td>Ofta halvförsäkring</td></tr>
+</tbody></table></div>
+<p class="swipe">&larr; Dra i sidled för att se alla kolumner</p>
+
+<h2>Vagnskadesjälvrisken är den du kan påverka mest</h2>
+<p>Till skillnad från glas- och stöldsjälvrisken är vagnskadesjälvrisken ofta valbar, och
+spannet är brett. Att höja den är den mest direkta hävstången på premien som finns i en
+helförsäkring — men bara om du klarar beloppet den dag det smäller. Tumregeln är att
+mellanskillnaden ska gå ihop inom tre skadefria år, annars är höjningen inte värd det. Räkna
+på det med hjälp av tabellen på sidan om <a href="/sjalvrisk/">självrisk</a>.</p>
+
+<h2>Vad som händer vid totalskada</h2>
+<p>Bilen bedöms som totalskadad när reparationen kostar mer än vad bilen är värd. Då får du
+marknadsvärdet minus självrisken, inte vad du en gång betalade och inte vad en likvärdig bil
+kostar hos en handlare. Skillnaden överraskar många, särskilt på bilar som är tre till fem år
+gamla och har tappat mycket i värde. Det är också därför bilens restvärde är en faktor värd
+att väga in redan vid bilköpet — märken som håller värdet ger mer tillbaka den dagen, vilket
+du kan läsa mer om på våra <a href="/bilmarken/">märkessidor</a>.</p>
+
 <h2>Jämför helförsäkring</h2>
 <p>Ange registreringsnumret och se vad full täckning kostar hos olika bolag.</p>
 <div class="cta-inner">{{PLATE}}</div>

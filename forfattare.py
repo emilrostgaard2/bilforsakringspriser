@@ -59,40 +59,33 @@ GRANSKARE = {'namn': '', 'titel': '', 'text': ''}
 
 
 def ruta():
-    """Författarrutan som ligger sist på varje innehållssida."""
+    """Kompakt författarruta sist på varje sida.
+
+    Medvetet liten: den ska svara på vem som står bakom, inte ta plats
+    från innehållet. Den fullständiga beskrivningen ligger på /om-oss/."""
     f = FORFATTARE
-    gor = ''.join(f'<li>{x}</li>' for x in f['gor'])
-    gor_inte = ''.join(f'<li>{x}</li>' for x in f['gor_inte'])
 
     granskad = ''
     if GRANSKARE['namn']:
-        granskad = (f'<p class="fb-granskad"><strong>Faktagranskad av '
-                    f'{GRANSKARE["namn"]}</strong>, {GRANSKARE["titel"]}. '
-                    f'{GRANSKARE["text"]}</p>')
+        granskad = (f'<span class="fb-gr">Faktagranskad av {GRANSKARE["namn"]}, '
+                    f'{GRANSKARE["titel"]}.</span> ')
 
-    return f'''<section class="sec alt"><div class="wrap narrow">
-<div class="fb">
-<img class="fb-bild" src="{f['bild']}" srcset="{f['bild']} 1x, {f['bild2x']} 2x"
- width="80" height="80" alt="{f['namn']}" loading="lazy" decoding="async">
-<div class="fb-txt">
-<p class="fb-namn">{f['namn']}</p>
-<p class="fb-roll">{f['roll']} &middot; Bilförsäkringspriser.se</p>
-<p>{f['text']}</p>
-<div class="fb-kol">
-<div><h3>Det här gör jag</h3><ul>{gor}</ul></div>
-<div><h3>Det här gör jag inte</h3><ul>{gor_inte}</ul></div>
-</div>
-{granskad}
-<p class="fb-jur">Bilförsäkringspriser.se förmedlar inga försäkringar och står inte under
-Finansinspektionens tillsyn. Innehållet är allmän information, inte rådgivning i ett enskilt
-ärende. Behöver du oberoende vägledning om ditt eget skydd är
-<a href="https://www.konsumenternas.se/" rel="nofollow noopener" target="_blank">Konsumenternas
-Försäkringsbyrå</a> kostnadsfri och säljer ingenting. Vid frågor om ett pågående ärende:
-kontakta ditt försäkringsbolag.</p>
-<p class="fb-lank"><a href="{f['sida']}">Mer om sajten och hur den finansieras &rarr;</a></p>
-</div></div>
-</div></section>'''
-
+    return (
+        '<div class="wrap narrow"><div class="fb">'
+        f'<img class="fb-bild" src="{f["bild"]}" '
+        f'srcset="{f["bild"]} 1x, {f["bild2x"]} 2x" width="44" height="44" '
+        f'alt="{f["namn"]}" loading="lazy" decoding="async">'
+        '<div class="fb-txt">'
+        f'<p class="fb-namn">{f["namn"]} <span>&middot; {f["roll"]}</span></p>'
+        f'<p class="fb-kort">{granskad}Jag arbetar med sökmotoroptimering och '
+        'driver jämförelsesajter — inte med försäkringar. Jag samlar in, jämför '
+        f'och redovisar källor. <a href="{f["sida"]}">Om sajten</a></p>'
+        '<p class="fb-jur">Bilförsäkringspriser.se förmedlar inga försäkringar och '
+        'står inte under Finansinspektionens tillsyn. Innehållet är allmän information, '
+        'inte rådgivning i ett enskilt ärende. Oberoende vägledning får du kostnadsfritt '
+        'hos <a href="https://www.konsumenternas.se/" rel="nofollow noopener" '
+        'target="_blank">Konsumenternas Försäkringsbyrå</a>.</p>'
+        '</div></div></div>')
 
 def schema(bas):
     """Person-objektet till author i Article-schemat."""
