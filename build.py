@@ -9,17 +9,50 @@ de färdiga HTML-filerna.
 import os, json, re, html
 
 BASE = 'https://bilforsakringspriser.se'
-V = '20260101a'           # cache-stämpel — höj vid ändring i css/js
+V = '20260824a'           # cache-stämpel — höj vid ändring i css/js
 ROOT = os.path.dirname(os.path.abspath(__file__))
 os.chdir(ROOT)
 
 NAV = [
     ('/jamfor-bilforsakring/', 'Jämför priser'),
+    ('Guider', [
+        ('/billigaste-bilforsakringen/', 'Billigaste bilförsäkringen'),
+        ('/bilforsakring-elbil/', 'Bilförsäkring elbil'),
+        ('/leasingbil-forsakring/', 'Försäkring vid leasing'),
+        ('/bilforsakring-ung-forare/', 'Ung förare'),
+        ('/bilforsakring-pensionar/', 'Pensionär'),
+    ]),
+    ('Skyddsnivåer', [
+        ('/trafikforsakring/', 'Trafikförsäkring'),
+        ('/halvforsakring/', 'Halvförsäkring'),
+        ('/helforsakring/', 'Helförsäkring'),
+    ]),
     ('/forsakringsbolag/', 'Bolag'),
     ('/bilmarken/', 'Bilmärken'),
-    ('/halvforsakring/', 'Halvförsäkring'),
-    ('/helforsakring/', 'Helförsäkring'),
 ]
+
+DD_ARR = ('<svg class="dd-arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
+          'stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>')
+
+
+def navbar(slug):
+    """Menyn. Undermenyer är riktiga länkar i HTML — de finns för crawlern
+    även om JavaScript inte körs, och ligger dessutom i sidfoten."""
+    ut = []
+    for i, (a, b) in enumerate(NAV):
+        if isinstance(b, list):
+            oppen = any(u.strip('/') == slug for u, _ in b)
+            lankar = ''.join(
+                f'<a href="{u}"{" aria-current=\"page\"" if u.strip("/") == slug else ""}>{t}</a>'
+                for u, t in b)
+            ut.append(
+                f'<div class="nav-item{" here" if oppen else ""}">'
+                f'<button type="button" class="nav-btn" aria-expanded="false" '
+                f'aria-controls="dd{i}">{a}{DD_ARR}</button>'
+                f'<div class="dd" id="dd{i}">{lankar}</div></div>')
+        else:
+            ut.append(f'<a href="{a}"{" aria-current=\"page\"" if a.strip("/") == slug else ""}>{b}</a>')
+    return ''.join(ut)
 
 LOGO_SVG = ('<svg viewBox="0 0 64 64" aria-hidden="true">'
             '<rect width="64" height="64" rx="14" fill="#12263f"/>'
@@ -120,9 +153,7 @@ def footer():
 def page(d):
     slug = d['slug']
     url = f'{BASE}/{slug}/' if slug else f'{BASE}/'
-    nav = ''.join(
-        f'<a href="{u}"{" aria-current=\"page\"" if u.strip("/") == slug else ""}>{t}</a>'
-        for u, t in NAV)
+    nav = navbar(slug)
 
     bc = [{"@type": "ListItem", "position": 1, "name": "Start", "item": BASE + "/"}]
     if slug:

@@ -86,6 +86,42 @@
     });
   }
 
+  /* ── Undermenyer ───────────────────────────────────────────────
+     Länkarna finns i HTML även utan JS — här läggs bara öppning,
+     stängning och tangentbordsstöd på. */
+  var navItems = $$('.nav-item');
+  function stangAlla(utom) {
+    navItems.forEach(function (it) {
+      if (it === utom) return;
+      it.classList.remove('open');
+      var b = $('.nav-btn', it);
+      if (b) b.setAttribute('aria-expanded', 'false');
+    });
+  }
+  navItems.forEach(function (item) {
+    var btn = $('.nav-btn', item);
+    if (!btn) return;
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var open = item.classList.contains('open');
+      stangAlla(item);
+      item.classList.toggle('open', !open);
+      btn.setAttribute('aria-expanded', !open ? 'true' : 'false');
+    });
+  });
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest || !e.target.closest('.nav-item')) stangAlla(null);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    var oppen = navItems.filter(function (i) { return i.classList.contains('open'); })[0];
+    if (oppen) {
+      stangAlla(null);
+      var b = $('.nav-btn', oppen);
+      if (b) b.focus();
+    }
+  });
+
   /* ── FAQ ───────────────────────────────────────────────────────── */
   $$('.q-btn').forEach(function (btn) {
     btn.setAttribute('aria-expanded', 'false');

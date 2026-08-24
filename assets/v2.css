@@ -94,6 +94,24 @@ li::marker{color:var(--blue)}
 .burger span{display:block;width:18px;height:2px;background:var(--navy);position:relative}
 .burger span::before,.burger span::after{content:'';position:absolute;left:0;width:18px;height:2px;background:var(--navy)}
 .burger span::before{top:-6px}.burger span::after{top:6px}
+
+/* ── Dropdown i menyn ──────────────────────────────────────────── */
+.nav-item{position:relative}
+.nav-btn{
+  display:flex;align-items:center;gap:5px;padding:8px 12px;border:0;border-radius:8px;
+  background:none;font:inherit;font-size:.92rem;font-weight:600;color:var(--ink-2);cursor:pointer;
+}
+.nav-btn:hover,.nav-item.open .nav-btn,.nav-item.here .nav-btn{background:var(--blue-soft);color:var(--blue-deep)}
+.dd-arr{width:15px;height:15px;transition:transform .16s ease}
+.nav-item.open .dd-arr{transform:rotate(180deg)}
+.dd{
+  display:none;position:absolute;top:calc(100% + 6px);left:0;z-index:60;min-width:252px;
+  background:var(--paper);border:1px solid var(--line-2);border-radius:12px;
+  box-shadow:var(--sh-2);padding:6px;
+}
+.nav-item.open .dd{display:block}
+@media(hover:hover) and (min-width:861px){.nav-item:hover .dd{display:block}}
+.dd a{display:block;padding:9px 11px;border-radius:8px;font-size:.9rem;white-space:nowrap}
 @media(max-width:860px){
   .burger{display:flex}
   .nav{
@@ -102,8 +120,15 @@ li::marker{color:var(--blue)}
     box-shadow:var(--sh-2);display:none;
   }
   .nav.open{display:flex}
-  .nav a{padding:13px 4px;border-bottom:1px solid var(--line);border-radius:0;font-size:1rem}
-  .nav a:last-child{border-bottom:none}
+  .nav>a{padding:13px 4px;border-bottom:1px solid var(--line);border-radius:0;font-size:1rem}
+  .nav>a:last-child{border-bottom:none}
+  .nav-item{border-bottom:1px solid var(--line)}
+  .nav-btn{width:100%;justify-content:space-between;padding:13px 4px;border-radius:0;font-size:1rem}
+  .dd{
+    position:static;display:none;min-width:0;border:0;border-radius:0;box-shadow:none;
+    padding:0 0 8px 12px;background:none;
+  }
+  .dd a{padding:10px 4px;font-size:.95rem;color:var(--ink-2)}
   .hd-cta{display:none}
 }
 
