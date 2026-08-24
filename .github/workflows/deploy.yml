@@ -1,25 +1,20 @@
 name: Upload til Simply
-
 on:
   push:
     branches: [main]
   workflow_dispatch:
-
 concurrency:
   group: deploy
   cancel-in-progress: false
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - name: Sæt Python op
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-
       - name: Byg siderne
         run: |
           if [ -f build.py ]; then
@@ -30,7 +25,8 @@ jobs:
           fi
           echo "--- sider der uploades ---"
           find . -name '*.html' -not -path './.git/*' | sort
-
+          echo "--- billeder der uploades ---"
+          ls -la bilder/ 2>/dev/null || echo "INGEN bilder-mappe i repoet"
       - name: Upload med lftp
         env:
           SERVER: ${{ secrets.FTP_SERVER }}
@@ -55,9 +51,7 @@ jobs:
               --exclude-glob __pycache__/ \
               --exclude-glob '*.md' \
               --exclude-glob '*.py' \
-              --exclude 'bilder/' \
               ./ public_html/;
           "
-
       - name: Færdig
         run: echo "Udrullet til https://bilforsakringspriser.se/"
