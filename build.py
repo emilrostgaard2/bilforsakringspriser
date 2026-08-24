@@ -15,16 +15,19 @@ os.chdir(ROOT)
 
 NAV = [
     ('/jamfor-bilforsakring/', 'Jämför priser'),
-    ('/trafikforsakring/', 'Trafikförsäkring'),
+    ('/forsakringsbolag/', 'Bolag'),
+    ('/bilmarken/', 'Bilmärken'),
     ('/halvforsakring/', 'Halvförsäkring'),
     ('/helforsakring/', 'Helförsäkring'),
-    ('/om-oss/', 'Om oss'),
 ]
 
-LOGO_SVG = ('<svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#12263f"/>'
-            '<rect x="12" y="22" width="40" height="20" rx="4" fill="none" stroke="#4a9fd8" stroke-width="4"/>'
-            '<rect x="12" y="22" width="10" height="20" rx="4" fill="#4a9fd8"/>'
-            '<path d="M29 36v-8m6 8v-8m6 8v-8" stroke="#fff" stroke-width="3.6" stroke-linecap="round"/></svg>')
+LOGO_SVG = ('<svg viewBox="0 0 64 64" aria-hidden="true">'
+            '<rect width="64" height="64" rx="14" fill="#12263f"/>'
+            '<path d="M32 8 13.5 14v14.6c0 11.2 7.6 21 18.5 23.4 10.9-2.4 18.5-12.2 18.5-23.4V14z" fill="#4a9fd8"/>'
+            '<path d="M22 36.5c0-.6.1-1.2.4-1.7l2.6-5.2a2.6 2.6 0 0 1 2.3-1.4h9.4a2.6 2.6 0 0 1 2.3 1.4'
+            'l2.6 5.2c.3.5.4 1.1.4 1.7v4.1a1.7 1.7 0 0 1-1.7 1.7h-1.5a1.7 1.7 0 0 1-1.7-1.7v-.9'
+            'H26.9v.9a1.7 1.7 0 0 1-1.7 1.7h-1.5A1.7 1.7 0 0 1 22 40.6z" fill="#fff"/>'
+            '<path d="M25.6 34.4h12.8l-1.8-3.6a1 1 0 0 0-.9-.6h-7.4a1 1 0 0 0-.9.6z" fill="#12263f"/></svg>')
 
 CK = ('<span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" '
       'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>')
@@ -48,8 +51,13 @@ def hero(d):
     checks = ''.join(f'<li>{CK}<span>{c}</span></li>' for c in d.get('checks', []))
     crumbs = ''
     if d['slug']:
+        dele = d['slug'].split('/')
+        mid = ''
+        if len(dele) > 1:
+            far = {'forsakringsbolag': 'Försäkringsbolag', 'bilmarken': 'Bilmärken'}.get(dele[0], dele[0])
+            mid = f'<a href="/{dele[0]}/">{far}</a> <span aria-hidden="true">/</span> '
         crumbs = ('<nav class="crumbs" aria-label="Brödsmulor"><a href="/">Start</a> '
-                  f'<span aria-hidden="true">/</span> <span>{d["h1"]}</span></nav>')
+                  f'<span aria-hidden="true">/</span> {mid}<span>{d["h1"]}</span></nav>')
     return f'''<section class="hero"><div class="wrap hero-in">
 <div>{crumbs}
 <span class="eyebrow">{d["eyebrow"]}</span>
@@ -109,11 +117,15 @@ def page(d):
         f'<a href="{u}"{" aria-current=\"page\"" if u.strip("/") == slug else ""}>{t}</a>'
         for u, t in NAV)
 
-    ld = [{
-        "@context": "https://schema.org", "@type": "BreadcrumbList",
-        "itemListElement": ([{"@type": "ListItem", "position": 1, "name": "Start", "item": BASE + "/"}]
-                            + ([{"@type": "ListItem", "position": 2, "name": d["h1"], "item": url}] if slug else []))
-    }] if slug else []
+    bc = [{"@type": "ListItem", "position": 1, "name": "Start", "item": BASE + "/"}]
+    if slug:
+        dele = slug.split('/')
+        if len(dele) > 1:
+            far = {'forsakringsbolag': 'Försäkringsbolag', 'bilmarken': 'Bilmärken'}.get(dele[0], dele[0])
+            bc.append({"@type": "ListItem", "position": 2, "name": far, "item": f"{BASE}/{dele[0]}/"})
+        bc.append({"@type": "ListItem", "position": len(bc) + 1, "name": d["h1"], "item": url})
+    ld = [{"@context": "https://schema.org", "@type": "BreadcrumbList",
+           "itemListElement": bc}] if slug else []
 
     if d.get('faq'):
         ld.append({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
@@ -187,7 +199,7 @@ def page(d):
 <body>
 <a class="sr-only" href="#main">Hoppa till innehållet</a>
 <header class="hd"><div class="wrap hd-in">
-<a class="logo" href="/">{LOGO_SVG}<span>Bilförsäkrings</span>priser.se</a>
+<a class="logo" href="/">{LOGO_SVG}<span class="logo-t"><b>Bilförsäkrings</b>priser.se</span></a>
 <button type="button" class="burger" aria-label="Meny" aria-controls="nav"><span></span></button>
 <nav class="nav" id="nav" aria-label="Huvudmeny">{nav}</nav>
 <a class="hd-cta" href="#" data-go="">Jämför gratis</a>
@@ -210,8 +222,8 @@ def page(d):
 # Priserna nedan är MARKERADE SOM PLATSHÅLLARE. Ersätt dem med egna
 # insamlade siffror innan lansering — se README.
 
-import pages
-PAGES = pages.PAGES
+import pages, generators
+PAGES = pages.PAGES + generators.alla()
 
 for d in PAGES:
     out = os.path.join(d['slug'], 'index.html') if d['slug'] else 'index.html'

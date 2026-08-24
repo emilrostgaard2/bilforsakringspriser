@@ -75,9 +75,12 @@ li::marker{color:var(--blue)}
 /* ── Header ────────────────────────────────────────────────────── */
 .hd{position:sticky;top:0;z-index:200;background:rgba(255,255,255,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
 .hd-in{display:flex;align-items:center;gap:16px;height:64px}
-.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.02rem;letter-spacing:-.02em;color:var(--navy);text-decoration:none;flex-shrink:0}
-.logo svg{width:30px;height:30px;flex-shrink:0}
-.logo span{color:var(--blue)}
+.logo{display:flex;align-items:center;gap:9px;color:var(--navy);text-decoration:none;flex-shrink:0}
+.logo svg{width:31px;height:31px;flex-shrink:0}
+/* All text i ETT element. Ligger orden som separata textnoder träffas de av
+   flex-gap och det uppstår ett glapp mitt i ordet. */
+.logo-t{font-weight:800;font-size:1.06rem;letter-spacing:-.03em;white-space:nowrap;line-height:1}
+.logo-t b{color:var(--blue);font-weight:800}
 .nav{display:flex;gap:2px;margin-left:auto}
 .nav a{padding:8px 12px;border-radius:8px;font-size:.92rem;font-weight:600;color:var(--ink-2);text-decoration:none}
 .nav a:hover,.nav a[aria-current=page]{background:var(--blue-soft);color:var(--blue-deep)}
