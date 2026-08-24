@@ -138,13 +138,13 @@ def bolagssidor():
                      f'2025, och Konsumenternas Försäkringsbyrå. Betygen avser villkor respektive '
                      f'kundnöjdhet — inte pris.</p></div>')
         else:
-            betyg = f'<h2>{H["betyg"]}</h2><p>{BETYG_UTAN[i % 3]}</p>'
+            betyg = f'<h2>{H["betyg"]}</h2><p>{BETYG_UTAN[i % len(BETYG_UTAN)]}</p>'
 
         ja = ''.join(f'<li>{x}</li>' for x in b['passar'])
         nej = ''.join(f'<li>{x}</li>' for x in b['passar_ej'])
 
-        byta_par = [BYTA[(i + k) % 4] for k in range(3)]
-        skada_steg = SKADA[i % 3]
+        byta_par = [BYTA[(i * 3 + k) % len(BYTA)] for k in range(3)]
+        skada_steg = SKADA[i % len(SKADA)]
 
         S = {
          'pris': (f'<h2>{H["pris"]}</h2>'
@@ -384,12 +384,12 @@ def markessidor():
     sidor = []
     for i, m in enumerate(MARKEN):
         n = m['namn']
-        H = {k: v.replace('{n}', n) for k, v in MARKE_H2[i % 4].items()}
-        ordning = MARKE_ORD[i % 5]
+        H = {k: v.replace('{n}', n) for k, v in MARKE_H2[i % len(MARKE_H2)].items()}
+        ordning = MARKE_ORD[i % len(MARKE_ORD)]
         punkter = ''.join(f'<li>{x}</li>' for x in m['punkter'])
         modeller = ''.join(f'<tr><th scope="row">{n} {mo}</th><td>—</td><td>—</td></tr>'
                            for mo in m['modeller'])
-        spara = SPARA[i % 3]
+        spara = SPARA[i % len(SPARA)]
 
         # Bild: finns filen bilder/<slug>.webp används den automatiskt.
         # Alt-text och bildtext hämtas från BILD, annars generisk reserv.
@@ -400,7 +400,7 @@ def markessidor():
 
         S = {
          'pris': (f'<h2>{H["pris"]}</h2>'
-                  f'<p>{PRIS_INTRO[(i * 3) % 4]}</p>'
+                  f'<p>{PRIS_INTRO[(i * 3) % len(PRIS_INTRO)]}</p>'
                   f'<div class="tbl"><table><caption>{n} — vägledande årspremie</caption>'
                   f'<thead><tr><th scope="col">Nivå</th><th scope="col">Per år</th>'
                   f'<th scope="col">Per månad</th></tr></thead><tbody>'
@@ -418,7 +418,7 @@ def markessidor():
              if har_bild
              else f'<p>{m["karakteristik"]}</p><ul>{punkter}</ul>')),
          'modeller': (f'<h2>{H["modeller"]}</h2>'
-                      f'<p>{MODELL_INTRO[(i * 5) % 4].replace("{n}", n)}</p>'
+                      f'<p>{MODELL_INTRO[(i * 5) % len(MODELL_INTRO)].replace("{n}", n)}</p>'
                       f'<div class="tbl"><table><thead><tr><th scope="col">Modell</th>'
                       f'<th scope="col">Halvförsäkring</th><th scope="col">Helförsäkring</th>'
                       f'</tr></thead><tbody>{modeller}</tbody></table></div>'),
@@ -440,11 +440,11 @@ def markessidor():
             f'<div class="cta-inner">{{PLATE}}</div></div>')
 
         faq = [
-         (f'Vad kostar bilförsäkring till en {n}?', FAQ_KOSTAR[(i * 3) % 4].replace('{n}', n)),
+         (f'Vad kostar bilförsäkring till en {n}?', FAQ_KOSTAR[(i * 3) % len(FAQ_KOSTAR)].replace('{n}', n)),
          (f'Är {n} dyr att försäkra?',
           m['karakteristik'].split('. ')[0] + '.'),
-         (f'Behöver jag helförsäkring till min {n}?', FAQ_HEL[(i * 7) % 4]),
-         (f'Vilket bolag är billigast till {n}?', FAQ_BILLIGAST[(i * 5) % 4]),
+         (f'Behöver jag helförsäkring till min {n}?', FAQ_HEL[(i * 7) % len(FAQ_HEL)]),
+         (f'Vilket bolag är billigast till {n}?', FAQ_BILLIGAST[(i * 5) % len(FAQ_BILLIGAST)]),
         ]
 
         rel = [('/bilmarken/', 'Alla bilmärken'),

@@ -7,6 +7,7 @@ Alla sidor genereras om från grunden, så redigera innehållet här — inte i
 de färdiga HTML-filerna.
 """
 import os, json, re, html
+import data
 
 BASE = 'https://bilforsakringspriser.se'
 V = '20260824a'           # cache-stämpel — höj vid ändring i css/js
@@ -15,12 +16,20 @@ os.chdir(ROOT)
 
 NAV = [
     ('/jamfor-bilforsakring/', 'Jämför priser'),
+    ('/basta-bilforsakringen/', 'Bästa i test'),
     ('Guider', [
         ('/billigaste-bilforsakringen/', 'Billigaste bilförsäkringen'),
         ('/bilforsakring-elbil/', 'Bilförsäkring elbil'),
         ('/leasingbil-forsakring/', 'Försäkring vid leasing'),
         ('/bilforsakring-ung-forare/', 'Ung förare'),
         ('/bilforsakring-pensionar/', 'Pensionär'),
+    ]),
+    ('Fakta', [
+        ('/sjalvrisk/', 'Självrisk'),
+        ('/byta-bilforsakring/', 'Byta bilförsäkring'),
+        ('/bonus-och-skadefria-ar/', 'Bonus och skadefria år'),
+        ('/trafikforsakringsavgift/', 'Trafikförsäkringsavgift'),
+        ('/avstalld-bil/', 'Avställd bil'),
     ]),
     ('Skyddsnivåer', [
         ('/trafikforsakring/', 'Trafikförsäkring'),
@@ -130,11 +139,24 @@ def footer():
 <li><a href="/helforsakring/">Helförsäkring</a></li>
 </ul></div>
 <div><h3>Guider</h3><ul>
+<li><a href="/basta-bilforsakringen/">Bästa bilförsäkringen</a></li>
 <li><a href="/billigaste-bilforsakringen/">Billigaste bilförsäkringen</a></li>
 <li><a href="/bilforsakring-elbil/">Bilförsäkring elbil</a></li>
 <li><a href="/leasingbil-forsakring/">Försäkring vid leasing</a></li>
 <li><a href="/bilforsakring-ung-forare/">Ung förare</a></li>
 <li><a href="/bilforsakring-pensionar/">Pensionär</a></li>
+</ul></div>
+<div><h3>Fakta</h3><ul>
+<li><a href="/sjalvrisk/">Självrisk</a></li>
+<li><a href="/byta-bilforsakring/">Byta bilförsäkring</a></li>
+<li><a href="/bonus-och-skadefria-ar/">Bonus och skadefria år</a></li>
+<li><a href="/trafikforsakringsavgift/">Trafikförsäkringsavgift</a></li>
+<li><a href="/avstalld-bil/">Avställd bil</a></li>
+</ul></div>
+<div><h3>Orter</h3><ul>
+<li><a href="/bilforsakring-stockholm/">Stockholm</a></li>
+<li><a href="/bilforsakring-goteborg/">Göteborg</a></li>
+<li><a href="/bilforsakring-malmo/">Malmö</a></li>
 </ul></div>
 <div><h3>Om sajten</h3><ul>
 <li><a href="/om-oss/">Om oss</a></li>
@@ -180,7 +202,7 @@ def page(d):
         "publisher": {"@type": "Organization", "name": "Bilförsäkringspriser.se", "url": BASE + "/",
                       "logo": {"@type": "ImageObject", "url": BASE + "/assets/icon-512.png",
                                "width": 512, "height": 512}},
-        "datePublished": "2026-01-01", "dateModified": "2026-01-01",
+        "datePublished": "2026-01-01", "dateModified": data.UPPDATERAD,
         "mainEntityOfPage": {"@type": "WebPage", "@id": url},
         **({"image": {"@type": "ImageObject", "url": BASE + d['bild'],
                       "width": 1200, "height": 750,
@@ -273,8 +295,9 @@ def page(d):
 # Priserna nedan är MARKERADE SOM PLATSHÅLLARE. Ersätt dem med egna
 # insamlade siffror innan lansering — se README.
 
-import pages, generators, guider
-PAGES = pages.PAGES + generators.alla() + guider.SIDOR
+import pages, generators, guider, fakta, orter, topplista
+PAGES = (pages.PAGES + generators.alla() + guider.SIDOR
+         + [topplista.sidan()] + fakta.SIDOR + orter.SIDOR)
 
 for d in PAGES:
     out = os.path.join(d['slug'], 'index.html') if d['slug'] else 'index.html'
@@ -293,7 +316,7 @@ sm = ['<?xml version="1.0" encoding="UTF-8"?>',
 for d in PAGES:
     loc = f'{BASE}/{d["slug"]}/' if d['slug'] else f'{BASE}/'
     pri = '1.0' if not d['slug'] else ('0.9' if d.get('key') else '0.6')
-    sm.append(f'  <url><loc>{loc}</loc><lastmod>2026-01-01</lastmod>'
+    sm.append(f'  <url><loc>{loc}</loc><lastmod>{data.UPPDATERAD}</lastmod>'
               f'<changefreq>monthly</changefreq><priority>{pri}</priority></url>')
 sm.append('</urlset>')
 open('sitemap.xml', 'w', encoding='utf-8').write('\n'.join(sm) + '\n')

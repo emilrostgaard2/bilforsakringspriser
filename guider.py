@@ -11,6 +11,7 @@ att publicera direkt, eftersom de bygger på villkorslogik och på uppgifterna i
 companies.py — inte på siffror vi ännu inte samlat in.
 """
 from companies import BOLAG
+import data, marknad
 
 TODO = ('<div class="warn"><strong>PLATSHÅLLARE — ska ersättas före lansering.</strong> '
         'Beloppen i tabellen är exempelplatser och inte insamlade marknadspriser.</div>')
@@ -35,7 +36,7 @@ def _tbl(caption, kolumner, rader, swipe=True):
 
 def bolagstabell(pris_kolumn=True):
     """Alla bolag med typ och oberoende betyg — data hämtas ur companies.py."""
-    kol = ['Bolag', 'Typ', 'Konsumenternas', 'SKI']
+    kol = ['Bolag', 'Typ', 'Konsumenternas', 'SKI', 'Trustpilot']
     if pris_kolumn:
         kol.append('Pris per år')
     rader = []
@@ -43,7 +44,8 @@ def bolagstabell(pris_kolumn=True):
         rad = [f'<a href="/forsakringsbolag/{b["slug"]}/">{b["namn"]}</a>',
                b.get('typ') or '—',
                str(b['kons']).replace('.', ',') if b.get('kons') else '—',
-               str(b['ski']).replace('.', ',') if b.get('ski') else '—']
+               str(b['ski']).replace('.', ',') if b.get('ski') else '—',
+               data.betyg(data.TRUSTPILOT.get(b['slug'], {}).get('betyg'))]
         if pris_kolumn:
             rad.append('—')
         rader.append(rad)
@@ -134,6 +136,25 @@ och Svenskt Kvalitetsindex mäter kundnöjdheten. Ett lågt pris hos ett bolag m
 {TODO}
 <p>Läs mer om enskilda bolag på våra <a href="/forsakringsbolag/">bolagssidor</a>, eller se
 vad försäkringen kostar för just ditt märke bland våra <a href="/bilmarken/">bilmärken</a>.</p>
+
+<h2>Vad andra sajter har publicerat för priser</h2>
+<p>Vår egen prisinsamling pågår. Under tiden redovisar vi vad andra jämförelsesajter har
+publicerat, med källa och datum — så att du får en storleksordning i dag och själv kan se
+var siffran kommer ifrån. Notera att varje källa använder sin egen bil och förarprofil.</p>
+{marknad.disclaimer()}
+{marknad.prisexempel_tabell()}
+
+<h2>Vad en bilförsäkring kostar i snitt</h2>
+<p>Genomsnitt säger ingenting om vad just din bil kostar, men de sätter en referenspunkt.
+Ligger din nuvarande premie långt över snittet är det ett skäl att begära nya offerter.</p>
+{marknad.genomsnitt_tabell()}
+
+<h2>Oberoende betyg</h2>
+<p>Till skillnad från priser är betygen jämförbara rakt av, eftersom de sätts på samma sätt
+för alla bolag. Konsumenternas Försäkringsbyrå bedömer villkorens omfattning på en skala
+från 1 till 5 och säljer ingenting själv, vilket gör dem till den mest opartiska källan på
+marknaden.</p>
+{marknad.betyg_tabell()}
 
 <h2>När det billigaste priset inte är billigast</h2>
 <p>Två offerter går bara att jämföra om de innehåller samma sak. Den vanligaste fällan är att

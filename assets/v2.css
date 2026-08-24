@@ -355,3 +355,12 @@ tbody tr:last-child td,tbody tr:last-child th{border-bottom:0}
 .media-t > :first-child{margin-top:0}
 .media-t > :last-child{margin-bottom:0}
 .media-t h2{margin-top:0}
+
+/* ── Senast kontrollerad ───────────────────────────────────────── */
+.checked{
+  margin-top:10px;font-size:.83rem;color:var(--ink-2);
+  display:flex;align-items:center;gap:7px;
+}
+.checked::before{
+  content:'';width:7px;height:7px;border-radius:50%;background:#3fa66a;flex-shrink:0;
+}
