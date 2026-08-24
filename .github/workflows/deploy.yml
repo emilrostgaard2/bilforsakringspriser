@@ -22,9 +22,14 @@ jobs:
 
       - name: Byg siderne
         run: |
-          python3 build.py
-          echo "--- genererede sider ---"
-          find . -name index.html -not -path './.git/*' | sort
+          if [ -f build.py ]; then
+            echo "build.py fundet — genererer sider"
+            python3 build.py
+          else
+            echo "Ingen build.py — uploader HTML som den ligger i repoet"
+          fi
+          echo "--- sider der uploades ---"
+          find . -name '*.html' -not -path './.git/*' | sort
 
       - name: Upload med lftp
         env:
