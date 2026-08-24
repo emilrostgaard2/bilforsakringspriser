@@ -112,6 +112,16 @@ li::marker{color:var(--blue)}
 .nav-item.open .dd{display:block}
 @media(hover:hover) and (min-width:861px){.nav-item:hover .dd{display:block}}
 .dd a{display:block;padding:9px 11px;border-radius:8px;font-size:.9rem;white-space:nowrap}
+.dd-rub{
+  margin:8px 11px 3px;font-size:.72rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:.05em;color:var(--ink-2);
+}
+.dd-rub:first-child{margin-top:2px}
+.dd.wide{
+  min-width:520px;columns:2;column-gap:14px;
+}
+.dd.wide>*{break-inside:avoid}
+.nav a,.nav-btn{white-space:nowrap}
 @media(max-width:860px){
   .burger{display:flex}
   .nav{
@@ -129,6 +139,8 @@ li::marker{color:var(--blue)}
     padding:0 0 8px 12px;background:none;
   }
   .dd a{padding:10px 4px;font-size:.95rem;color:var(--ink-2)}
+  .dd.wide{min-width:0;columns:1}
+  .dd-rub{margin:10px 4px 2px}
   .hd-cta{display:none}
 }
 
@@ -363,4 +375,29 @@ tbody tr:last-child td,tbody tr:last-child th{border-bottom:0}
 }
 .checked::before{
   content:'';width:7px;height:7px;border-radius:50%;background:#3fa66a;flex-shrink:0;
+}
+
+/* ── Författarruta ─────────────────────────────────────────────── */
+.fb{display:flex;gap:20px;align-items:flex-start}
+.fb-bild{
+  width:80px;height:80px;border-radius:50%;object-fit:cover;flex-shrink:0;
+  border:3px solid var(--paper);box-shadow:var(--sh-2);
+}
+.fb-txt{min-width:0}
+.fb-txt p{margin:0 0 10px;font-size:.94rem}
+.fb-namn{font-weight:700;font-size:1.05rem;color:var(--navy);margin-bottom:2px!important}
+.fb-roll{font-size:.85rem!important;color:var(--ink-2);margin-bottom:12px!important}
+.fb-kol{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:16px 0}
+.fb-kol h3{font-size:.83rem;text-transform:uppercase;letter-spacing:.04em;
+  color:var(--ink-2);margin:0 0 7px}
+.fb-kol ul{margin:0;padding-left:17px}
+.fb-kol li{font-size:.88rem;margin-bottom:5px}
+.fb-granskad{padding:11px 14px;background:var(--blue-soft);border-radius:9px;
+  font-size:.88rem!important}
+.fb-jur{font-size:.82rem!important;color:var(--ink-2);padding-top:12px;
+  border-top:1px solid var(--line)}
+.fb-lank{font-size:.88rem!important;font-weight:600}
+@media(max-width:620px){
+  .fb{flex-direction:column;gap:14px}
+  .fb-kol{grid-template-columns:1fr;gap:12px}
 }

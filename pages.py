@@ -548,12 +548,23 @@ jämförelseprofil varje gång, så att siffrorna går att ställa mot varandra.
 försäkringar och har inget uppdrag att agera för din räkning. Innehållet är allmän
 information — ditt eget pris och dina egna villkor får du hos bolaget.</p>
 
-<h2>Ansvarig utgivare</h2>
-<p>Emil Rostgaard Clausen. Har arbetat med analys av det nordiska försäkringsmarknaden
-sedan 2019 och driver sedan tidigare en motsvarande jämförelsesajt i Danmark. Allt innehåll
-på sajten är skrivet eller faktagranskat av honom.</p>
+<h2>Vem som står bakom</h2>
+<p>Emil Rostgaard Clausen, grundare och redaktör. Jag arbetar med sökmotoroptimering och
+driver jämförelsesajter — inte med försäkringar. Jag är alltså ingen försäkringsexpert, och
+den här sajten bygger inte på branschbakgrund utan på ett hantverk: att samla in uppgifter
+systematiskt, ställa dem mot varandra på ett sätt som faktiskt går att jämföra, och alltid
+redovisa var siffrorna kommer ifrån.</p>
+<p>Bakgrunden är att jag sedan flera år driver motsvarande jämförelsesajter i Danmark, och
+att jag där märkte hur svårt det är att få ett rakt svar på vad en bilförsäkring egentligen
+kostar. Samma sak gäller i Sverige. Allt innehåll här är skrivet av mig utifrån bolagens
+egna villkor och offentliga källor.</p>
+<p>Det innebär också en gräns jag håller: jag skriver om hur försäkringarna fungerar och vad
+de kostar, men jag rekommenderar inte vilken försäkring just du ska välja. Behöver du
+oberoende vägledning i ett eget ärende är <a href="https://www.konsumenternas.se/"
+rel="nofollow noopener" target="_blank">Konsumenternas Försäkringsbyrå</a> kostnadsfri och
+säljer ingenting.</p>
 <p>Hittar du ett fel, en föråldrad siffra eller något som är otydligt formulerat — hör av
-dig. Vi rättar sakfel så snart vi kan och noterar väsentliga rättelser på sidan.</p>
+dig. Jag rättar sakfel så snart jag kan och noterar väsentliga rättelser på sidan.</p>
 
 <h2>Kontakt</h2>
 <p>E-post: <a href="mailto:info@bilforsakringspriser.se">info@bilforsakringspriser.se</a></p>

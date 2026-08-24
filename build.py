@@ -7,34 +7,39 @@ Alla sidor genereras om från grunden, så redigera innehållet här — inte i
 de färdiga HTML-filerna.
 """
 import os, json, re, html
-import data
+import data, forfattare
 
 BASE = 'https://bilforsakringspriser.se'
-V = '20260824a'           # cache-stämpel — höj vid ändring i css/js
+V = '20260824b'           # cache-stämpel — höj vid ändring i css/js
 ROOT = os.path.dirname(os.path.abspath(__file__))
 os.chdir(ROOT)
 
 NAV = [
-    ('/jamfor-bilforsakring/', 'Jämför priser'),
-    ('/basta-bilforsakringen/', 'Bästa i test'),
-    ('Guider', [
-        ('/billigaste-bilforsakringen/', 'Billigaste bilförsäkringen'),
-        ('/bilforsakring-elbil/', 'Bilförsäkring elbil'),
-        ('/leasingbil-forsakring/', 'Försäkring vid leasing'),
-        ('/bilforsakring-ung-forare/', 'Ung förare'),
-        ('/bilforsakring-pensionar/', 'Pensionär'),
-    ]),
-    ('Fakta', [
-        ('/sjalvrisk/', 'Självrisk'),
-        ('/byta-bilforsakring/', 'Byta bilförsäkring'),
-        ('/bonus-och-skadefria-ar/', 'Bonus och skadefria år'),
-        ('/trafikforsakringsavgift/', 'Trafikförsäkringsavgift'),
-        ('/avstalld-bil/', 'Avställd bil'),
-    ]),
+    ('/jamfor-bilforsakring/', 'Jämför'),
     ('Skyddsnivåer', [
         ('/trafikforsakring/', 'Trafikförsäkring'),
         ('/halvforsakring/', 'Halvförsäkring'),
         ('/helforsakring/', 'Helförsäkring'),
+        ('/sjalvrisk/', 'Självrisk'),
+    ]),
+    ('Guider', [
+        ('§', 'Hitta rätt pris'),
+        ('/basta-bilforsakringen/', 'Bästa bilförsäkringen'),
+        ('/billigaste-bilforsakringen/', 'Billigaste bilförsäkringen'),
+        ('/byta-bilforsakring/', 'Byta bilförsäkring'),
+        ('§', 'För din situation'),
+        ('/bilforsakring-elbil/', 'Elbil'),
+        ('/leasingbil-forsakring/', 'Leasingbil'),
+        ('/bilforsakring-ung-forare/', 'Ung förare'),
+        ('/bilforsakring-pensionar/', 'Pensionär'),
+        ('§', 'Bra att veta'),
+        ('/bonus-och-skadefria-ar/', 'Bonus och skadefria år'),
+        ('/trafikforsakringsavgift/', 'Trafikförsäkringsavgift'),
+        ('/avstalld-bil/', 'Avställd bil'),
+        ('§', 'Priser per ort'),
+        ('/bilforsakring-stockholm/', 'Stockholm'),
+        ('/bilforsakring-goteborg/', 'Göteborg'),
+        ('/bilforsakring-malmo/', 'Malmö'),
     ]),
     ('/forsakringsbolag/', 'Bolag'),
     ('/bilmarken/', 'Bilmärken'),
@@ -46,21 +51,31 @@ DD_ARR = ('<svg class="dd-arr" viewBox="0 0 24 24" fill="none" stroke="currentCo
 
 def navbar(slug):
     """Menyn. Undermenyer är riktiga länkar i HTML — de finns för crawlern
-    även om JavaScript inte körs, och ligger dessutom i sidfoten."""
+    även om JavaScript inte körs, och ligger dessutom i sidfoten.
+
+    En post i en undermeny med url '§' blir en rubrik i stället för en
+    länk, så att långa menyer går att skanna i stället för att läsas."""
     ut = []
     for i, (a, b) in enumerate(NAV):
         if isinstance(b, list):
-            oppen = any(u.strip('/') == slug for u, _ in b)
-            lankar = ''.join(
-                f'<a href="{u}"{" aria-current=\"page\"" if u.strip("/") == slug else ""}>{t}</a>'
-                for u, t in b)
+            lankar_lista = [(u, t) for u, t in b if u != '§']
+            oppen = any(u.strip('/') == slug for u, t in lankar_lista)
+            bred = ' wide' if len(lankar_lista) > 6 else ''
+            delar = []
+            for u, t in b:
+                if u == '§':
+                    delar.append(f'<p class="dd-rub">{t}</p>')
+                else:
+                    nu = ' aria-current="page"' if u.strip('/') == slug else ''
+                    delar.append(f'<a href="{u}"{nu}>{t}</a>')
             ut.append(
                 f'<div class="nav-item{" here" if oppen else ""}">'
                 f'<button type="button" class="nav-btn" aria-expanded="false" '
                 f'aria-controls="dd{i}">{a}{DD_ARR}</button>'
-                f'<div class="dd" id="dd{i}">{lankar}</div></div>')
+                f'<div class="dd{bred}" id="dd{i}">{"".join(delar)}</div></div>')
         else:
-            ut.append(f'<a href="{a}"{" aria-current=\"page\"" if a.strip("/") == slug else ""}>{b}</a>')
+            nu = ' aria-current="page"' if a.strip('/') == slug else ''
+            ut.append(f'<a href="{a}"{nu}>{b}</a>')
     return ''.join(ut)
 
 LOGO_SVG = ('<svg viewBox="0 0 64 64" aria-hidden="true">'
@@ -197,8 +212,7 @@ def page(d):
         "@context": "https://schema.org", "@type": "Article",
         "headline": d['title'], "description": d['desc'],
         "inLanguage": "sv-SE",
-        "author": {"@type": "Person", "name": "Emil Rostgaard Clausen",
-                   "url": BASE + "/om-oss/", "jobTitle": "Ansvarig utgivare"},
+        "author": forfattare.schema(BASE),
         "publisher": {"@type": "Organization", "name": "Bilförsäkringspriser.se", "url": BASE + "/",
                       "logo": {"@type": "ImageObject", "url": BASE + "/assets/icon-512.png",
                                "width": 512, "height": 512}},
@@ -283,6 +297,7 @@ def page(d):
 {body_html}
 {faq_html}
 {rel}
+{forfattare.ruta()}
 </main>
 
 {sticky(d.get('sticky', 'Se vad din bil kostar att försäkra'))}
