@@ -9,7 +9,7 @@ formulering. Målet är att inga två sidor delar skelett.
 """
 import re, os
 from companies import BOLAG
-from brands import MARKEN
+from brands import MARKEN, BILD
 
 TODO = ('<div class="warn"><strong>PLATSHÅLLARE — ersätts före lansering.</strong> '
         'Beloppen är exempelsiffror, inte insamlade marknadspriser.</div>')
@@ -391,6 +391,13 @@ def markessidor():
                            for mo in m['modeller'])
         spara = SPARA[i % 3]
 
+        # Bild: finns filen bilder/<slug>.webp används den automatiskt.
+        # Alt-text och bildtext hämtas från BILD, annars generisk reserv.
+        har_bild = os.path.exists(f'bilder/{m["slug"]}.webp')
+        b = BILD.get(m['slug'], {})
+        bild_alt = b.get('alt', f'{n} — bilförsäkring och pris')
+        bild_cap = b.get('cap', f'{n} — det här påverkar försäkringspremien.')
+
         S = {
          'pris': (f'<h2>{H["pris"]}</h2>'
                   f'<p>{PRIS_INTRO[(i * 3) % 4]}</p>'
@@ -403,12 +410,12 @@ def markessidor():
                   f'</tbody></table></div>{TODO}{PROFIL}'),
          'varfor': (f'<h2>{H["varfor"]}</h2>' + (
              f'<div class="media{" rev" if i % 2 else ""}">'
-             f'<figure><img src="/bilder/{m["slug"]}.webp" alt="{n} parkerad — bilförsäkring och pris" '
+             f'<figure><img src="/bilder/{m["slug"]}.webp" alt="{bild_alt}" '
              f'width="1200" height="750" loading="lazy" decoding="async">'
-             f'<figcaption>{n} — vad som påverkar försäkringspremien.</figcaption></figure>'
+             f'<figcaption>{bild_cap}</figcaption></figure>'
              f'<div class="media-t"><p>{m["karakteristik"]}</p></div></div>'
              f'<ul>{punkter}</ul>'
-             if os.path.exists(f'bilder/{m["slug"]}.webp')
+             if har_bild
              else f'<p>{m["karakteristik"]}</p><ul>{punkter}</ul>')),
          'modeller': (f'<h2>{H["modeller"]}</h2>'
                       f'<p>{MODELL_INTRO[(i * 5) % 4].replace("{n}", n)}</p>'
@@ -461,6 +468,7 @@ def markessidor():
          'sticky': f'Jämför försäkring till din {n}',
          'body': body, 'faq': faq, 'rel': rel,
          'faq_h2': f'Vanliga frågor om {n} bilförsäkring',
+         **({'bild': f'/bilder/{m["slug"]}.webp', 'bild_alt': bild_alt} if har_bild else {}),
         })
     return sidor
 

@@ -143,7 +143,10 @@ def page(d):
                       "logo": {"@type": "ImageObject", "url": BASE + "/assets/icon-512.png",
                                "width": 512, "height": 512}},
         "datePublished": "2026-01-01", "dateModified": "2026-01-01",
-        "mainEntityOfPage": {"@type": "WebPage", "@id": url}})
+        "mainEntityOfPage": {"@type": "WebPage", "@id": url},
+        **({"image": {"@type": "ImageObject", "url": BASE + d['bild'],
+                      "width": 1200, "height": 750,
+                      "caption": d.get('bild_alt', d['h1'])}} if d.get('bild') else {})})
 
     if not slug:
         ld.append({"@context": "https://schema.org", "@type": "WebSite",
@@ -169,6 +172,17 @@ def page(d):
 
     body_html = d['body'].replace('{PLATE}', plate('pagePlate', 'Jämför gratis nu'))
 
+    # Sidor med egen bild delas med stor förhandsvisning, övriga med logotypen.
+    if d.get('bild'):
+        og_bild = (f'<meta property="og:image" content="{BASE}{d["bild"]}">\n'
+                   f'<meta property="og:image:width" content="1200">\n'
+                   f'<meta property="og:image:height" content="750">\n'
+                   f'<meta property="og:image:alt" content="{html.escape(d.get("bild_alt", d["h1"]), quote=True)}">\n'
+                   f'<meta name="twitter:card" content="summary_large_image">')
+    else:
+        og_bild = (f'<meta property="og:image" content="{BASE}/assets/icon-512.png">\n'
+                   f'<meta name="twitter:card" content="summary">')
+
     return f'''<!DOCTYPE html>
 <html lang="sv">
 <head>
@@ -184,8 +198,7 @@ def page(d):
 <meta property="og:title" content="{d['title']}">
 <meta property="og:description" content="{d['desc']}">
 <meta property="og:url" content="{url}">
-<meta property="og:image" content="{BASE}/assets/icon-512.png">
-<meta name="twitter:card" content="summary">
+{og_bild}
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/fonts/schibsted-grotesk.woff2">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">

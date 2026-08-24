@@ -347,4 +347,183 @@ MARKEN = [
  'punkter':['Ny på marknaden — tunn skadestatistik',
             'Omfattande förarassistans fördyrar rutbyten',
             'Verkstadsnätet är fortfarande begränsat']},
+
+{'slug':'jaguar','namn':'Jaguar','grupp':'premium','ursprung':'Storbritannien',
+ 'karakteristik':'Jaguar delar koncern och verkstadsnät med Land Rover och har ett litet '
+   'bestånd i Sverige. Karosserna är i stor utsträckning byggda i aluminium, vilket kräver '
+   'certifierad utrustning för att repareras korrekt — antalet verkstäder som får göra jobbet '
+   'är därför begränsat och timpriset högt. Det, snarare än effekten, är det som lyfter '
+   'kaskopremien mest.',
+ 'modeller':['F-Pace','E-Pace','I-Pace','XE','XF','F-Type'],
+ 'punkter':['Aluminiumkarosser kräver certifierad verkstad',
+            'Litet bestånd ger längre väntan på delar',
+            'Kontrollera att bolaget accepterar märkesverkstad i villkoren']},
+
+{'slug':'zeekr','namn':'Zeekr','grupp':'elbil','ursprung':'Kina',
+ 'karakteristik':'Zeekr ingår i Geely-koncernen, samma ägare som Volvo och Polestar, och delar '
+   'delar av utvecklingsarbetet med de svenska systermärkena. Det gör tekniken mindre främmande '
+   'för verkstäderna än hos flera andra nya kinesiska märken. Beståndet i Sverige är ändå litet '
+   'och skadestatistiken tunn, och den osäkerheten prissätter bolagen in tills siffrorna finns.',
+ 'modeller':['X','001','7X'],
+ 'punkter':['Geely-koncernen — samma ägare som Volvo och Polestar',
+            'Litet bestånd ger tunn skadestatistik och försiktig prissättning',
+            'Fråga hur reservdelar hanteras innan du tecknar']},
 ]
+
+# ═══ BILDTEXTER ═════════════════════════════════════════════════════
+# Per märke: 'alt' beskriver bilden (tillgänglighet + bildsök),
+# 'cap' är den synliga bildtexten och ska säga något eget om just det
+# märkets premie — aldrig samma formulering på två sidor.
+# Märken som saknar nyckel här faller tillbaka på en generisk text i
+# generators.py. Filnamnet måste vara bilder/<slug>.webp.
+
+BILD = {
+'volkswagen': {
+  'alt': 'Silverfärgad Volkswagen ID.4 på en kustväg',
+  'cap': 'Volkswagen ID.4. Den delade VAG-tekniken gör att nästan varje verkstad kan '
+         'skaffa delarna — den enskilt viktigaste orsaken till att premien håller sig nere.'},
+'toyota': {
+  'alt': 'Silverfärgad Toyota Corolla parkerad längs en våt gata',
+  'cap': 'Toyota Corolla. Låg skadefrekvens ger färre bärgningar och färre följdskador, '
+         'och det syns direkt i premien.'},
+'bmw': {
+  'alt': 'Silverfärgad BMW M4 Competition på en kustväg i kvällsljus',
+  'cap': 'BMW M4. Det är reservdelspriserna och kalibreringen av förarassistansen som '
+         'driver kaskopremien — inte hästkrafterna i sig.'},
+'audi': {
+  'alt': 'Silverfärgad Audi e-tron GT på en bergsväg i skymning',
+  'cap': 'Audi e-tron GT. Kaskopremien räknas på vad bilen kostar att ersätta, vilket '
+         'förklarar avståndet till en Volkswagen med samma grundteknik.'},
+'skoda': {
+  'alt': 'Silverfärgad Skoda Octavia Combi på en kustväg vid en småbåtshamn',
+  'cap': 'Skoda Octavia Combi. Samma delkatalog som Volkswagen, men lägre nypris — '
+         'kombinationen ger ofta den lägsta premien i klassen.'},
+'ford': {
+  'alt': 'Silverfärgad Ford Focus parkerad på en butiksgata',
+  'cap': 'Ford Focus. Ett stort begagnatbestånd betyder gott om delar och verklig '
+         'konkurrens mellan verkstäderna vid en skada.'},
+'alfa-romeo': {
+  'alt': 'Röd Alfa Romeo Giulia GTA på en kullerstensgata',
+  'cap': 'Alfa Romeo Giulia. Litet bestånd och få specialiserade verkstäder lyfter premien '
+         'mer än nypriset ensamt skulle motivera.'},
+'kia': {
+  'alt': 'Silverfärgad Kia EV6 parkerad på en uppfart framför ett villagarage',
+  'cap': 'Kia EV6. Sjuårsgarantin följer bilen och håller uppe marknadsvärdet — och det är '
+         'marknadsvärdet du får ersättning för vid totalskada.'},
+'tesla': {
+  'alt': 'Mörkblå Tesla Model 3 på en parkeringsplats',
+  'cap': 'Tesla Model 3. Gjutna karossektioner och ett smalt verkstadsnät gör reparationerna '
+         'dyra, vilket slår igenom på helförsäkringen.'},
+'peugeot': {
+  'alt': 'Grå Peugeot 308 parkerad på en gata i en stadskärna',
+  'cap': 'Peugeot 308. Stellantis-tillhörigheten har breddat delstillgången och pressat '
+         'reparationskostnaderna de senaste åren.'},
+'renault': {
+  'alt': 'Blå Renault Clio i rörelse på en kustväg',
+  'cap': 'Renault Clio. E-Tech-hybridens ovanliga växellåda leder oftare till märkesverkstad, '
+         'och det prissätter bolagen in.'},
+'hyundai': {
+  'alt': 'Blå Hyundai IONIQ 5 i rörelse på en kustväg',
+  'cap': 'Hyundai IONIQ 5. 800-voltstekniken låter dyr, men den delade E-GMP-volymen med Kia '
+         'håller delpriserna nere.'},
+'nissan': {
+  'alt': 'Grå Nissan Ariya parkerad på en kullerstensgata i en gammal bykärna',
+  'cap': 'Nissan Ariya. Kontrollera att offerten inte prissätter e-POWER som elbil — det är '
+         'en seriehybrid och ska inte behandlas som en laddbar bil.'},
+'opel': {
+  'alt': 'Röd Opel Astra Sports Tourer parkerad på en uppfart vid ett äldre hus',
+  'cap': 'Opel Astra. Reservdelsbilden skiljer sig markant mellan GM-eran och Stellantis-eran '
+         '— årsmodellen avgör mer här än hos de flesta märken.'},
+'seat': {
+  'alt': 'Grå Seat Leon Sportstourer parkerad på en uppfart i ett villaområde',
+  'cap': 'Seat Leon. FR-utrustningen är i grunden kosmetisk, men de större fälgarna är dyrare '
+         'att ersätta och tar oftare skada mot trottoarkanter.'},
+'citroen': {
+  'alt': 'Röd Citroën C4 i rörelse på en kustväg',
+  'cap': 'Citroën C4. Komfortprofilen ger en förarprofil med lägre genomsnittlig skadefrekvens '
+         'än sportigare märken i samma prisklass.'},
+'cupra': {
+  'alt': 'Kopparfärgad Cupra Formentor parkerad vid en kust med kritklippor',
+  'cap': 'Cupra Formentor. Samma teknik som Seat under plåten, men högre nypris och en '
+         'prestandaprofil som bolagen prissätter i en egen klass.'},
+'polestar': {
+  'alt': 'Blå Polestar 2 i rörelse på en kustväg',
+  'cap': 'Polestar 2. Delat verkstadsnät med Volvo är en fördel — men vikten är den '
+         'underskattade faktorn bakom premien.'},
+'byd': {
+  'alt': 'Blå BYD-elbil parkerad på en kullerstensgata i en gammal fiskeby',
+  'cap': 'BYD. Egen batteritillverkning ger kontroll över bilens dyraste komponent, men det '
+         'tunna svenska skadeunderlaget gör bolagen försiktiga i prissättningen.'},
+'xpeng': {
+  'alt': 'Silverfärgad XPeng-sedan parkerad framför en modern byggnad vid en hamnkaj',
+  'cap': 'XPeng. Sensorerna bakom vindrutan måste kalibreras vid ett rutbyte — därför är '
+         'glasmomentet med låg självrisk värt mer här än på en enklare bil.'},
+'zeekr': {
+  'alt': 'Blå Zeekr-elbil parkerad på en kullerstensplats i en gammal hamnby',
+  'cap': 'Zeekr. Geely-släktskapet med Volvo och Polestar gör tekniken mindre främmande för '
+         'verkstäderna än beståndets storlek antyder.'},
+'mercedes': {
+  'alt': 'Silverfärgad Mercedes-Benz EQS parkerad på en kaj framför en glasbyggnad',
+  'cap': 'Mercedes-Benz EQS. Stöldstatistiken i storstadsområdena gör bopostnumret till en '
+         'tyngre premiefaktor här än på ett genomsnittligt märke.'},
+'mitsubishi': {
+  'alt': 'Röd Mitsubishi Eclipse Cross parkerad vid en hamnpromenad',
+  'cap': 'Mitsubishi Eclipse Cross. På begagnade laddhybrider är batteriets kondition '
+         'avgörande — begär kapacitetsintyg innan du tecknar.'},
+'dacia': {
+  'alt': 'Grå Dacia Duster parkerad på en grusparkering i ett hedlandskap',
+  'cap': 'Dacia Duster. Marknadens lägsta nypris i klassen ger också den lägsta '
+         'kaskopremien — det är ersättningsvärdet som räknas.'},
+'suzuki': {
+  'alt': 'Blå Suzuki Swift parkerad på en kullerstensgata i en gammal stadskärna',
+  'cap': 'Suzuki Swift. Låg vikt betyder mindre skada vid kollision, både på egen bil och '
+         'på motparten, och det syns i premien.'},
+'mini': {
+  'alt': 'Mörkgrön MINI Cooper med vitt tak parkerad på en villauppfart',
+  'cap': 'MINI Cooper. BMW-teknik under plåten, men storstadsanvändningen gör '
+         'parkeringsskador till den vanligaste skadetypen.'},
+'lexus': {
+  'alt': 'Silverfärgad Lexus NX parkerad längs en villagata',
+  'cap': 'Lexus NX. Toyotas låga skadefrekvens ärvs, men det högre ersättningsvärdet lyfter '
+         'kaskopremien över en jämnstor Toyota.'},
+'land-rover': {
+  'alt': 'Silverfärgad Land Rover Defender på en lerig grusväg i ett kustlandskap',
+  'cap': 'Land Rover Defender. Flera bolag kräver spårsändare eller extra stöldskydd — '
+         'kontrollera kravet innan du tecknar, inte efter.'},
+'jaguar': {
+  'alt': 'Mörkgrön Jaguar F-Type parkerad på en kullerstensplats i en gammal stadskärna',
+  'cap': 'Jaguar F-Type. Aluminiumkarossen kräver certifierad verkstad, vilket begränsar '
+         'valet av reparatör mer än på de flesta premiummärken.'},
+'porsche': {
+  'alt': 'Röd Porsche 911 parkerad på en uppfart i ett villaområde',
+  'cap': 'Porsche 911. Effektgrupp och nypris styr premien mer än körstilen — flera bolag '
+         'kräver förhöjd självrisk.'},
+'volvo': {
+  'alt': 'Silverfärgad Volvo V60 Cross Country parkerad längs en villagata',
+  'cap': 'Volvo V60 Cross Country. Landets största bestånd ger både gott om delar och den '
+         'mest väldokumenterade skadestatistiken — det håller premien nere.'},
+'mazda': {
+  'alt': 'Röd Mazda CX-5 parkerad på en kullerstensgata i en gammal stadskärna',
+  'cap': 'Mazda CX-5. Färre högvoltskomponenter än hos elektrifierade konkurrenter, och en '
+         'skadebild bolagen känner väl.'},
+'honda': {
+  'alt': 'Silverfärgad Honda CR-V parkerad på en uppfart i ett villaområde',
+  'cap': 'Honda CR-V. Tillförlitligheten är hög, men det smalare verkstadsnätet kan förlänga '
+         'väntetiden — läs hyrbilsmomentet noga.'},
+'mg': {
+  'alt': 'Grå MG ZS parkerad längs en gata i ett villaområde',
+  'cap': 'MG ZS. Den kortare reservdelskedjan är den verkliga risken — kontrollera hur många '
+         'dagar hyrbilen täcker innan du tecknar.'},
+'jeep': {
+  'alt': 'Grön Jeep Wrangler parkerad på en parkeringsplats',
+  'cap': 'Jeep Wrangler. Fyrhjulsdriften innehåller komponenter som blir dyra att laga efter '
+         'en påkörning bakifrån.'},
+'fiat': {
+  'alt': 'Blå Fiat 500 parkerad på en uppfart framför ett garage',
+  'cap': 'Fiat 500. Lågt nypris ger låg kaskopremie, men parkeringsskador utan känd motpart '
+         'är den vanligaste skadan — kolla hur bolaget hanterar dem.'},
+'subaru': {
+  'alt': 'Blå Subaru Outback i rörelse på en kustväg',
+  'cap': 'Subaru Outback. Permanent fyrhjulsdrift ger goda vinteregenskaper men fler '
+         'komponenter som kan ta skada.'},
+}
