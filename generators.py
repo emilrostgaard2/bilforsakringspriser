@@ -451,6 +451,15 @@ def markessidor():
                ('/jamfor-bilforsakring/', 'Så jämför du rätt'),
                ('/halvforsakring/', 'Halvförsäkring'),
                ('/helforsakring/', 'Helförsäkring')]
+        # Guidelänk som passar märkets profil — ger tematisk intern länkning.
+        if m['grupp'] == 'elbil':
+            rel.append(('/bilforsakring-elbil/', 'Bilförsäkring för elbil'))
+        elif m['grupp'] == 'budget':
+            rel.append(('/billigaste-bilforsakringen/', 'Billigaste bilförsäkringen'))
+        elif m['grupp'] == 'premium':
+            rel.append(('/leasingbil-forsakring/', 'Försäkring vid leasing'))
+        else:
+            rel.append(('/billigaste-bilforsakringen/', 'Billigaste bilförsäkringen'))
         samma = [o for o in MARKEN if o['grupp'] == m['grupp'] and o['slug'] != m['slug']][:2]
         for o in samma:
             rel.append((f'/bilmarken/{o["slug"]}/', f'{o["namn"]} bilförsäkring'))

@@ -96,6 +96,13 @@ def footer():
 <li><a href="/halvforsakring/">Halvförsäkring</a></li>
 <li><a href="/helforsakring/">Helförsäkring</a></li>
 </ul></div>
+<div><h3>Guider</h3><ul>
+<li><a href="/billigaste-bilforsakringen/">Billigaste bilförsäkringen</a></li>
+<li><a href="/bilforsakring-elbil/">Bilförsäkring elbil</a></li>
+<li><a href="/leasingbil-forsakring/">Försäkring vid leasing</a></li>
+<li><a href="/bilforsakring-ung-forare/">Ung förare</a></li>
+<li><a href="/bilforsakring-pensionar/">Pensionär</a></li>
+</ul></div>
 <div><h3>Om sajten</h3><ul>
 <li><a href="/om-oss/">Om oss</a></li>
 <li><a href="/redaktionell-metod/">Redaktionell metod</a></li>
@@ -235,8 +242,8 @@ def page(d):
 # Priserna nedan är MARKERADE SOM PLATSHÅLLARE. Ersätt dem med egna
 # insamlade siffror innan lansering — se README.
 
-import pages, generators
-PAGES = pages.PAGES + generators.alla()
+import pages, generators, guider
+PAGES = pages.PAGES + generators.alla() + guider.SIDOR
 
 for d in PAGES:
     out = os.path.join(d['slug'], 'index.html') if d['slug'] else 'index.html'

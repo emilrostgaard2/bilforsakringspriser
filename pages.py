@@ -127,6 +127,28 @@ försäkringarna låg Gjensidige Plus och Länsförsäkringar med alla tillägg 
 <div class="src"><p>Källa: Konsumenternas Försäkringsbyrå, jämförelse av 36 bilförsäkringar,
 februari 2025. Betygen avser villkorens innehåll, inte priset.</p></div>
 
+<h2>Guider för din situation</h2>
+<p>Premien räknas fram olika beroende på vem du är och hur bilen används. Fem guider som tar
+den vanligaste situationen först.</p>
+
+<div class="grid">
+<a class="gc" href="/billigaste-bilforsakringen/"><span class="gc-t">Billigaste bilförsäkringen</span>
+<span class="gc-d">Vad som styr priset, vad du kan påverka och varför lägst pris inte alltid är billigast.</span>
+<span class="gc-go">Läs guiden &rarr;</span></a>
+<a class="gc" href="/bilforsakring-elbil/"><span class="gc-t">Elbil</span>
+<span class="gc-d">Batteri, laddkabel och laddbox — vad som täcks av bilförsäkringen och vad som inte gör det.</span>
+<span class="gc-go">Läs guiden &rarr;</span></a>
+<a class="gc" href="/bilforsakring-ung-forare/"><span class="gc-t">Ung förare</span>
+<span class="gc-d">Varför premien är högst under 25, vad ungdomssjälvrisk är och vilka genvägar som kostar.</span>
+<span class="gc-go">Läs guiden &rarr;</span></a>
+<a class="gc" href="/bilforsakring-pensionar/"><span class="gc-t">Pensionär</span>
+<span class="gc-d">Körsträckan är den största hävstången när pendlingen försvinner.</span>
+<span class="gc-go">Läs guiden &rarr;</span></a>
+<a class="gc" href="/leasingbil-forsakring/"><span class="gc-t">Leasingbil</span>
+<span class="gc-d">Leasinggivaren äger bilen och ställer kraven. Så läser du avtalet före offerten.</span>
+<span class="gc-go">Läs guiden &rarr;</span></a>
+</div>
+
 <div class="cta">
 <h2>Se ditt eget pris</h2>
 <p>Ange registreringsnumret så hämtas bilens uppgifter automatiskt. Kostnadsfritt och utan bindning.</p>
