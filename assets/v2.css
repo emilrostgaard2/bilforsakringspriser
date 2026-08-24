@@ -309,3 +309,24 @@ tbody tr:last-child td,tbody tr:last-child th{border-bottom:0}
 .ft a:hover{color:#fff;text-decoration:underline}
 .ft p{color:#9fb4c9;margin:0 0 10px}
 .ft-btm{border-top:1px solid rgba(255,255,255,.12);padding-top:18px;font-size:.79rem;color:#8fa5bb;display:grid;gap:8px}
+
+/* ── Bild bredvid text ─────────────────────────────────────────────
+   Bilden ligger mitt i artikeln med brödtext vid sidan. Under 760 px
+   staplas de, med bilden överst. */
+.media{display:grid;gap:22px;align-items:start;margin:26px 0}
+@media(min-width:760px){
+  .media{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:28px}
+  .media.rev > figure{order:2}
+}
+.media figure{margin:0}
+.media img{
+  width:100%;height:auto;aspect-ratio:1200/750;object-fit:cover;
+  border-radius:var(--r-lg);border:1px solid var(--line);box-shadow:var(--sh-2);
+  background:var(--wash);
+}
+.media figcaption{
+  margin-top:8px;font-size:.78rem;color:var(--muted);line-height:1.5;
+}
+.media-t > :first-child{margin-top:0}
+.media-t > :last-child{margin-bottom:0}
+.media-t h2{margin-top:0}

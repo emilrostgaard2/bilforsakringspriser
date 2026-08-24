@@ -7,7 +7,7 @@ bygger på något faktiskt utmärkande för bolaget eller märket. Gemensamma
 avsnitt finns i flera varianter som fördelas så att grannsidor aldrig delar
 formulering. Målet är att inga två sidor delar skelett.
 """
-import re
+import re, os
 from companies import BOLAG
 from brands import MARKEN
 
@@ -401,7 +401,15 @@ def markessidor():
                   f'<tr><th scope="row"><a href="/halvforsakring/">Halvförsäkring</a></th><td>—</td><td>—</td></tr>'
                   f'<tr><th scope="row"><a href="/helforsakring/">Helförsäkring</a></th><td>—</td><td>—</td></tr>'
                   f'</tbody></table></div>{TODO}{PROFIL}'),
-         'varfor': (f'<h2>{H["varfor"]}</h2><p>{m["karakteristik"]}</p><ul>{punkter}</ul>'),
+         'varfor': (f'<h2>{H["varfor"]}</h2>' + (
+             f'<div class="media{" rev" if i % 2 else ""}">'
+             f'<figure><img src="/bilder/{m["slug"]}.webp" alt="{n} parkerad — bilförsäkring och pris" '
+             f'width="1200" height="750" loading="lazy" decoding="async">'
+             f'<figcaption>{n} — vad som påverkar försäkringspremien.</figcaption></figure>'
+             f'<div class="media-t"><p>{m["karakteristik"]}</p></div></div>'
+             f'<ul>{punkter}</ul>'
+             if os.path.exists(f'bilder/{m["slug"]}.webp')
+             else f'<p>{m["karakteristik"]}</p><ul>{punkter}</ul>')),
          'modeller': (f'<h2>{H["modeller"]}</h2>'
                       f'<p>{MODELL_INTRO[(i * 5) % 4].replace("{n}", n)}</p>'
                       f'<div class="tbl"><table><thead><tr><th scope="col">Modell</th>'
