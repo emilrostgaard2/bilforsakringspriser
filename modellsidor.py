@@ -22,11 +22,22 @@ modeller.py, aldrig av fler generiska stycken — utfyllnad som återkommer
 på alla sidor sänker samtliga.
 """
 from modeller import MODELLER
+from modeller_extra import PRISER, SPANN, EXTRA, META
 from brands import MARKEN
 import data
 import kort
 
 MARKE = {m['slug']: m for m in MARKEN}
+
+AGARE_H2 = ['Vem kör en {b}?', 'Så används en {b} — och varför det spelar roll',
+            'Ägarprofilen bakom premien', 'Vilka kör den här bilen?',
+            'Bilens vardag avgör priset']
+SYSKON_H2 = ['Jämför {m}-modellerna mot varandra', 'Övriga {m}-modeller och deras premie',
+             'Hur ligger resten av {m}-utbudet?', 'Andra {m} att jämföra med',
+             '{m}-modellerna sida vid sida']
+JAMFOR_H2 = ['{b} jämfört med konkurrenterna', 'Hur står sig {b} mot alternativen?',
+             '{b} mot liknande bilar', 'Premien i jämförelse med klassen',
+             'Vad kostar konkurrenterna?']
 
 H2 = [
     {'pris': 'Vad kostar det att försäkra en {b}?',
@@ -62,17 +73,15 @@ H2 = [
 ]
 
 ORDNING = [
-    ['pris', 'styr', 'niva', 'skada', 'villkor', 'byta'],
-    ['pris', 'niva', 'styr', 'villkor', 'skada', 'byta'],
-    ['styr', 'pris', 'skada', 'niva', 'byta', 'villkor'],
-    ['pris', 'skada', 'styr', 'niva', 'villkor', 'byta'],
-    ['niva', 'pris', 'styr', 'skada', 'byta', 'villkor'],
-    ['pris', 'styr', 'skada', 'villkor', 'niva', 'byta'],
-    ['styr', 'niva', 'pris', 'skada', 'villkor', 'byta'],
+    ['agare', 'styr', 'skada', 'jamfor', 'niva', 'villkor', 'byta'],
+    ['agare', 'niva', 'styr', 'jamfor', 'skada', 'villkor', 'byta'],
+    ['agare', 'skada', 'styr', 'niva', 'jamfor', 'villkor', 'byta'],
+    ['agare', 'styr', 'niva', 'jamfor', 'villkor', 'skada', 'byta'],
+    ['agare', 'jamfor', 'styr', 'skada', 'niva', 'villkor', 'byta'],
+    ['agare', 'niva', 'jamfor', 'styr', 'villkor', 'skada', 'byta'],
+    ['agare', 'skada', 'jamfor', 'niva', 'styr', 'villkor', 'byta'],
 ]
 
-# Variantpooler med tio formuleringar var. Med tio modeller per märke
-# får varje modell sin egen — ingen mening delas inom ett märke.
 BYTA_PUNKTER = [
  [('Ange rätt körsträcka', 'Den vanligaste felkällan i offerten, och den som ger mest '
    'tillbaka när den rättas.'),
@@ -96,15 +105,15 @@ BYTA_PUNKTER = [
  [('Meddela ändrad adress', 'Postnumret är en av de tyngre faktorerna och uppdateras inte '
    'automatiskt.'),
   ('Se över antalet förare', 'En yngre extraförare kan kosta mer än den används.'),
-  ('Välj bort hyrbil om du har två bilar', 'Momentet är värt mindre när du har en '
-   'reservbil hemma.'),
+  ('Välj bort hyrbil om du har två bilar', 'Momentet är värt mindre när du har en reservbil '
+   'hemma.'),
   ('Samla försäkringarna', 'Samlingsrabatt finns hos de flesta — men jämför totalen, inte '
    'rabatten.')],
  [('Kontrollera årsmodell och utrustning i offerten', 'Fel utrustningsnivå ger fel '
    'ersättningsvärde och fel premie.'),
   ('Höj självrisken medvetet', 'Bara om du klarar beloppet den dag det smäller.'),
-  ('Fråga efter tyst prishöjning', 'Premien kan ha stigit vid förnyelsen utan att du '
-   'märkt det.'),
+  ('Fråga efter tyst prishöjning', 'Premien kan ha stigit vid förnyelsen utan att du märkt '
+   'det.'),
   ('Byt vid rätt tillfälle', 'Bilköp, flytt och aviserad höjning ger rätt att byta direkt.')],
 ]
 
@@ -239,6 +248,16 @@ FAQ_PRIS = [
  'Jämför på samma nivå och samma självrisk, annars jämför du inte samma sak.',
 ]
 
+def _desc(b, slug, kort):
+    """Metabeskrivning som ryms i sökresultatet utan att kapas."""
+    klausul = META.get(slug) or kort.rstrip('.')
+    text = (f'Vad kostar försäkring till {b}? Se prisexempel för {klausul}, '
+            f'rätt skyddsnivå och villkoren som avgör.')
+    if len(text) > 155:
+        text = f'{b} försäkring: prisexempel för {klausul}, rätt skyddsnivå och villkor.'
+    return text
+
+
 def _tbl(caption, kol, rader, swipe=False):
     th = ''.join(f'<th scope="col">{k}</th>' for k in kol)
     tr = ''.join('<tr><th scope="row">' + r[0] + '</th>'
@@ -249,18 +268,45 @@ def _tbl(caption, kol, rader, swipe=False):
 
 
 def _sektion(nyckel, m, mod, b, i, syskon):
-    h = H2[i % len(H2)][nyckel].replace('{b}', b)
+    h = H2[i % len(H2)].get(nyckel, '').replace('{b}', b)
     p = data.PRIS
 
     if nyckel == 'pris':
-        rader = [[f'<a href="/trafikforsakring/">Trafikförsäkring</a>', '—', '—'],
-                 [f'<a href="/halvforsakring/">Halvförsäkring</a>', '—', '—'],
-                 [f'<a href="/helforsakring/">Helförsäkring</a>', '—', '—']]
-        return (f'<h2>{h}</h2><p>{PRIS_ING[i % len(PRIS_ING)]}</p>'
-                + _tbl(f'{b} — vägledande årspremie',
-                       ['Nivå', 'Per år', 'Per månad'], rader)
-                + data.saknas_ruta('priserna')
-                + data.profil_ruta())
+        e = EXTRA.get(mod['slug'], {})
+        cit = PRISER.get(mod['slug'])
+        if cit:
+            rader = [[c['bolag'], c['belopp'], c['vad'], c['profil'],
+                      f'{c["kalla"]}, {c["datum"]}'] for c in cit]
+            tabell = _tbl(f'Publicerade prisuppgifter för {b}',
+                          ['Bolag', 'Belopp', 'Avser', 'Källans profil', 'Källa'],
+                          rader, swipe=True)
+            kalltext = (f'<p class="jf-not">Uppgifterna kommer från andra sajters '
+                        f'publicerade prisexempel och redovisas med källa och datum. Varje '
+                        f'källa använder sin egen profil, vilket gör att beloppen inte är '
+                        f'jämförbara med varandra. Vår egen insamling på en och samma profil '
+                        f'pågår.</p>')
+        else:
+            rader = [[x['niva'], x['spann'], f'{x["kalla"]}, {x["datum"]}'] for x in SPANN]
+            tabell = _tbl('Marknadens publicerade prisspann',
+                          ['Nivå', 'Spann', 'Källa'], rader)
+            kalltext = (f'<p class="jf-not">Vi har inte hittat publicerade prisuppgifter för '
+                        f'specifikt {b}. I stället visas marknadens spann med källa. Det är '
+                        f'ärligare än att räkna fram en siffra och kalla den ett pris — och '
+                        f'det säger dig var i skalan du bör hamna.</p>')
+        return (f'<h2>{h}</h2>'
+                f'<p class="direkt">{e.get("direktsvar", "")}</p>'
+                + tabell + kalltext
+                + f'<p>{PRIS_ING[i % len(PRIS_ING)]}</p>')
+
+    if nyckel == 'agare':
+        e = EXTRA.get(mod['slug'], {})
+        rub = AGARE_H2[i % len(AGARE_H2)].replace('{b}', b)
+        return f'<h2>{rub}</h2><p>{e.get("agare", "")}</p>'
+
+    if nyckel == 'jamfor':
+        e = EXTRA.get(mod['slug'], {})
+        rub = JAMFOR_H2[i % len(JAMFOR_H2)].replace('{b}', b)
+        return f'<h2>{rub}</h2><p>{e.get("jamfor", "")}</p>'
 
     if nyckel == 'styr':
         rader = [['Drivlina', mod['drivlina']],
@@ -340,6 +386,7 @@ def sidor():
         m = MARKE[marke_slug]
         for i, mod in enumerate(lista):
             b = f'{m["namn"]} {mod["namn"]}'
+            mod_extra = EXTRA.get(mod['slug'], {})
             ordning = ORDNING[i % len(ORDNING)]
             kroppar = ''.join(_sektion(k, m, mod, b, i, lista) for k in ordning)
 
@@ -362,8 +409,9 @@ def sidor():
                 'slug': f'bilmarken/{m["slug"]}/{mod["slug"]}',
                 'key': True,
                 'title': f'{b} försäkring — pris, villkor och jämförelse {data.UPPDATERAD[:4]}',
-                'desc': f'Vad kostar försäkring till {b}? {mod["kort"]} Se prisbild, '
-                        f'rätt skyddsnivå och villkoren som skiljer bolagen åt.',
+                # Metabeskrivning: kapas vid ordgräns så att den aldrig slutar
+                # mitt i ett ord, och håller sig under 155 tecken.
+                'desc': _desc(b, mod['slug'], mod['kort']),
                 'eyebrow': f'{m["namn"]} · {mod["typ"].capitalize()}',
                 'h1': f'{b} försäkring',
                 'lead': mod['kort'] + ' ' + mod['vinkel'].split('.')[0] + '.',
@@ -371,22 +419,29 @@ def sidor():
                 'card_t': f'Se vad din {b} kostar',
                 'sticky': f'Jämför försäkring till {b}',
                 'bild': f'/bilder/{m["slug"]}.webp' if m['slug'] else None,
-                'body': (f'<section class="sec"><div class="wrap narrow">'
-                         f'<div class="note"><p><strong>Kort sagt.</strong> {mod["vinkel"]}'
-                         f'</p></div>{kroppar}'
-                         f'<h2>Jämför {m["namn"]}-modellerna mot varandra</h2>'
-                         f'<p>{SYSKON_ING[i % len(SYSKON_ING)]}</p>'
-                         + _syskontabell(m, mod, lista)
-                         + data.saknas_ruta('priserna per modell')
-                         + f'<div class="cta"><h2>Se priset på din {b}</h2>'
-                           f'<p>Ange registreringsnumret så hämtas bilens uppgifter '
-                           f'automatiskt.</p><div class="cta-inner">{{PLATE}}</div></div>'
-                           f'</div></section>'
-                         + kort.sektion(
-                             f'Bolag att jämföra {b} hos',
-                             None,
-                             ['ica-forsakring', 'dina-forsakringar', 'gofido'],
-                             smal=True, kompakt=True)),
+                'body': (
+                    f'<section class="sec"><div class="wrap narrow">'
+                    f'<div class="note"><p><strong>Kort sagt.</strong> {mod["vinkel"]}</p>'
+                    f'</div>'
+                    + _sektion('pris', m, mod, b, i, lista)
+                    + '</div></section>'
+                    # Bolagen direkt under prisavsnittet — det är där läsaren är
+                    # när frågan "vad kostar det" precis besvarats.
+                    + kort.sektion(
+                        f'Bolag att begära offert från till {b}',
+                        None, ['ica-forsakring', 'dina-forsakringar', 'gofido'],
+                        smal=True, kompakt=True)
+                    + f'<section class="sec"><div class="wrap narrow">'
+                    + kroppar
+                    + f'<h2>{SYSKON_H2[i % len(SYSKON_H2)].replace("{m}", m["namn"])}</h2>'
+                    + f'<p>{SYSKON_ING[i % len(SYSKON_ING)]}</p>'
+                    + _syskontabell(m, mod, lista)
+                    + f'<h2>{mod_extra.get("lang", ("", ""))[0]}</h2>'
+                    + f'<p class="direkt">{mod_extra.get("lang", ("", ""))[1]}</p>'
+                    + f'<div class="cta"><h2>Se priset på din {b}</h2>'
+                      f'<p>Ange registreringsnumret så hämtas bilens uppgifter '
+                      f'automatiskt.</p><div class="cta-inner">{{PLATE}}</div></div>'
+                      f'</div></section>'),
                 'faq_h2': f'Vanliga frågor om försäkring till {b}',
                 'faq': faq,
                 'rel': [(f'/bilmarken/{m["slug"]}/', f'{m["namn"]} bilförsäkring'),

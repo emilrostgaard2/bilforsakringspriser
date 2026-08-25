@@ -95,10 +95,22 @@ BETYG_UTAN = [
  'Bolaget saknar värde i Svenskt Kvalitetsindex branschmätning, vilket normalt beror på att '
  'marknadsandelen ännu inte är tillräcklig för statistisk tillförlitlighet. Det säger '
  'ingenting om kvaliteten — bara att underlaget är för tunt.',
- 'Det finns ingen SKI-siffra att luta sig mot här. Mätningen kräver en viss marknadsandel för '
- 'att bli statistiskt hållbar, och nyare aktörer hamnar därför utanför tills de vuxit.',
- 'Oberoende kundnöjdhetsdata saknas för bolaget. Läs villkoren i stället — de går att '
- 'jämföra oavsett hur många kunder bolaget har.',
+ 'Det finns inget SKI-värde för bolaget. Mätningen kräver ett visst antal kunder för att '
+ 'vara statistiskt hållbar, och mindre bolag hamnar därför utanför oavsett hur nöjda '
+ 'kunderna är.',
+ 'Bolaget deltar inte i den branschmätning som ligger till grund för kundnöjdhetssiffrorna. '
+ 'Det är vanligt bland nyare aktörer och säger ingenting om hur ärenden hanteras.',
+ 'Kundnöjdheten är inte uppmätt av någon oberoende part. Läs villkoren och '
+ 'skadehanteringsrutinerna i stället — de går att bedöma utan betyg.',
+ 'Ingen oberoende mätning täcker bolaget i dag. Det gör inte bolaget sämre, men det gör att '
+ 'du får väga villkoren tyngre när du jämför.',
+ 'Varken Svenskt Kvalitetsindex eller Konsumenternas Försäkringsbyrå har publicerat något '
+ 'värde för bolaget. Vi väljer att skriva ut det i stället för att fylla luckan med en '
+ 'gissning.',
+ 'Bolaget står utanför de årliga mätningarna. Det är typiskt för aktörer med liten '
+ 'marknadsandel, och betyder att du får luta dig mot villkoren och mot egna offerter.',
+ 'Underlaget räcker inte för ett publicerat betyg. Bedöm bolaget på självrisker, '
+ 'hyrbilsdagar och verkstadsval — poster som går att jämföra utan mätningar.',
 ]
 
 
@@ -168,11 +180,27 @@ def bolagssidor():
                     f'<p>Vi rekommenderar inte alla bolag till alla. Här är båda sidorna.</p>'
                     f'<div class="split"><div><h3>Ett bra val om</h3><ul>{ja}</ul></div>'
                     f'<div><h3>Välj något annat om</h3><ul>{nej}</ul></div></div>'),
+         # Bytesreglerna har en egen sida sedan augusti 2026. Att upprepa dem
+         # på sexton bolagssidor skapade både dubblettinnehåll och intern
+         # konkurrens om samma sökfras. Här står bara det bolagsspecifika,
+         # resten länkas.
          'byta': (f'<h2>{H["byta"]}</h2>'
-                  + ''.join(f'<h3>{t}</h3><p>{p}</p>' for t, p in byta_par)),
+                  + f'<h3>{byta_par[0][0]}</h3><p>{byta_par[0][1]}</p>'
+                  + f'<p>De allmänna reglerna — huvudförfallodag, uppsägningstid och när du '
+                    f'får byta i förtid — gäller oavsett bolag och står samlade under '
+                    f'<a href="/byta-bilforsakring/">byta bilförsäkring</a>. Där finns också '
+                    f'hur du flyttar med dina '
+                    f'<a href="/bonus-och-skadefria-ar/">skadefria år</a> utan att tappa '
+                    f'bonus.</p>'),
+         # Skadeanmälan följer samma logik: två steg här, resten på den
+         # sida som faktiskt ska ranka på frågan.
          'skada': (f'<h2>{H["skada"]}</h2>'
                    + ''.join(f'<h3>{n}. {t}</h3><p>{p}</p>'
-                             for n, (t, p) in enumerate(skada_steg, 1))),
+                             for n, (t, p) in enumerate(skada_steg[:2], 1))
+                   + f'<p>Hur ärendet sedan drivs vidare, vad som händer med '
+                     f'<a href="/bonus-och-skadefria-ar/">bonusen</a> och hur '
+                     f'<a href="/sjalvrisk/">självrisken</a> räknas skiljer sig mellan '
+                     f'bolagen — kontrollera det i villkoren innan du tecknar.</p>'),
         }
 
         body = ''.join((_sec_alt if n % 2 else _sec)(S[k])

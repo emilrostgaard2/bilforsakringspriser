@@ -10,7 +10,7 @@ import os, json, re, html
 import data, forfattare
 
 BASE = 'https://bilforsakringspriser.se'
-V = '20260825a'           # cache-stämpel — höj vid ändring i css/js
+V = '20260825b'           # cache-stämpel — höj vid ändring i css/js
 ROOT = os.path.dirname(os.path.abspath(__file__))
 os.chdir(ROOT)
 
@@ -208,6 +208,13 @@ def page(d):
         if len(dele) > 1:
             far = {'forsakringsbolag': 'Försäkringsbolag', 'bilmarken': 'Bilmärken'}.get(dele[0], dele[0])
             bc.append({"@type": "ListItem", "position": 2, "name": far, "item": f"{BASE}/{dele[0]}/"})
+        # Tre nivåer: /bilmarken/volvo/xc60/ ska ha Volvo som eget steg,
+        # annars tappar brödsmulan mellanledet i sökresultatet.
+        if len(dele) > 2:
+            import brands as _b
+            _namn = {x['slug']: x['namn'] for x in _b.MARKEN}.get(dele[1], dele[1].title())
+            bc.append({"@type": "ListItem", "position": 3, "name": _namn,
+                       "item": f"{BASE}/{dele[0]}/{dele[1]}/"})
         bc.append({"@type": "ListItem", "position": len(bc) + 1, "name": d["h1"], "item": url})
     ld = [{"@context": "https://schema.org", "@type": "BreadcrumbList",
            "itemListElement": bc}] if slug else []
