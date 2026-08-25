@@ -10,7 +10,7 @@ import os, json, re, html
 import data, forfattare
 
 BASE = 'https://bilforsakringspriser.se'
-V = '20260824d'           # cache-stämpel — höj vid ändring i css/js
+V = '20260824e'           # cache-stämpel — höj vid ändring i css/js
 ROOT = os.path.dirname(os.path.abspath(__file__))
 os.chdir(ROOT)
 
@@ -239,6 +239,10 @@ def page(d):
     ld_tags = ''.join(f'<script type="application/ld+json">{json.dumps(x, ensure_ascii=False)}</script>'
                       for x in ld)
 
+    # Startsidan har breda partnerkort högst upp; då ska FAQ, läs vidare
+    # och författarrutan linjera med dem i stället för att hoppa in.
+    wr = 'wrap' if slug == '' else 'wrap narrow'
+
     faq_html = ''
     if d.get('faq'):
         items = ''.join(
@@ -246,13 +250,13 @@ def page(d):
             f'<svg class="q-arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" '
             f'stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>'
             f'<div class="q-a">{a}</div></div>' for q, a in d['faq'])
-        faq_html = (f'<section class="sec alt"><div class="wrap narrow">'
+        faq_html = (f'<section class="sec alt"><div class="{wr}">'
                     f'<h2>{d.get("faq_h2", "Vanliga frågor")}</h2><div class="faq">{items}</div></div></section>')
 
     rel = ''
     if d.get('rel'):
         li = ''.join(f'<li><a href="{u}">{t}</a></li>' for u, t in d['rel'])
-        rel = f'<div class="wrap narrow"><nav class="rel" aria-label="Läs vidare"><h2>Läs vidare</h2><ul>{li}</ul></nav></div>'
+        rel = f'<div class="{wr}"><nav class="rel" aria-label="Läs vidare"><h2>Läs vidare</h2><ul>{li}</ul></nav></div>'
 
     body_html = d['body'].replace('{PLATE}', plate('pagePlate', 'Jämför gratis nu'))
 
@@ -309,7 +313,7 @@ def page(d):
 {rel}
 </main>
 
-{forfattare.ruta()}
+{forfattare.ruta(wr)}
 
 {sticky(d.get('sticky', 'Se vad din bil kostar att försäkra'))}
 {footer()}

@@ -19,6 +19,8 @@
   --navy-2:#1d3b5c;
   --blue:#2f6f9f;
   --blue-deep:#245a82;
+  --orange:#e0741f;
+  --orange-deep:#c9600f;
   --blue-soft:#e8f2f9;
   --blue-line:#bcd9ec;
   --green:#2d7a4f;
@@ -429,11 +431,12 @@ tbody tr:last-child td,tbody tr:last-child th{border-bottom:0}
 .pk-pris small{font-size:.72rem;color:var(--ink-2)}
 .pk-pris.tom p{margin:0;font-size:.8rem;color:var(--ink-2);line-height:1.5}
 .pk-cta{
-  display:block;text-align:center;padding:11px 16px;border-radius:10px;
-  background:var(--blue-deep);color:#fff!important;font-weight:700;font-size:.94rem;
-  text-decoration:none;
+  display:block;text-align:center;padding:12px 16px;border-radius:10px;
+  background:var(--orange);color:#fff!important;font-weight:700;font-size:.94rem;
+  text-decoration:none;box-shadow:0 1px 2px rgba(0,0,0,.12);
 }
-.pk-cta:hover{filter:brightness(1.08)}
+.pk-cta:hover{background:var(--orange-deep)}
+.pk-cta:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
 .pk-lank{display:block;text-align:center;font-size:.85rem;font-weight:600}
 .pk-fot{margin-top:16px;font-size:.8rem;color:var(--ink-2);max-width:70ch}
 .pk.tjanst{background:#fbfcfd}
@@ -452,3 +455,9 @@ tbody tr:last-child td,tbody tr:last-child th{border-bottom:0}
   .pk-cta{width:100%}
   .pk-lank{text-align:center}
 }
+
+/* Startsidan i kortens bredd. Block (rutor, tabeller, grid) går ut i
+   hela bredden så att de linjerar med korten ovanför, medan löptexten
+   hålls på läsbar radlängd — 1 040 px bred brödtext är svårt att läsa. */
+.start>p,.start>ul,.start>ol{max-width:72ch}
+.start>h2{max-width:34ch}

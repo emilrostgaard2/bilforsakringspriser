@@ -58,7 +58,7 @@ FORFATTARE = {
 GRANSKARE = {'namn': '', 'titel': '', 'text': ''}
 
 
-def ruta():
+def ruta(wrap='wrap narrow'):
     """Kompakt författarruta sist på varje sida.
 
     Medvetet liten: den ska svara på vem som står bakom, inte ta plats
@@ -71,7 +71,7 @@ def ruta():
                     f'{GRANSKARE["titel"]}.</span> ')
 
     return (
-        '<div class="wrap narrow"><div class="fb">'
+        f'<div class="{wrap}"><div class="fb">'
         f'<img class="fb-bild" src="{f["bild"]}" '
         f'srcset="{f["bild"]} 1x, {f["bild2x"]} 2x" width="44" height="44" '
         f'alt="{f["namn"]}" loading="lazy" decoding="async">'

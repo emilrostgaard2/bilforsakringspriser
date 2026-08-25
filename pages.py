@@ -40,7 +40,7 @@ PAGES = [
  'body': f'''
 {kort.sektion()}
 
-<section class="sec"><div class="wrap narrow">
+<section class="sec"><div class="wrap start">
 <div class="note"><p><strong>Kort sagt.</strong> Trafikförsäkring är det lagstadgade minimum
 och täcker bara skador på andra. Halvförsäkring lägger till stöld, brand, glas och
 räddning. Helförsäkring är den enda som ersätter skador på din egen bil vid en olycka
@@ -87,7 +87,7 @@ råkat ut för skadegörelse. På en nyare bil är det den viktigaste delen av h
 </div>
 </div></section>
 
-<section class="sec alt"><div class="wrap narrow">
+<section class="sec alt"><div class="wrap start">
 <h2>Vad påverkar priset mest?</h2>
 <p>Bolagen väger faktorerna olika, och det är därför samma bil och samma förare kan få
 offerter som skiljer flera tusen kronor. Det här är de sex som väger tyngst.</p>
@@ -120,7 +120,7 @@ korrekt — annars börjar du om från noll.</p>
 {METOD}
 </div></section>
 
-<section class="sec"><div class="wrap narrow">
+<section class="sec"><div class="wrap start">
 <h2>Oberoende betyg — och varför de är värda att läsa</h2>
 <p>Konsumenternas Försäkringsbyrå granskar villkoren i svenska bilförsäkringar och sätter
 betyg från 1 till 5. De säljer ingenting och arbetar inte på uppdrag av något bolag, vilket
