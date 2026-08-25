@@ -65,7 +65,8 @@ MARKEN = [
    'delarna tillgängliga. Ändå ligger premien över Volkswagen med motsvarande motor, och '
    'skillnaden ligger i nypriset: kaskopremien räknas på vad bilen kostar att ersätta. '
    'Quattro-modellerna har fler komponenter som kan ta skada vid en påkörning.',
- 'modeller':['A3','A4','Q3','Q5','A6','Q4 e-tron','e-tron','A1'],
+ 'modeller':['A4','A6','A3','Q3','Q5','Q7','Q4 e-tron','Q6 e-tron',
+             'A6 e-tron','e-tron GT'],
  'punkter':['Samma plattform som VW men högre nypris ger högre premie',
             'Quattro innebär fler skadekänsliga komponenter',
             'Stora fälgar är dyra att ersätta och täcks bara av helförsäkring']},

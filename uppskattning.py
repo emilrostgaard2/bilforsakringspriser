@@ -78,6 +78,10 @@ MODELLKLASS = {
     # XPeng
     'g6': 'elbil', 'g9': 'elbil-stor', 'p7': 'elbil', 'x9': 'elbil-stor',
     # Cupra
+    # Audi
+    'a4': 'volym', 'a6': 'stor', 'a3': 'volym', 'q3': 'volym', 'q5': 'stor',
+    'q7': 'premium', 'q4-e-tron': 'elbil', 'q6-e-tron': 'elbil-stor',
+    'a6-e-tron': 'elbil-stor', 'e-tron-gt': 'prestanda',
     # Polestar
     'polestar-2': 'elbil', 'polestar-3': 'elbil-stor', 'polestar-4': 'elbil-stor',
     # Zeekr
