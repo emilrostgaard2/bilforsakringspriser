@@ -11,7 +11,7 @@ att publicera direkt, eftersom de bygger på villkorslogik och på uppgifterna i
 companies.py — inte på siffror vi ännu inte samlat in.
 """
 from companies import BOLAG
-import data, marknad
+import data, marknad, kort
 
 TODO = ('<div class="warn"><strong>PLATSHÅLLARE — ska ersättas före lansering.</strong> '
         'Beloppen i tabellen är exempelplatser och inte insamlade marknadspriser.</div>')
@@ -76,6 +76,10 @@ SIDOR = [
  'card_t': 'Se vilket bolag som är billigast för dig',
  'sticky': 'Hitta din billigaste bilförsäkring',
  'body': f'''
+{kort.sektion('Bolag som ofta ligger lågt',
+    'Priset räknas fram individuellt, så ingen lista kan peka ut det billigaste bolaget för din bil. De här tre återkommer däremot i andras prisexempel och i de oberoende betygen, och är en rimlig startpunkt för dina egna offerter.',
+    ['gofido', 'ica-forsakring', 'dina-forsakringar'], smal=True)}
+
 <section class="sec"><div class="wrap narrow">
 <div class="note"><p><strong>Kort sagt.</strong> Ingen lista kan peka ut det billigaste bolaget
 för just din bil, eftersom priset räknas fram individuellt. Det du kan göra är att förstå
@@ -231,6 +235,10 @@ offerter — hur du gör det steg för steg står i vår guide till
  'card_t': 'Se vad din elbil kostar att försäkra',
  'sticky': 'Jämför försäkring till din elbil',
  'body': f'''
+{kort.sektion('Bolag att jämföra elbilsförsäkring hos',
+    'På elbil är det batteriets omfattning, verkstadsnätet och antalet hyrbilsdagar som avgör, inte premien ensam. Begär offert hos flera och ställ samma fyra frågor till var och en.',
+    ['ica-forsakring', 'gofido', 'dina-forsakringar'], smal=True)}
+
 <section class="sec"><div class="wrap narrow">
 <div class="note"><p><strong>Kort sagt.</strong> Elbilar har historiskt legat högre i premie
 än jämnstora bensinbilar, framför allt för att reparationerna är dyrare och verkstäderna

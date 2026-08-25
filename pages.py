@@ -201,6 +201,10 @@ den vanligaste situationen först.</p>
             'Kontrollera vad som redan ingår innan du köper till'],
  'sticky': 'Hämta din offert',
  'body': f'''
+{kort.sektion('Bolag att begära offert från',
+    'Behöver du en startpunkt för de tre offerterna: här är tre bolag som utmärker sig på var sitt sätt — högsta betyget på trafikförsäkring, högsta kundnöjdheten och lägsta premien i publicerade prisexempel.',
+    ['ica-forsakring', 'dina-forsakringar', 'gofido'], smal=True)}
+
 <section class="sec"><div class="wrap narrow">
 <div class="note"><p><strong>Kort sagt.</strong> Ett listpris säger nästan ingenting.
 Två offerter till samma belopp kan ha olika självrisk, olika tillägg och olika
@@ -406,6 +410,10 @@ vilka du ska begära offert från.</p>
             'Täcker aldrig skador på din egen bil'],
  'sticky': 'Se pris på trafikförsäkring',
  'body': f'''
+{kort.sektion('Bolag med starka villkor på trafikförsäkring',
+    'Trafikförsäkringen är samma lagstadgade skydd överallt, så det som skiljer är pris, service och hur snabbt ett ärende hanteras. ICA Försäkring har det högsta betyget på just den här nivån.',
+    ['ica-forsakring', 'gofido', 'dina-forsakringar'], smal=True)}
+
 <section class="sec"><div class="wrap narrow">
 <div class="note"><p><strong>Kort sagt.</strong> Trafikförsäkring är enligt trafikskadelagen
 obligatorisk för alla fordon i trafik. Den ersätter personskador — både dina och andras —
@@ -552,6 +560,10 @@ lagstadgade skyddet handlar om andra, inte om din egen egendom.</p>
             'Räcker ofta för bilar med vagnskadegaranti kvar'],
  'sticky': 'Se pris på halvförsäkring',
  'body': f'''
+{kort.sektion('Bolag att jämföra halvförsäkring hos',
+    'På halvförsäkring är det momenten som skiljer — glassjälvrisk, maskinskadans åldersgräns och kraven på stöldskydd. Här är tre bolag med olika profil att ställa mot varandra.',
+    ['dina-forsakringar', 'ica-forsakring', 'gofido'], smal=True)}
+
 <section class="sec"><div class="wrap narrow">
 <div class="note"><p><strong>Kort sagt.</strong> Halvförsäkring är trafikförsäkring plus ett
 antal delmoment: stöld, brand, glas, räddning, rättsskydd och hos de flesta bolag även
@@ -695,6 +707,10 @@ oftast rätt långt ned i värdeskalan — står den på gatan i
             'Sällan lönsam när bilen är värd under 30 000 kronor'],
  'sticky': 'Se pris på helförsäkring',
  'body': f'''
+{kort.sektion('Bolag att jämföra helförsäkring hos',
+    'Helförsäkring är den dyraste nivån, och därför den där skillnaden mellan bolagen ger störst utslag i kronor. Kundnöjdheten väger tyngre här, eftersom det är på vagnskadeärenden handläggningen märks.',
+    ['dina-forsakringar', 'ica-forsakring', 'gofido'], smal=True)}
+
 <section class="sec"><div class="wrap narrow">
 <div class="note"><p><strong>Kort sagt.</strong> Helförsäkring är halvförsäkring plus
 vagnskada. Vagnskadan ersätter skador på din egen bil vid trafikolycka, skadegörelse och

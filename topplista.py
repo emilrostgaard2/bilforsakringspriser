@@ -13,7 +13,7 @@ i efterhand. Här går modellen att granska, och den ändrar sig av sig
 själv när data.py fylls i.
 """
 from companies import BOLAG
-import data, marknad
+import data, marknad, kort
 
 # Vikter. Summan behöver inte bli 1 — de normaliseras per bolag utifrån
 # vilka kriterier som har underlag.
@@ -151,6 +151,10 @@ def sidan():
                    'insamlade för merparten av bolagen publiceras listan som rankning.</div>')
 
     body = f'''
+{kort.sektion('Bolagen som utmärker sig i underlaget',
+    'Tre bolag som ligger högt på var sitt kriterium i sammanställningen nedan. Placeringen på hela listan hittar du i tabellen längre ned.',
+    ['ica-forsakring', 'dina-forsakringar', 'gofido'], smal=True)}
+
 <section class="sec"><div class="wrap narrow">
 <div class="note"><p><strong>Kort sagt.</strong> Det finns ingen försäkring som är bäst för
 alla. Den här listan rangordnar bolagen på fyra kriterier med öppna vikter, så att du kan se

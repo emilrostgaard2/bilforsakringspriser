@@ -461,3 +461,20 @@ tbody tr:last-child td,tbody tr:last-child th{border-bottom:0}
    hålls på läsbar radlängd — 1 040 px bred brödtext är svårt att läsa. */
 .start>p,.start>ul,.start>ol{max-width:72ch}
 .start>h2{max-width:34ch}
+
+/* Kortsektionen i smal spalt (undersidorna) — samma kort, tätare layout
+   eftersom textkolumnen annars blir för smal bredvid logotyp och pris. */
+.pk-sek.smal .pk-in{grid-template-columns:104px 1fr;gap:16px}
+.pk-sek.smal .pk-hoger{
+  grid-column:1/-1;flex-direction:row;align-items:center;flex-wrap:wrap;gap:12px;
+  padding-top:13px;border-top:1px solid var(--line);
+}
+.pk-sek.smal .pk-pris{margin:0}
+.pk-sek.smal .pk-cta{flex:1;min-width:190px}
+.pk-sek.smal .pk-lank{text-align:left}
+.pk-sek.smal .pk-logo{min-height:0;justify-content:flex-start}
+@media(max-width:560px){
+  .pk-sek.smal .pk-in{grid-template-columns:1fr}
+  .pk-sek.smal .pk-hoger{flex-direction:column;align-items:stretch}
+  .pk-sek.smal .pk-lank{text-align:center}
+}

@@ -117,9 +117,13 @@ def _tagg(t):
     return f'<span class="pk-tagg">{t}</span>'
 
 
-def kort():
+def kort(ordning=None):
+    lista = PARTNERS
+    if ordning:
+        index = {p['slug']: p for p in PARTNERS}
+        lista = [index[x] for x in ordning if x in index]
     ut = []
-    for p in PARTNERS:
+    for p in lista:
         taggar = ''.join(_tagg(t) for t in p['taggar'])
         ut.append(f'''<article class="pk">
 <p class="pk-badge {p['badge_typ']}">{BADGE_IKON[p['badge_typ']]} {p['badge']}</p>
@@ -149,7 +153,13 @@ def kort():
     return ''.join(ut)
 
 
-def sektion():
+def sektion(rubrik='Bolag att börja med', ingress=None, ordning=None, smal=False):
+    """Kortsektionen. Varje sida skickar in egen rubrik och ingress.
+
+    Korten är samma modul på flera sidor — det är en komponent, inte
+    brödtext. Rubrik, ingress och ordning varieras ändå per sida, dels
+    för att texten ska passa sammanhanget, dels för att sidorna inte ska
+    dela stycken med varandra."""
     sponsrat = any(p.get('aff') for p in PARTNERS) or bool(TJANST.get('aff'))
     upplysning = (
         '<p class="pk-upp"><strong>Så finansieras sajten.</strong> '
@@ -161,14 +171,21 @@ def sektion():
            'egna genomgångar. Ordningen bygger på kriterierna i vår ')
         + '<a href="/redaktionell-metod/">redaktionella metod</a>, inte på ersättning.</p>')
 
-    return f'''<section class="sec pk-sek"><div class="wrap">
-<h2>Bolag att börja med</h2>
-<p class="pk-ing">Tre bolag som utmärker sig på var sin punkt — betyg, kundnöjdhet och pris.
-Etiketterna hänvisar till betyg från Konsumenternas Försäkringsbyrå och till publicerade
-prisexempel, aldrig till egna omdömen. Hela marknaden finns under
+    if ingress is None:
+        ingress = ('Tre bolag som utmärker sig på var sin punkt — betyg, kundnöjdhet och '
+                   'pris. Etiketterna hänvisar till betyg från Konsumenternas '
+                   'Försäkringsbyrå och till publicerade prisexempel, aldrig till egna '
+                   'omdömen.')
+
+    wrap = 'wrap narrow' if smal else 'wrap'
+    klass = 'sec pk-sek smal' if smal else 'sec pk-sek'
+
+    return f'''<section class="{klass}"><div class="{wrap}">
+<h2>{rubrik}</h2>
+<p class="pk-ing">{ingress} Hela marknaden finns under
 <a href="/forsakringsbolag/">försäkringsbolag</a>.</p>
 {upplysning}
-<div class="pk-lista">{kort()}</div>
+<div class="pk-lista">{kort(ordning)}</div>
 <p class="pk-fot">Priserna avser {data.PROFIL_TEXT}. En annan profil ger ett annat pris —
 begär alltid egen offert. Senast kontrollerad: {data.UPPDATERAD_TEXT}.</p>
 </div></section>'''
