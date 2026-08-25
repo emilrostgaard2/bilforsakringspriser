@@ -78,6 +78,18 @@ MODELLKLASS = {
     # XPeng
     'g6': 'elbil', 'g9': 'elbil-stor', 'p7': 'elbil', 'x9': 'elbil-stor',
     # Cupra
+    # Kia
+    'sportage': 'volym', 'niro': 'volym', 'ev6': 'elbil', 'ev9': 'elbil-stor',
+    'ev3': 'elbil', 'ceed': 'budget', 'xceed': 'volym', 'stonic': 'budget',
+    'picanto': 'budget', 'sorento': 'stor',
+    # BMW
+    '3-serie': 'stor', '5-serie': 'premium', 'x1': 'volym', 'x3': 'stor',
+    'x5': 'premium', 'ix1': 'elbil', 'ix3': 'elbil', 'i4': 'elbil-stor',
+    'i5': 'elbil-stor', 'ix': 'elbil-stor',
+    # Peugeot
+    '208': 'budget', 'e-208': 'elbil', '2008': 'volym', '308': 'volym',
+    '408': 'volym', '3008': 'volym', '5008': 'stor', '508': 'stor',
+    'rifter': 'volym', 'traveller': 'stor',
     # Audi
     'a4': 'volym', 'a6': 'stor', 'a3': 'volym', 'q3': 'volym', 'q5': 'stor',
     'q7': 'premium', 'q4-e-tron': 'elbil', 'q6-e-tron': 'elbil-stor',

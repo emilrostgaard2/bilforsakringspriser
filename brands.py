@@ -45,7 +45,8 @@ MARKEN = [
    'andrahandsvärdet uppe längre än hos många konkurrenter. Det påverkar dig direkt vid '
    'totalskada, eftersom ersättningen räknas på marknadsvärdet. Elbilarna delar E-GMP-plattform '
    'med Hyundai, vilket ger volym i reservdelskatalogen.',
- 'modeller':['Ceed','Sportage','Niro','EV6','Picanto','Rio','EV9','Sorento'],
+ 'modeller':['Sportage','Niro','EV6','EV9','EV3','Ceed','XCeed','Stonic',
+             'Picanto','Sorento'],
  'punkter':['Sju års garanti som följer bilen håller uppe restvärdet',
             'E-GMP-plattformen delas med Hyundai',
             'Elbilar kräver uttryckligt batteriskydd i villkoren']},
@@ -55,7 +56,7 @@ MARKEN = [
    'tror. Det handlar mindre om effekt och mer om reservdelspriser och den förarassistans som '
    'sitter bakom vindrutan: en rutbyte med kalibrering kostar mångdubbelt mot en enklare bil. '
    'M-modellerna hamnar i en egen riskklass där flera bolag kräver förhöjd självrisk.',
- 'modeller':['3-serie','X1','X3','5-serie','i4','iX1','X5','1-serie'],
+ 'modeller':['3-serie','5-serie','X1','X3','X5','iX1','iX3','i4','i5','iX'],
  'punkter':['Dyra reservdelar driver kaskopremien',
             'ADAS bakom vindrutan gör rutbyten kostsamma',
             'M-modeller placeras i högsta effektgruppen']},
@@ -117,7 +118,8 @@ MARKEN = [
    'Koncerntillhörigheten har breddat reservdelstillgången de senaste åren och pressat '
    'reparationskostnaderna. Elbilsvarianterna delar teknik med Opel, vilket ger volymfördelar '
    'som mindre elbilsmärken saknar.',
- 'modeller':['208','2008','308','3008','508','5008','e-208','Partner'],
+ 'modeller':['208','e-208','2008','308','408','3008','5008','508',
+             'Rifter','Traveller'],
  'punkter':['Stellantis-tillhörigheten ger bredare delstillgång',
             'Elbilar delar teknik med Opel',
             'Dieselmodeller är dyrare att kaskoförsäkra än bensin']},

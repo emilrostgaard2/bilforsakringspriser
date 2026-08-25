@@ -28,14 +28,20 @@ from modeller_extra_skoda import EXTRA_SKODA as _E3
 from modeller_extra_vw import EXTRA_VW as _E4
 from modeller_extra_4 import EXTRA_4 as _E5
 from modeller_extra_audi import EXTRA_AUDI as _E6
+from modeller_extra_peugeot import EXTRA_PEUGEOT as _E7
+from modeller_extra_bmw import EXTRA_BMW as _E8
+from modeller_extra_kia import EXTRA_KIA as _E9
 
-EXTRA = {**_E1, **_E2, **_E3, **_E4, **_E5, **_E6}
+EXTRA = {**_E1, **_E2, **_E3, **_E4, **_E5, **_E6, **_E7, **_E8, **_E9}
 META = {**_META1,
         **{k: v['meta'] for k, v in _E2.items() if v.get('meta')},
         **{k: v['meta'] for k, v in _E3.items() if v.get('meta')},
         **{k: v['meta'] for k, v in _E4.items() if v.get('meta')},
         **{k: v['meta'] for k, v in _E5.items() if v.get('meta')},
-        **{k: v['meta'] for k, v in _E6.items() if v.get('meta')}}
+        **{k: v['meta'] for k, v in _E6.items() if v.get('meta')},
+        **{k: v['meta'] for k, v in _E7.items() if v.get('meta')},
+        **{k: v['meta'] for k, v in _E8.items() if v.get('meta')},
+        **{k: v['meta'] for k, v in _E9.items() if v.get('meta')}}
 from brands import MARKEN
 import data
 import kort
