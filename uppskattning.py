@@ -78,6 +78,14 @@ MODELLKLASS = {
     # XPeng
     'g6': 'elbil', 'g9': 'elbil-stor', 'p7': 'elbil', 'x9': 'elbil-stor',
     # Cupra
+    # Toyota
+    'yaris': 'budget', 'yaris-cross': 'volym', 'corolla': 'volym',
+    'corolla-cross': 'volym', 'rav4': 'stor', 'c-hr': 'volym', 'aygo-x': 'budget',
+    'bz4x': 'elbil', 'camry': 'stor', 'land-cruiser': 'premium',
+    # Mercedes-Benz
+    'c-klass': 'stor', 'e-klass': 'premium', 'a-klass': 'volym', 'cla': 'elbil-stor',
+    'gla': 'volym', 'glb': 'stor', 'glc': 'stor', 'gle': 'premium',
+    'eqa': 'elbil', 'v-klass': 'premium',
     # Kia
     'sportage': 'volym', 'niro': 'volym', 'ev6': 'elbil', 'ev9': 'elbil-stor',
     'ev3': 'elbil', 'ceed': 'budget', 'xceed': 'volym', 'stonic': 'budget',

@@ -35,7 +35,8 @@ MARKEN = [
    'och det syns i premien. Hybridtekniken är dessutom välbeprövad — batteriet är ett litet '
    'buffertbatteri, inte ett stort drivbatteri, vilket gör att Toyotas hybrider prissätts '
    'nära bensinbilar och inte nära elbilar.',
- 'modeller':['Yaris','Corolla','RAV4','C-HR','Aygo X','Yaris Cross','Corolla Cross','bZ4X'],
+ 'modeller':['Yaris','Yaris Cross','Corolla','Corolla Cross','RAV4','C-HR',
+             'Aygo X','bZ4X','Camry','Land Cruiser'],
  'punkter':['Låg skadefrekvens ger lägre premie',
             'Hybridbatteriet är litet och billigt jämfört med elbil',
             'Hybridgarantin kan förlängas med årlig kontroll']},
@@ -77,7 +78,8 @@ MARKEN = [
    'Reservdelar är kostsamma, servicenätet är smalare än hos volymmärkena, och modellerna är '
    'överrepresenterade i stöldstatistiken i storstadsområden. Bopostnumret väger därför tyngre '
    'här än på ett genomsnittligt märke.',
- 'modeller':['A-Klass','C-Klass','GLC','E-Klass','EQA','GLA','B-Klass','EQC'],
+ 'modeller':['C-Klass','E-Klass','A-Klass','CLA','GLA','GLB','GLC','GLE',
+             'EQA','V-Klass'],
  'punkter':['Höga reservdelspriser slår igenom på kaskopremien',
             'Stöldrisken påverkar premien mer i storstad',
             'Smalare verkstadsnät än volymmärkena']},

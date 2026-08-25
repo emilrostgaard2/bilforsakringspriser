@@ -14,5 +14,7 @@ from modeller_audi import MODELLER_AUDI as _M6
 from modeller_peugeot import MODELLER_PEUGEOT as _M7
 from modeller_bmw import MODELLER_BMW as _M8
 from modeller_kia import MODELLER_KIA as _M9
+from modeller_toyota import MODELLER_TOYOTA as _M10
+from modeller_mercedes import MODELLER_MERCEDES as _M11
 
-MODELLER = {**_M1, **_M2, **_M3, **_M4, **_M5, **_M6, **_M7, **_M8, **_M9}
+MODELLER = {**_M1, **_M2, **_M3, **_M4, **_M5, **_M6, **_M7, **_M8, **_M9, **_M10, **_M11}
