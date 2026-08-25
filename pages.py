@@ -17,6 +17,8 @@ METOD = ('<div class="src"><p><strong>Så räknar vi.</strong> Alla priser gäll
          'och 4 000 kr i självrisk. Ändras en förutsättning ändras priset — ofta mycket. '
          'Läs mer i vår <a href="/redaktionell-metod/">redaktionella metod</a>.</p></div>')
 
+import kort
+
 PAGES = [
 
 # ═══ START ═════════════════════════════════════════════════════════
@@ -36,6 +38,8 @@ PAGES = [
  'card_note': 'Det tar under två minuter',
  'sticky': 'Jämför bilförsäkring gratis',
  'body': f'''
+{kort.sektion()}
+
 <section class="sec"><div class="wrap narrow">
 <div class="note"><p><strong>Kort sagt.</strong> Trafikförsäkring är det lagstadgade minimum
 och täcker bara skador på andra. Halvförsäkring lägger till stöld, brand, glas och

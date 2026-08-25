@@ -10,7 +10,7 @@ import os, json, re, html
 import data, forfattare
 
 BASE = 'https://bilforsakringspriser.se'
-V = '20260824c'           # cache-stämpel — höj vid ändring i css/js
+V = '20260824d'           # cache-stämpel — höj vid ändring i css/js
 ROOT = os.path.dirname(os.path.abspath(__file__))
 os.chdir(ROOT)
 

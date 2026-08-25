@@ -390,3 +390,65 @@ tbody tr:last-child td,tbody tr:last-child th{border-bottom:0}
 .fb-gr{font-weight:600;color:var(--navy)}
 .fb-jur{font-size:.76rem;color:var(--ink-2);margin-top:7px!important;line-height:1.5;opacity:.85}
 @media(max-width:620px){.fb{gap:11px;padding:12px 13px}}
+
+/* ── Partnerkort under hero ────────────────────────────────────── */
+.pk-sek{padding-top:34px}
+.pk-ing{max-width:70ch;color:var(--ink-2);margin-bottom:10px}
+.pk-upp{
+  max-width:70ch;font-size:.85rem;color:var(--ink-2);background:var(--blue-soft);
+  border-radius:10px;padding:11px 14px;margin-bottom:22px;
+}
+.pk-lista{display:flex;flex-direction:column;gap:16px}
+.pk{
+  position:relative;background:var(--paper);border:1px solid var(--line-2);
+  border-radius:14px;padding:20px;box-shadow:var(--sh);
+}
+.pk-badge{
+  position:absolute;top:-11px;left:18px;margin:0;padding:4px 12px;border-radius:99px;
+  font-size:.78rem;font-weight:700;line-height:1.5;border:1px solid transparent;
+}
+.pk-badge.guld{background:#fdf5e2;color:#8a6420;border-color:#e8d5a3}
+.pk-badge.silver{background:#eef2f6;color:#3f5872;border-color:#d3dde7}
+.pk-badge.blaa{background:var(--blue-soft);color:var(--blue-deep);border-color:#c5dcef}
+.pk-badge.grå{background:#f1f3f5;color:#5b6673;border-color:#e0e4e8}
+.pk-in{display:grid;grid-template-columns:132px 1fr 216px;gap:22px;align-items:start;margin-top:8px}
+.pk-logo{display:flex;align-items:center;justify-content:center;min-height:56px}
+.pk-logo img{max-width:120px;height:auto;width:auto;max-height:44px}
+.pk-txt h3{margin:0 0 6px;font-size:1.12rem;color:var(--navy)}
+.pk-txt p{margin:0 0 11px;font-size:.92rem;line-height:1.6}
+.pk-taggar{display:flex;flex-wrap:wrap;gap:7px}
+.pk-tagg{
+  font-size:.78rem;padding:4px 10px;border-radius:99px;
+  background:#f4f7fa;border:1px solid var(--line);color:var(--ink-2);
+}
+.pk-hoger{display:flex;flex-direction:column;gap:9px}
+.pk-pris{display:flex;gap:16px;margin-bottom:2px}
+.pk-pris div{display:flex;flex-direction:column}
+.pk-pris span{font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}
+.pk-pris strong{font-size:1.16rem;color:var(--navy);line-height:1.25}
+.pk-pris small{font-size:.72rem;color:var(--ink-2)}
+.pk-pris.tom p{margin:0;font-size:.8rem;color:var(--ink-2);line-height:1.5}
+.pk-cta{
+  display:block;text-align:center;padding:11px 16px;border-radius:10px;
+  background:var(--blue-deep);color:#fff!important;font-weight:700;font-size:.94rem;
+  text-decoration:none;
+}
+.pk-cta:hover{filter:brightness(1.08)}
+.pk-lank{display:block;text-align:center;font-size:.85rem;font-weight:600}
+.pk-fot{margin-top:16px;font-size:.8rem;color:var(--ink-2);max-width:70ch}
+.pk.tjanst{background:#fbfcfd}
+@media(max-width:900px){
+  .pk-in{grid-template-columns:96px 1fr;gap:16px}
+  .pk-hoger{grid-column:1/-1;flex-direction:row;align-items:center;flex-wrap:wrap;gap:12px}
+  .pk-pris{margin:0}
+  .pk-cta{flex:1;min-width:180px}
+  .pk-lank{text-align:left}
+}
+@media(max-width:560px){
+  .pk{padding:18px 15px}
+  .pk-in{grid-template-columns:1fr;gap:13px}
+  .pk-logo{justify-content:flex-start;min-height:0}
+  .pk-hoger{flex-direction:column;align-items:stretch}
+  .pk-cta{width:100%}
+  .pk-lank{text-align:center}
+}
