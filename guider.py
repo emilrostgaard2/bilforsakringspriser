@@ -131,6 +131,11 @@ i skydd.</p>
         'Kontrollera först att du verkligen har skyddet någon annanstans']],
       swipe=False)}
 
+<div class="note"><p><strong>Hela marknaden i en tabell.</strong> Vi har en
+jämförelse av samtliga 16 bolag med betyg, villkor, självrisker och vad som ingår på varje
+nivå — med filter på skyddsnivå och utfällbara detaljer per bolag.
+<a href="/forsakringsbolag/">Öppna jämförelsetabellen &#8594;</a></p></div>
+
 <h2>Bolagen på marknaden</h2>
 <p>Priset är bara ena halvan. Den andra är hur bolaget faktiskt beter sig när du väl behöver
 det. Konsumenternas Försäkringsbyrå betygsätter villkorens innehåll på en skala från 1 till 5,

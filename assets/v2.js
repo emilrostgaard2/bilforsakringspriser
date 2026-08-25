@@ -122,6 +122,53 @@
     }
   });
 
+
+  /* ── Jämförelsefilter ──────────────────────────────────────────
+     Progressiv förbättring: utan JS visas alla tre priserna, vilket är
+     det fullständiga läget. Med JS lyfts vald nivå fram och listan
+     sorteras om efter den — men bara när det finns priser att sortera
+     på, annars behålls betygsordningen. */
+  var filtKnappar = $$('.jf-filt');
+  var jfLista = $('#jf-lista');
+  if (filtKnappar.length && jfLista) {
+    var jfOrdning = $$('.jf-rad', jfLista);
+
+    function visaNiva(niva) {
+      $$('.jf-pris', jfLista).forEach(function (p) {
+        var egen = p.getAttribute('data-niva');
+        p.classList.toggle('dold', niva !== 'alla' && egen !== niva);
+        p.classList.toggle('fram', niva !== 'alla' && egen === niva);
+      });
+
+      if (niva === 'alla') {
+        jfOrdning.forEach(function (r) { jfLista.appendChild(r); });
+        return;
+      }
+      var medPris = jfOrdning.filter(function (r) {
+        return parseInt(r.getAttribute('data-' + niva), 10) > 0;
+      });
+      if (!medPris.length) return;          // inga priser ännu — rör inte ordningen
+      var utan = jfOrdning.filter(function (r) { return medPris.indexOf(r) === -1; });
+      medPris.sort(function (a, b) {
+        return parseInt(a.getAttribute('data-' + niva), 10)
+             - parseInt(b.getAttribute('data-' + niva), 10);
+      });
+      medPris.concat(utan).forEach(function (r) { jfLista.appendChild(r); });
+    }
+
+    filtKnappar.forEach(function (k) {
+      k.addEventListener('click', function () {
+        filtKnappar.forEach(function (a) {
+          a.classList.remove('pa');
+          a.setAttribute('aria-pressed', 'false');
+        });
+        k.classList.add('pa');
+        k.setAttribute('aria-pressed', 'true');
+        visaNiva(k.getAttribute('data-niva'));
+      });
+    });
+  }
+
   /* ── FAQ ───────────────────────────────────────────────────────── */
   $$('.q-btn').forEach(function (btn) {
     btn.setAttribute('aria-expanded', 'false');

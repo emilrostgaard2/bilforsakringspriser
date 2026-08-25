@@ -130,6 +130,47 @@ def kontrollerad():
             f'Vi går igenom priser och villkor löpande.</p>')
 
 
+# ─── Villkorsfakta per bolag ───────────────────────────────────────
+# Står i bolagens villkor och kräver ingen offert. Fyll i efter hand —
+# tomma fält visas som "Uppgift saknas" och sidan påstår ingenting.
+#   bindningstid : t.ex. 'Ingen' eller '12 månader'
+#   maskin       : t.ex. '8 år eller 12 000 mil'
+#   verkstad     : 'Fritt val' / 'Anvisad verkstad' / 'Fritt val mot tillägg'
+VILLKOR = {slug: {'bindningstid': None, 'maskin': None, 'verkstad': None}
+           for slug in PRIS}
+
+# ─── Tilläggsförsäkringar ──────────────────────────────────────────
+# True = ingår som valbart tillägg, False = erbjuds inte, None = okänt.
+TILLAGG = {slug: {'allrisk': None, 'vagassistans': None, 'hyrbil': None,
+                  'lagre_sjalvrisk': None, 'djur': None, 'parkeringsskada': None}
+           for slug in PRIS}
+
+TILLAGG_NAMN = [('allrisk', 'Allrisk / drulle'), ('vagassistans', 'Vägassistans'),
+                ('hyrbil', 'Hyrbil'), ('lagre_sjalvrisk', 'Lägre självrisk'),
+                ('djur', 'Självriskreducering djur'), ('parkeringsskada', 'Parkeringsskada')]
+
+# ─── Standardomfattning på den svenska marknaden ───────────────────
+# Så här ser uppdelningen ut hos i princip alla bolag. Enskilda villkor
+# kan avvika, och det skrivs ut i tabellen — men strukturen är stabil
+# nog att publicera, och den är samma information som ligger till grund
+# för sidorna om trafik-, halv- och helförsäkring.
+MOMENT = [
+    ('Trafikskada',          True,  True,  True),
+    ('Stöld och inbrott',    False, True,  True),
+    ('Brand',                False, True,  True),
+    ('Glas',                 False, True,  True),
+    ('Maskin och elektronik', False, True, True),
+    ('Räddning och bärgning', False, True, True),
+    ('Rättsskydd',           False, True,  True),
+    ('Kristerapi',           False, True,  True),
+    ('Allrisk / drulle',     False, False, False),
+    ('Vagnskada',            False, False, True),
+]
+
+SJALVRISK_NAMN = [('trafik', 'Trafik'), ('vagn', 'Vagnskada'), ('glas', 'Glasskada'),
+                  ('stold', 'Stöld'), ('maskin', 'Maskinskada')]
+
+
 # ─── Insamlade siffror ─────────────────────────────────────────────
 # insamlat.py skapas av insamling/importera.py och skriver över
 # platshållarna ovan. Finns filen inte kör sajten vidare på tomma

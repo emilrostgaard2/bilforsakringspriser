@@ -10,6 +10,7 @@ formulering. Målet är att inga två sidor delar skelett.
 import re, os
 from companies import BOLAG
 from brands import MARKEN, BILD
+import jamforelse
 
 TODO = ('<div class="warn"><strong>PLATSHÅLLARE — ersätts före lansering.</strong> '
         'Beloppen är exempelsiffror, inte insamlade marknadspriser.</div>')
@@ -510,7 +511,12 @@ def hubbar():
                 'Både de stora bolagen och de digitala utmanarna',
                 'Vem varje bolag passar — och vem det inte passar'],
      'sticky': 'Jämför alla bolag gratis',
-     'body': _sec(
+     'body': jamforelse.sektion(
+        'Jämför bilförsäkring från 16 bolag',
+        'Alla bolag på den svenska marknaden med oberoende betyg, villkorsfakta och '
+        'självrisker. Filtrera på skyddsnivå och fäll ut ett bolag för att se vad som '
+        'faktiskt ingår.')
+      + _sec(
         '<h2>Bolagen rangordnade efter kundnöjdhet</h2>'
         '<p>Svenskt Kvalitetsindex mäter vad kunderna tycker, på en skala från 0 till 100. '
         'Konsumenternas Försäkringsbyrå bedömer i stället villkorens innehåll, från 1 till 5. '
