@@ -153,13 +153,13 @@ def bolagssidor():
                      f'2025, och Konsumenternas Försäkringsbyrå. Betygen avser villkor respektive '
                      f'kundnöjdhet — inte pris.</p></div>')
         else:
-            betyg = f'<h2>{H["betyg"]}</h2><p>{BETYG_UTAN[i % len(BETYG_UTAN)]}</p>'
+            betyg = f'<h2>{H["betyg"]}</h2><p>{BETYG_UTAN[(i * 5 + 1) % len(BETYG_UTAN)]}</p>'
 
         ja = ''.join(f'<li>{x}</li>' for x in b['passar'])
         nej = ''.join(f'<li>{x}</li>' for x in b['passar_ej'])
 
         byta_par = [BYTA[(i * 3 + k) % len(BYTA)] for k in range(3)]
-        skada_steg = SKADA[i % len(SKADA)]
+        skada_steg = SKADA[(i * 7 + 4) % len(SKADA)]
 
         S = {
          'pris': (f'<h2>{H["pris"]}</h2>'
@@ -473,10 +473,36 @@ BOLAG_DESC = [
 
 
 def _meta(mallar, n, i, ar='2026'):
-    t = mallar[i % len(mallar)].replace('{n}', n).replace('{ar}', ar)
+    t = mallar[(i * 7 + 2) % len(mallar)].replace('{n}', n).replace('{ar}', ar)
     if len(t) > 155:
         t = t[:152].rsplit(' ', 1)[0].rstrip(',.') + '.'
     return t
+
+
+# Avslutningen på sparavsnittet stod identisk på trettiosju märkessidor.
+LANK_SLUT = [
+ 'Fler åtgärder — och en genomgång av vilka som faktiskt ger mest — finns samlade under '
+ '<a href="/billigaste-bilforsakringen/">billigaste bilförsäkringen</a>. Reglerna för '
+ 'uppsägning står under <a href="/byta-bilforsakring/">byta bilförsäkring</a>.',
+ 'Resten av åtgärderna, sorterade efter vad de brukar ge, hittar du på sidan om '
+ '<a href="/billigaste-bilforsakringen/">billigaste bilförsäkringen</a>. Ska du byta bolag '
+ 'börjar du med <a href="/byta-bilforsakring/">huvudförfallodagen</a>.',
+ 'Vill du gå vidare finns hela listan under '
+ '<a href="/billigaste-bilforsakringen/">vad som styr priset</a>, och en genomgång av '
+ '<a href="/sjalvrisk/">självriskens alla typer</a> för den som vill räkna noga.',
+ 'Fler sätt att sänka premien står på sidan om '
+ '<a href="/billigaste-bilforsakringen/">billigaste bilförsäkringen</a>. Handlar det om '
+ 'bonusen hittar du reglerna under <a href="/bonus-och-skadefria-ar/">skadefria år</a>.',
+ 'Nästa steg är att jämföra på lika villkor — hur du gör det står under '
+ '<a href="/jamfor-bilforsakring/">jämför bilförsäkring</a>, och prisfaktorerna finns '
+ 'samlade på <a href="/billigaste-bilforsakringen/">billigaste bilförsäkringen</a>.',
+ 'Hela genomgången av vad som styr premien ligger på '
+ '<a href="/billigaste-bilforsakringen/">billigaste bilförsäkringen</a>. Är bilen äldre är '
+ '<a href="/halvforsakring/">halvförsäkring</a> ofta nästa fråga att ställa.',
+ 'Fortsättningen finns under <a href="/billigaste-bilforsakringen/">billigaste '
+ 'bilförsäkringen</a>, och vill du veta när du får byta står det på sidan om '
+ '<a href="/byta-bilforsakring/">byta bilförsäkring</a>.',
+]
 
 
 def _prisrader(namn, klass):
@@ -501,8 +527,8 @@ def markessidor():
     sidor = []
     for i, m in enumerate(MARKEN):
         n = m['namn']
-        H = {k: v.replace('{n}', n) for k, v in MARKE_H2[i % len(MARKE_H2)].items()}
-        ordning = MARKE_ORD[i % len(MARKE_ORD)]
+        H = {k: v.replace('{n}', n) for k, v in MARKE_H2[(i * 3 + 1) % len(MARKE_H2)].items()}
+        ordning = MARKE_ORD[(i * 7 + 3) % len(MARKE_ORD)]
         punkter = ''.join(f'<li>{x}</li>' for x in m['punkter'])
         # Modellrader. Finns en modellsida länkas namnet dit — det är den
         # viktigaste interna länken på hela märkessidan.
@@ -535,7 +561,7 @@ def markessidor():
                 lank = (f'<a href="/bilmarken/{m["slug"]}/{x["slug"]}/">{n} {x["namn"]}</a>')
                 rader_mod.append(_modellrad(lank, x['slug']))
         modeller = ''.join(rader_mod)
-        spara = SPARA[i % len(SPARA)]
+        spara = SPARA[(i * 5 + 2) % len(SPARA)]
 
         # Bild: finns filen bilder/<slug>.webp används den automatiskt.
         # Alt-text och bildtext hämtas från BILD, annars generisk reserv.
@@ -546,7 +572,7 @@ def markessidor():
 
         S = {
          'pris': (f'<h2>{H["pris"]}</h2>'
-                  f'<p>{PRIS_INTRO[(i * 3) % len(PRIS_INTRO)]}</p>'
+                  f'<p>{PRIS_INTRO[(i * 5 + 4) % len(PRIS_INTRO)]}</p>'
                   + _prisrader(n, upp.klass_for(grupp=m['grupp']))
                   + upp.metodruta(kort=True, i=i)),
          'varfor': (f'<h2>{H["varfor"]}</h2>' + (
@@ -559,7 +585,7 @@ def markessidor():
              if har_bild
              else f'<p>{m["karakteristik"]}</p><ul>{punkter}</ul>')),
          'modeller': (f'<h2>{H["modeller"]}</h2>'
-                      f'<p>{MODELL_INTRO[(i * 5) % len(MODELL_INTRO)].replace("{n}", n)}</p>'
+                      f'<p>{MODELL_INTRO[(i * 3 + 2) % len(MODELL_INTRO)].replace("{n}", n)}</p>'
                       + (f'<p>Varje modell har en egen sida med prisbild, skadeprofil och '
                          f'de villkor som skiljer bolagen åt för just den bilen.</p>'
                          if m['slug'] in MODELLER else '')
@@ -570,14 +596,23 @@ def markessidor():
                       f'</tr></thead><tbody>{modeller}</tbody></table></div>'
                       f'<p class="swipe">&larr; Dra i sidled för att se alla kolumner</p>'
                       + upp.metodruta(kort=True, i=i)),
-         'valj': (f'<h2>{H["valj"]}</h2>' + VALJ[m['grupp']].replace('{n}', n)
+         # VALJ är skriven per grupp, alltså delad av upp till femton märken.
+         # Vi tar första stycket och lägger märkets egen karakteristik efter,
+         # så att sidorna inte delar hela avsnittet.
+         'valj': (f'<h2>{H["valj"]}</h2>'
+                  + VALJ[m['grupp']].replace('{n}', n).split('</p>')[0] + '</p>'
+                  + f'<p>{m["karakteristik"].split(". ")[-1]}</p>'
                   + f'<p>{m["punkter"][2] if len(m["punkter"]) > 2 else m["punkter"][0]} '
                     f'Det är värt att väga in när du väljer mellan '
                     f'<a href="/halvforsakring/">halvförsäkring</a> och '
                     f'<a href="/helforsakring/">helförsäkring</a>. Se också vår guide till '
                     f'<a href="/jamfor-bilforsakring/">hur du jämför offerter</a>.</p>'),
+         # Två råd här, resten på den sida som ska ranka på frågan. Att
+         # upprepa samma sparråd på trettiosju märkessidor gav både
+         # dubblettinnehåll och intern konkurrens mot /billigaste-.
          'spara': (f'<h2>{H["spara"]}</h2>'
-                   + ''.join(f'<h3>{t}</h3><p>{p}</p>' for t, p in spara)),
+                   + ''.join(f'<h3>{t}</h3><p>{p}</p>' for t, p in spara[:2])
+                   + f'<p>{LANK_SLUT[(i * 3 + 1) % len(LANK_SLUT)]}</p>'),
         }
 
         body = ''.join((_sec_alt if k % 2 else _sec)(S[s])
@@ -588,11 +623,11 @@ def markessidor():
             f'<div class="cta-inner">{{PLATE}}</div></div>')
 
         faq = [
-         (f'Vad kostar bilförsäkring till en {n}?', FAQ_KOSTAR[(i * 3) % len(FAQ_KOSTAR)].replace('{n}', n)),
+         (f'Vad kostar bilförsäkring till en {n}?', FAQ_KOSTAR[(i * 7 + 1) % len(FAQ_KOSTAR)].replace('{n}', n)),
          (f'Är {n} dyr att försäkra?',
           m['karakteristik'].split('. ')[0] + '.'),
-         (f'Behöver jag helförsäkring till min {n}?', FAQ_HEL[(i * 7) % len(FAQ_HEL)]),
-         (f'Vilket bolag är billigast till {n}?', FAQ_BILLIGAST[(i * 5) % len(FAQ_BILLIGAST)]),
+         (f'Behöver jag helförsäkring till min {n}?', FAQ_HEL[(i * 3 + 5) % len(FAQ_HEL)]),
+         (f'Vilket bolag är billigast till {n}?', FAQ_BILLIGAST[(i * 5 + 3) % len(FAQ_BILLIGAST)]),
         ]
 
         rel = [('/bilmarken/', 'Alla bilmärken'),

@@ -25,11 +25,15 @@ from modellkatalog import MODELLER
 from modeller_extra import PRISER, SPANN, EXTRA as _E1, META as _META1
 from modeller_extra_2 import EXTRA_2 as _E2
 from modeller_extra_skoda import EXTRA_SKODA as _E3
+from modeller_extra_vw import EXTRA_VW as _E4
+from modeller_extra_4 import EXTRA_4 as _E5
 
-EXTRA = {**_E1, **_E2, **_E3}
+EXTRA = {**_E1, **_E2, **_E3, **_E4, **_E5}
 META = {**_META1,
         **{k: v['meta'] for k, v in _E2.items() if v.get('meta')},
-        **{k: v['meta'] for k, v in _E3.items() if v.get('meta')}}
+        **{k: v['meta'] for k, v in _E3.items() if v.get('meta')},
+        **{k: v['meta'] for k, v in _E4.items() if v.get('meta')},
+        **{k: v['meta'] for k, v in _E5.items() if v.get('meta')}}
 from brands import MARKEN
 import data
 import kort
@@ -458,7 +462,7 @@ DESC_MALL = [
 
 
 def _titel(b, i, ar):
-    return TITEL_MALL[i % len(TITEL_MALL)].replace('{b}', b).replace('{ar}', ar)
+    return TITEL_MALL[(i * 7 + 5) % len(TITEL_MALL)].replace('{b}', b).replace('{ar}', ar)
 
 
 def _desc(b, slug, kort, i):
@@ -468,7 +472,7 @@ def _desc(b, slug, kort, i):
     identiska eller uppenbart mallade. Kapas alltid under 155 tecken,
     och aldrig mitt i ett ord."""
     k = (META.get(slug) or kort).rstrip('.')
-    text = DESC_MALL[i % len(DESC_MALL)].replace('{b}', b).replace('{k}', k)
+    text = DESC_MALL[(i * 5 + 4) % len(DESC_MALL)].replace('{b}', b).replace('{k}', k)
     if len(text) > 155:
         text = text[:152].rsplit(' ', 1)[0].rstrip(',.') + '.'
     return text
@@ -484,7 +488,7 @@ def _tbl(caption, kol, rader, swipe=False):
 
 
 def _sektion(nyckel, m, mod, b, i, syskon):
-    h = H2[i % len(H2)].get(nyckel, '').replace('{b}', b)
+    h = H2[(i * 3 + 3) % len(H2)].get(nyckel, '').replace('{b}', b)
     p = data.PRIS
 
     if nyckel == 'pris':
@@ -516,27 +520,27 @@ def _sektion(nyckel, m, mod, b, i, syskon):
                               for x in SPANN]))
             kalltext = (f'<p class="jf-not">Vi har inte hittat publicerade prisuppgifter för '
                         f'specifikt {b}. I stället visas marknadens spann med källa. '
-                        f'{SLUT_SPANN[i % len(SLUT_SPANN)]}</p>')
+                        f'{SLUT_SPANN[(i * 3 + 3) % len(SLUT_SPANN)]}</p>')
         return (f'<h2>{h}</h2>'
                 f'<p class="direkt">{e.get("direktsvar", "")}</p>'
                 + tabell + kalltext
-                + f'<p>{PRIS_ING[i % len(PRIS_ING)]}</p>')
+                + f'<p>{PRIS_ING[(i * 3 + 1) % len(PRIS_ING)]}</p>')
 
     if nyckel == 'agare':
         e = EXTRA.get(mod['slug'], {})
-        rub = AGARE_H2[i % len(AGARE_H2)].replace('{b}', b)
+        rub = AGARE_H2[(i * 3 + 1) % len(AGARE_H2)].replace('{b}', b)
         return f'<h2>{rub}</h2><p>{e.get("agare", "")}</p>'
 
     if nyckel == 'jamfor':
         e = EXTRA.get(mod['slug'], {})
-        rub = JAMFOR_H2[i % len(JAMFOR_H2)].replace('{b}', b)
+        rub = JAMFOR_H2[(i * 5 + 2) % len(JAMFOR_H2)].replace('{b}', b)
         return f'<h2>{rub}</h2><p>{e.get("jamfor", "")}</p>'
 
     if nyckel == 'summa':
-        rub = SUMMA_H2[i % len(SUMMA_H2)].replace('{b}', b)
+        rub = SUMMA_H2[(i * 7 + 1) % len(SUMMA_H2)].replace('{b}', b)
         e = EXTRA.get(mod['slug'], {})
         forsta = (e.get('jamfor', '').split('. ')[0] + '.') if e.get('jamfor') else ''
-        return (f'<h2>{rub}</h2><p>{SUMMA_ING[i % len(SUMMA_ING)]}</p>'
+        return (f'<h2>{rub}</h2><p>{SUMMA_ING[(i * 5 + 7) % len(SUMMA_ING)]}</p>'
                 f'<p><strong>Vad som styr premien.</strong> {mod["vinkel"]}</p>'
                 f'<p><strong>Vilken nivå du bör välja.</strong> {mod["niva"]} '
                 f'{mod["varde"]}</p>'
@@ -553,7 +557,7 @@ def _sektion(nyckel, m, mod, b, i, syskon):
                 f'<a href="/billigaste-bilforsakringen/">billigaste bilförsäkringen</a>.</p>')
 
     if nyckel == 'tillagg':
-        rub = TILLAGG_H2[i % len(TILLAGG_H2)].replace('{b}', b)
+        rub = TILLAGG_H2[(i * 3 + 5) % len(TILLAGG_H2)].replace('{b}', b)
         el = 'el' in mod['drivlina'] or 'eldriven' in mod['typ']
         rader = [
             ['Hyrbil', 'Ofta ja' if el else 'Beror på om du har tillgång till en andra bil',
@@ -568,15 +572,15 @@ def _sektion(nyckel, m, mod, b, i, syskon):
              'Ja om du kör på landsväg', 'Viltolyckor är den skada som oftast ger ett större '
              'belopp utanför tätort'],
         ]
-        return (f'<h2>{rub}</h2><p>{TILLAGG_ING[i % len(TILLAGG_ING)]} {mod["skada"]}</p>'
+        return (f'<h2>{rub}</h2><p>{TILLAGG_ING[(i * 7 + 6) % len(TILLAGG_ING)]} {mod["skada"]}</p>'
                 + _tbl(f'Tillägg bedömda för {b}',
                        ['Tillägg', 'Värt pengarna?', 'Motivering'], rader, swipe=True)
                 + f'<p>{mod["punkter"][2] if len(mod["punkter"]) > 2 else mod["punkter"][0]} '
-                  f'{SLUT_TILLAGG[i % len(SLUT_TILLAGG)]}</p>')
+                  f'{SLUT_TILLAGG[(i * 5 + 4) % len(SLUT_TILLAGG)]}</p>')
 
     if nyckel == 'begagnat':
-        rub = BEGAGNAT_H2[i % len(BEGAGNAT_H2)].replace('{b}', b)
-        return (f'<h2>{rub}</h2><p>{BEGAGNAT_ING[i % len(BEGAGNAT_ING)]}</p>'
+        rub = BEGAGNAT_H2[(i * 5 + 3) % len(BEGAGNAT_H2)].replace('{b}', b)
+        return (f'<h2>{rub}</h2><p>{BEGAGNAT_ING[(i * 3 + 7) % len(BEGAGNAT_ING)]}</p>'
                 + _tbl(f'Ägarbyte steg för steg — {b}',
                        ['Steg', 'Vad du gör', 'Varför'],
                        [['1', 'Teckna försäkring med startdatum samma dag som ägarbytet',
@@ -589,12 +593,12 @@ def _sektion(nyckel, m, mod, b, i, syskon):
                          'Utrustningen styr ersättningsvärdet och därmed premien'],
                         ['5', 'Välj skyddsnivå efter bilens värde i dag',
                          'Inte efter vad den kostade ny']], swipe=True)
-                + f'<p>{mod["varde"]} {SLUT_BEGAGNAT[i % len(SLUT_BEGAGNAT)]} '
+                + f'<p>{mod["varde"]} {SLUT_BEGAGNAT[(i * 7 + 5) % len(SLUT_BEGAGNAT)]} '
                   f'Reglerna kring ägarbyte och byte av bolag står samlade under '
                   f'<a href="/byta-bilforsakring/">byta bilförsäkring</a>.</p>')
 
     if nyckel == 'checklista':
-        rub = CHECK_H2[i % len(CHECK_H2)].replace('{b}', b)
+        rub = CHECK_H2[(i * 5 + 1) % len(CHECK_H2)].replace('{b}', b)
         e = EXTRA.get(mod['slug'], {})
         rader = [[p, 'Modellspecifikt'] for p in mod['punkter']]
         rader += [['Kontrollera hyrbilsdagar', 'Väntetid på delar drabbar dig direkt'],
@@ -602,31 +606,31 @@ def _sektion(nyckel, m, mod, b, i, syskon):
                    'Skillnaden är större än de flesta tror'],
                   ['Ange din egen körsträcka, inte bilens historik',
                    'Felaktig uppgift kan sänka ersättningen']]
-        return (f'<h2>{rub}</h2><p>{CHECK_ING[i % len(CHECK_ING)]}</p>'
+        return (f'<h2>{rub}</h2><p>{CHECK_ING[(i * 3 + 6) % len(CHECK_ING)]}</p>'
                 + _tbl(f'Checklista före tecknandet — {b}',
                        ['Punkt', 'Varför'], rader)
-                + f'<p>{mod["skada"]} {SLUT_CHECK[i % len(SLUT_CHECK)]}</p>')
+                + f'<p>{mod["skada"]} {SLUT_CHECK[(i * 3 + 2) % len(SLUT_CHECK)]}</p>')
 
     if nyckel == 'rakna':
-        rub = RAKNA_H2[i % len(RAKNA_H2)].replace('{b}', b)
+        rub = RAKNA_H2[(i * 7 + 2) % len(RAKNA_H2)].replace('{b}', b)
         return (f'<h2>{rub}</h2>'
-                f'<p>{RAKNA_ING[i % len(RAKNA_ING)]} {mod["varde"]}</p>'
+                f'<p>{RAKNA_ING[(i * 5 + 6) % len(RAKNA_ING)]} {mod["varde"]}</p>'
                 + _tbl(f'Vad vagnskadedelen kan betala ut på en {b}',
                        ['Marknadsvärde', 'Vid 4 000 kr självrisk', 'Vid 8 000 kr självrisk'],
                        [['50 000 kr', '46 000 kr', '42 000 kr'],
                         ['100 000 kr', '96 000 kr', '92 000 kr'],
                         ['200 000 kr', '196 000 kr', '192 000 kr'],
                         ['400 000 kr', '396 000 kr', '392 000 kr']])
-                + f'<p>{mod["niva"]} {SLUT_RAKNA[i % len(SLUT_RAKNA)]}</p>')
+                + f'<p>{mod["niva"]} {SLUT_RAKNA[(i * 7 + 1) % len(SLUT_RAKNA)]}</p>')
 
     if nyckel == 'teknik':
         e = EXTRA.get(mod['slug'], {})
-        rub = TEKNIK_H2[i % len(TEKNIK_H2)].replace('{b}', b)
+        rub = TEKNIK_H2[(i * 7 + 3) % len(TEKNIK_H2)].replace('{b}', b)
         return f'<h2>{rub}</h2><p>{e.get("teknik", "")}</p>'
 
     if nyckel == 'kostnad':
         e = EXTRA.get(mod['slug'], {})
-        rub = KOSTNAD_H2[i % len(KOSTNAD_H2)].replace('{b}', b)
+        rub = KOSTNAD_H2[(i * 3 + 4) % len(KOSTNAD_H2)].replace('{b}', b)
         return f'<h2>{rub}</h2><p>{e.get("kostnad", "")}</p>'
 
     if nyckel == 'styr':
@@ -636,10 +640,10 @@ def _sektion(nyckel, m, mod, b, i, syskon):
                  ['Reservdelsläge', 'Delas med övriga ' + m['namn'] + '-modeller'],
                  ['Ersättningsvärde', mod['varde']]]
         punkter = ''.join(f'<li>{x}</li>' for x in mod['punkter'])
-        return (f'<h2>{h}</h2><p>{STYR_ING[i % len(STYR_ING)]}</p>'
+        return (f'<h2>{h}</h2><p>{STYR_ING[(i * 5 + 2) % len(STYR_ING)]}</p>'
                 + _tbl(f'{b} — modellens egna premiefaktorer', ['Faktor', 'Betydelse'], rader)
                 + f'<ul>{punkter}</ul>'
-                + f'<p>{PROFIL_ING[i % len(PROFIL_ING)]} Läs mer under '
+                + f'<p>{PROFIL_ING[(i * 5 + 5) % len(PROFIL_ING)]} Läs mer under '
                   f'<a href="/bilforsakring-stockholm/">bilförsäkring i '
                   f'Stockholm</a>. Körsträckan anges i intervall, och ligger du strax över en '
                   f'gräns kan en ärlig justering nedåt ge en tydlig sänkning. Skadefria år är '
@@ -656,10 +660,10 @@ def _sektion(nyckel, m, mod, b, i, syskon):
                  ['8–12 år', 'Räkna på det', 'Jämför premien mot bilens värde'],
                  ['Över 12 år', 'Ofta halvförsäkring', 'Vagnskadedelen betalar sällan ut '
                   'mer än den kostar']]
-        return (f'<h2>{h}</h2><p>{NIVA_ING[i % len(NIVA_ING)]} {mod["niva"]}</p>'
+        return (f'<h2>{h}</h2><p>{NIVA_ING[(i * 7 + 3) % len(NIVA_ING)]} {mod["niva"]}</p>'
                 + _tbl(f'Skyddsnivå för {b} efter ålder',
                        ['Bilens ålder', 'Rimlig nivå', 'Motivering'], rader, swipe=True)
-                + f'<p>{GARANTI_ING[i % len(GARANTI_ING)]} Garantin upphör på dagen, och '
+                + f'<p>{GARANTI_ING[(i * 7 + 4) % len(GARANTI_ING)]} Garantin upphör på dagen, och '
                   f'det är värt en påminnelse i kalendern: därefter står bilen utan '
                   f'vagnskadeskydd om ingen gör något. Går bilen på leasing gäller i stället '
                   f'avtalets krav, som i praktiken alltid innebär helförsäkring under hela '
@@ -672,7 +676,7 @@ def _sektion(nyckel, m, mod, b, i, syskon):
                   f'betalas ut.</p>')
 
     if nyckel == 'skada':
-        return (f'<h2>{h}</h2><p>{SKADA_ING[i % len(SKADA_ING)]}</p>'
+        return (f'<h2>{h}</h2><p>{SKADA_ING[(i * 3 + 4) % len(SKADA_ING)]}</p>'
                 f'<p>{mod["skada"]}</p>'
                 + _tbl(f'Vilken nivå som täcker vad på en {b}',
                        ['Skadetyp', 'Trafik', 'Halv', 'Hel'],
@@ -686,7 +690,7 @@ def _sektion(nyckel, m, mod, b, i, syskon):
                         ['Skadegörelse', 'Nej', 'Nej', 'Ja']], swipe=True))
 
     if nyckel == 'villkor':
-        return (f'<h2>{h}</h2><p>{VILLKOR_ING[i % len(VILLKOR_ING)]}</p>'
+        return (f'<h2>{h}</h2><p>{VILLKOR_ING[(i * 5 + 1) % len(VILLKOR_ING)]}</p>'
                 + _tbl('Att kontrollera i offerten',
                        ['Post', 'Varför den spelar roll här'],
                        [['Glassjälvrisk', 'Skillnaden mellan lagning och byte, och '
@@ -699,9 +703,9 @@ def _sektion(nyckel, m, mod, b, i, syskon):
                   f'<a href="/sjalvrisk/">självrisk</a>.</p>')
 
     if nyckel == 'byta':
-        punkter = BYTA_PUNKTER[i % len(BYTA_PUNKTER)]
+        punkter = BYTA_PUNKTER[(i * 7 + 7) % len(BYTA_PUNKTER)]
         rader = [[t, b_] for t, b_ in punkter]
-        return (f'<h2>{h}</h2><p>{BYTA_ING[i % len(BYTA_ING)]}</p>'
+        return (f'<h2>{h}</h2><p>{BYTA_ING[(i * 7 + 2) % len(BYTA_ING)]}</p>'
                 + _tbl('Åtgärder i prioritetsordning', ['Åtgärd', 'Varför'], rader)
                 + f'<p>Hela regelverket för när du får byta står under '
                   f'<a href="/byta-bilforsakring/">byta bilförsäkring</a>.</p>')
@@ -732,12 +736,12 @@ def sidor():
         for i, mod in enumerate(lista):
             b = f'{m["namn"]} {mod["namn"]}'
             mod_extra = EXTRA.get(mod['slug'], {})
-            ordning = ORDNING[i % len(ORDNING)]
+            ordning = ORDNING[(i * 5 + 5) % len(ORDNING)]
             kroppar = ''.join(_sektion(k, m, mod, b, i, lista) for k in ordning)
 
             faq = [
                 mod['fraga'],
-                (f'Vad kostar bilförsäkring till {b}?', FAQ_PRIS[i % len(FAQ_PRIS)]),
+                (f'Vad kostar bilförsäkring till {b}?', FAQ_PRIS[(i * 5 + 3) % len(FAQ_PRIS)]),
                 (f'Behöver jag helförsäkring på min {b}?',
                  mod['niva'] + ' Räkna alltid på bilens marknadsvärde minus självrisken — '
                  'det är den summan vagnskadedelen kan betala ut.'),
@@ -790,8 +794,8 @@ def sidor():
                         smal=True, kompakt=True)
                     + f'<section class="sec"><div class="wrap narrow">'
                     + kroppar
-                    + f'<h2>{SYSKON_H2[i % len(SYSKON_H2)].replace("{m}", m["namn"])}</h2>'
-                    + f'<p>{SYSKON_ING[i % len(SYSKON_ING)]}</p>'
+                    + f'<h2>{SYSKON_H2[(i * 3 + 2) % len(SYSKON_H2)].replace("{m}", m["namn"])}</h2>'
+                    + f'<p>{SYSKON_ING[(i * 3 + 5) % len(SYSKON_ING)]}</p>'
                     + _syskontabell(m, mod, lista, i)
                     + f'<h2>{mod_extra.get("lang", ("", ""))[0]}</h2>'
                     + f'<p class="direkt">{mod_extra.get("lang", ("", ""))[1]}</p>'

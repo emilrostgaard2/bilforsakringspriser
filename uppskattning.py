@@ -78,6 +78,18 @@ MODELLKLASS = {
     # XPeng
     'g6': 'elbil', 'g9': 'elbil-stor', 'p7': 'elbil', 'x9': 'elbil-stor',
     # Cupra
+    # Polestar
+    'polestar-2': 'elbil', 'polestar-3': 'elbil-stor', 'polestar-4': 'elbil-stor',
+    # Zeekr
+    'x': 'elbil', '001': 'elbil-stor', '7x': 'elbil',
+    # Hyundai
+    'kona': 'volym', 'tucson': 'volym', 'ioniq-5': 'elbil', 'ioniq-6': 'elbil',
+    'inster': 'elbil', 'santa-fe': 'stor', 'bayon': 'budget', 'i20': 'budget',
+    'i10': 'budget', 'ioniq-9': 'elbil-stor',
+    # Volkswagen
+    'golf': 'volym', 'passat': 'stor', 'tiguan': 'volym', 'polo': 'budget',
+    'id4': 'elbil', 'id3': 'elbil', 'id7': 'elbil-stor', 'id-buzz': 'elbil-stor',
+    'tayron': 'stor', 't-roc': 'volym', 'touran': 'volym',
     # Skoda
     'octavia': 'volym', 'superb': 'stor', 'kodiaq': 'stor', 'karoq': 'volym',
     'fabia': 'budget', 'scala': 'budget', 'kamiq': 'volym', 'enyaq': 'elbil',

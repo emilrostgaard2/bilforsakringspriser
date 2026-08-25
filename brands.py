@@ -23,7 +23,8 @@ MARKEN = [
    'Cupra och Audi. Den enorma volymen inom VAG-koncernen gör delar billiga och tillgängliga '
    'hos i stort sett varje fristående verkstad — vilket är den viktigaste enskilda förklaringen '
    'till att en Golf kostar mindre att försäkra än en jämnstor bil från ett smalare märke.',
- 'modeller':['Golf','Passat','Tiguan','Polo','ID.4','ID.3','T-Roc','Touran'],
+ 'modeller':['Golf','Passat','Tiguan','Polo','ID.4','ID.3','ID.7','ID. Buzz',
+             'Tayron','T-Roc','Touran'],
  'punkter':['Delar teknik med Skoda, Seat, Cupra och Audi',
             'Reservdelar kan skaffas av nästan alla verkstäder',
             'Fritt verkstadsval är därför mer värt här än på smalare märken']},
@@ -84,7 +85,8 @@ MARKEN = [
    'motorer och samma reservdelskatalog som Volkswagen — men ett lägre nypris. Eftersom '
    'kaskopremien beräknas på ersättningsvärdet innebär det en märkbart lägre premie för i '
    'praktiken samma bil.',
- 'modeller':['Octavia','Superb','Kodiaq','Karoq','Fabia','Enyaq','Kamiq','Scala'],
+ 'modeller':['Octavia','Superb','Kodiaq','Karoq','Fabia','Enyaq','Elroq',
+             'Kamiq','Scala','Yeti'],
  'punkter':['Samma teknik som VW till lägre nypris',
             'Lägre ersättningsvärde ger lägre kaskopremie',
             'Reservdelar finns hos alla VAG-kunniga verkstäder']},
@@ -133,7 +135,8 @@ MARKEN = [
    'koncernen håller reservdelspriserna nere även på elbilarna. IONIQ-modellernas '
    '800-voltsteknik uppfattas ofta som dyr att försäkra, men i praktiken prissätts de närmare '
    'en Volkswagen ID.4 än en Tesla.',
- 'modeller':['i20','Tucson','Kona','i30','IONIQ 5','IONIQ 6','Bayon','Santa Fe'],
+ 'modeller':['Kona','Tucson','IONIQ 5','IONIQ 6','INSTER','Santa Fe','Bayon',
+             'i20','i10','IONIQ 9'],
  'punkter':['E-GMP-plattformen delas med Kia',
             '800-voltstekniken är inte dyrare att försäkra än den uppfattas',
             'Fem års garanti utan milbegränsning']},
