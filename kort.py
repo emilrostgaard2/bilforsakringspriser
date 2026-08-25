@@ -117,7 +117,7 @@ def _tagg(t):
     return f'<span class="pk-tagg">{t}</span>'
 
 
-def kort(ordning=None):
+def kort(ordning=None, kompakt=False):
     lista = PARTNERS
     if ordning:
         index = {p['slug']: p for p in PARTNERS}
@@ -125,6 +125,19 @@ def kort(ordning=None):
     ut = []
     for p in lista:
         taggar = ''.join(_tagg(t) for t in p['taggar'])
+        if kompakt:
+            # Kompakt läge för djupa sidor: samma kort utan de långa
+            # beskrivningarna. Modulen ska inte lägga fyrahundra ord
+            # identisk text på hundra modellsidor.
+            ut.append(f'''<article class="pk kompakt">
+<div class="pk-in">
+<div class="pk-logo"><img src="{p['logo']}" alt="{p['namn']}" width="120" height="34"
+ loading="lazy" decoding="async"></div>
+<div class="pk-txt"><h3>{p['namn']}</h3><p class="pk-badge-in">{p['badge']}</p>
+<div class="pk-taggar">{taggar}</div></div>
+<div class="pk-hoger">{_knapp(p)}</div>
+</div></article>''')
+            continue
         ut.append(f'''<article class="pk">
 <p class="pk-badge {p['badge_typ']}">{BADGE_IKON[p['badge_typ']]} {p['badge']}</p>
 <div class="pk-in">
@@ -135,6 +148,9 @@ def kort(ordning=None):
 <div class="pk-hoger">{_pris(p['slug'])}{_knapp(p)}
 <a class="pk-lank" href="{p['sida']}">Läs vår genomgång</a></div>
 </div></article>''')
+
+    if kompakt:
+        return ''.join(ut)
 
     t = TJANST
     taggar = ''.join(_tagg(x) for x in t['taggar'])
@@ -153,7 +169,8 @@ def kort(ordning=None):
     return ''.join(ut)
 
 
-def sektion(rubrik='Bolag att börja med', ingress=None, ordning=None, smal=False):
+def sektion(rubrik='Bolag att börja med', ingress=None, ordning=None,
+            smal=False, kompakt=False):
     """Kortsektionen. Varje sida skickar in egen rubrik och ingress.
 
     Korten är samma modul på flera sidor — det är en komponent, inte
@@ -171,6 +188,8 @@ def sektion(rubrik='Bolag att börja med', ingress=None, ordning=None, smal=Fals
            'egna genomgångar. Ordningen bygger på kriterierna i vår ')
         + '<a href="/redaktionell-metod/">redaktionella metod</a>, inte på ersättning.</p>')
 
+    if kompakt and ingress is None:
+        ingress = 'Tre bolag med olika profil att begära offert från.'
     if ingress is None:
         ingress = ('Tre bolag som utmärker sig på var sin punkt — betyg, kundnöjdhet och '
                    'pris. Etiketterna hänvisar till betyg från Konsumenternas '
@@ -185,7 +204,7 @@ def sektion(rubrik='Bolag att börja med', ingress=None, ordning=None, smal=Fals
 <p class="pk-ing">{ingress} Hela marknaden finns under
 <a href="/forsakringsbolag/">försäkringsbolag</a>.</p>
 {upplysning}
-<div class="pk-lista">{kort(ordning)}</div>
+<div class="pk-lista">{kort(ordning, kompakt)}</div>
 <p class="pk-fot">Priserna avser {data.PROFIL_TEXT}. En annan profil ger ett annat pris —
 begär alltid egen offert. Senast kontrollerad: {data.UPPDATERAD_TEXT}.</p>
 </div></section>'''

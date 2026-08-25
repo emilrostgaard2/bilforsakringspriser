@@ -576,3 +576,14 @@ tbody tr:last-child td,tbody tr:last-child th{border-bottom:0}
   .jf-tva,.jf-fakta{grid-template-columns:1fr}
   .jf-det-in{padding:4px 16px 20px}
 }
+
+/* Kompakta partnerkort på djupa sidor — samma modul utan de långa
+   beskrivningarna, så att hundra modellsidor inte delar samma stycken. */
+.pk.kompakt{padding:15px 16px}
+.pk.kompakt .pk-in{grid-template-columns:104px 1fr 178px;gap:16px;align-items:center;margin:0}
+.pk.kompakt .pk-txt h3{margin:0;font-size:1rem}
+.pk-badge-in{font-size:.8rem!important;color:var(--ink-2);margin:2px 0 7px!important}
+@media(max-width:640px){
+  .pk.kompakt .pk-in{grid-template-columns:1fr}
+  .pk.kompakt .pk-hoger{flex-direction:column;align-items:stretch}
+}

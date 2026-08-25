@@ -11,6 +11,7 @@ import re, os
 from companies import BOLAG
 from brands import MARKEN, BILD
 import jamforelse
+from modeller import MODELLER
 
 TODO = ('<div class="warn"><strong>PLATSHÅLLARE — ersätts före lansering.</strong> '
         'Beloppen är exempelsiffror, inte insamlade marknadspriser.</div>')
@@ -388,8 +389,24 @@ def markessidor():
         H = {k: v.replace('{n}', n) for k, v in MARKE_H2[i % len(MARKE_H2)].items()}
         ordning = MARKE_ORD[i % len(MARKE_ORD)]
         punkter = ''.join(f'<li>{x}</li>' for x in m['punkter'])
-        modeller = ''.join(f'<tr><th scope="row">{n} {mo}</th><td>—</td><td>—</td></tr>'
-                           for mo in m['modeller'])
+        # Modellrader. Finns en modellsida länkas namnet dit — det är den
+        # viktigaste interna länken på hela märkessidan.
+        modellsidor_slug = {x['namn']: x['slug'] for x in MODELLER.get(m['slug'], [])}
+        rader_mod = []
+        for mo in m['modeller']:
+            if mo in modellsidor_slug:
+                namn = (f'<a href="/bilmarken/{m["slug"]}/{modellsidor_slug[mo]}/">'
+                        f'{n} {mo}</a>')
+            else:
+                namn = f'{n} {mo}'
+            rader_mod.append(f'<tr><th scope="row">{namn}</th><td>—</td><td>—</td></tr>')
+        # Modeller som bara finns som egen sida läggs till sist.
+        for x in MODELLER.get(m['slug'], []):
+            if x['namn'] not in m['modeller']:
+                rader_mod.append(
+                    f'<tr><th scope="row"><a href="/bilmarken/{m["slug"]}/{x["slug"]}/">'
+                    f'{n} {x["namn"]}</a></th><td>—</td><td>—</td></tr>')
+        modeller = ''.join(rader_mod)
         spara = SPARA[i % len(SPARA)]
 
         # Bild: finns filen bilder/<slug>.webp används den automatiskt.
@@ -420,7 +437,10 @@ def markessidor():
              else f'<p>{m["karakteristik"]}</p><ul>{punkter}</ul>')),
          'modeller': (f'<h2>{H["modeller"]}</h2>'
                       f'<p>{MODELL_INTRO[(i * 5) % len(MODELL_INTRO)].replace("{n}", n)}</p>'
-                      f'<div class="tbl"><table><thead><tr><th scope="col">Modell</th>'
+                      + (f'<p>Varje modell har en egen sida med prisbild, skadeprofil och '
+                         f'de villkor som skiljer bolagen åt för just den bilen.</p>'
+                         if m['slug'] in MODELLER else '')
+                      + f'<div class="tbl"><table><thead><tr><th scope="col">Modell</th>'
                       f'<th scope="col">Halvförsäkring</th><th scope="col">Helförsäkring</th>'
                       f'</tr></thead><tbody>{modeller}</tbody></table></div>'),
          'valj': (f'<h2>{H["valj"]}</h2>' + VALJ[m['grupp']].replace('{n}', n)

@@ -10,7 +10,7 @@ import os, json, re, html
 import data, forfattare
 
 BASE = 'https://bilforsakringspriser.se'
-V = '20260824g'           # cache-stämpel — höj vid ändring i css/js
+V = '20260825a'           # cache-stämpel — höj vid ändring i css/js
 ROOT = os.path.dirname(os.path.abspath(__file__))
 os.chdir(ROOT)
 
@@ -325,9 +325,10 @@ def page(d):
 # Priserna nedan är MARKERADE SOM PLATSHÅLLARE. Ersätt dem med egna
 # insamlade siffror innan lansering — se README.
 
-import pages, generators, guider, fakta, orter, topplista
+import pages, generators, guider, fakta, orter, topplista, modellsidor
 PAGES = (pages.PAGES + generators.alla() + guider.SIDOR
-         + [topplista.sidan()] + fakta.SIDOR + orter.SIDOR)
+         + [topplista.sidan()] + fakta.SIDOR + orter.SIDOR
+         + modellsidor.sidor())
 
 for d in PAGES:
     out = os.path.join(d['slug'], 'index.html') if d['slug'] else 'index.html'
