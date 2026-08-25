@@ -228,9 +228,8 @@ def bolagssidor():
 
         sidor.append({
          'slug': f'forsakringsbolag/{b["slug"]}', 'key': True,
-         'title': f'{b["namn"]} bilförsäkring — omdöme, villkor och pris 2026',
-         'desc': f'{b["namn"]} bilförsäkring: villkor, betyg, vem det passar för och hur du '
-                 f'säger upp. Jämför med andra bolag på ditt registreringsnummer.',
+         'title': _meta(BOLAG_TITEL, b['namn'], i),
+         'desc': _meta(BOLAG_DESC, b['namn'], i),
          'eyebrow': b['typ'],
          'h1': f'{b["namn"]} bilförsäkring',
          'lead': b['sammanfattning'].split('. ')[0] + '.',
@@ -403,6 +402,83 @@ SPARA = [
 ]
 
 
+# ─── Roterande metatitlar och beskrivningar ────────────────────────
+# Samma mall på trettiosju märkessidor ser mallad ut både för läsaren i
+# sökresultatet och för Google. Tio varianter var, kombinerade med
+# märkets eller bolagets eget namn, ger unika rader utan att någon
+# behöver skriva dem för hand.
+MARKE_TITEL = [
+ '{n} bilförsäkring {ar} — pris, skydd och jämförelse',
+ 'Försäkring till {n} {ar} — vad kostar den?',
+ '{n} försäkring — prisspann, villkor och rätt nivå {ar}',
+ 'Vad kostar bilförsäkring till en {n}? Guide {ar}',
+ '{n} bilförsäkring {ar} — så sätts premien',
+ 'Försäkra din {n} — pris och villkor {ar}',
+ '{n} — bilförsäkring, prisspann och modelljämförelse {ar}',
+ 'Bilförsäkring {n} {ar} — jämför pris och skyddsnivå',
+ '{n} försäkring {ar} — kostnad, självrisk och villkor',
+ 'Så mycket kostar bilförsäkring till {n} ({ar})',
+]
+MARKE_DESC = [
+ 'Vad kostar det att försäkra en {n}? Se vad som påverkar premien, vilken skyddsnivå som '
+ 'passar och hur du jämför bolagen.',
+ '{n} bilförsäkring: uppskattat prisspann per modell, rätt skyddsnivå och villkoren som '
+ 'skiljer bolagen åt.',
+ 'Så mycket kostar en {n} att försäkra. Prisspann per modell, skadebild och tips för att '
+ 'sänka premien.',
+ 'Ska du försäkra en {n}? Se prisspann, vilken nivå bilen behöver och var bolagen skiljer '
+ 'sig mest.',
+ 'Prisspann per {n}-modell, vad som styr premien och vilka villkor du bör läsa innan du '
+ 'tecknar.',
+ 'Allt om bilförsäkring till {n}: kostnad, skyddsnivåer, vanliga skador och jämförelse '
+ 'mellan bolag.',
+ '{n}: uppskattade priser per modell, rätt försäkringsnivå och de villkor som avgör vid '
+ 'en skada.',
+ 'Guide till {n} bilförsäkring — prisspann, självrisk, tillägg och hur du jämför rätt.',
+ 'Vad bör du betala för att försäkra en {n}? Se prisspann per modell och villkoren som '
+ 'väger tyngst.',
+ 'Jämför bilförsäkring till {n}. Prisspann per modell, skadeprofil och tre bolag att '
+ 'begära offert från.',
+]
+BOLAG_TITEL = [
+ '{n} bilförsäkring — omdöme, villkor och pris {ar}',
+ '{n} bilförsäkring {ar} — vad ingår och vad kostar den?',
+ 'Omdöme om {n} bilförsäkring {ar} — betyg och villkor',
+ '{n} — bilförsäkring, självrisk och kundomdömen {ar}',
+ 'Är {n} bilförsäkring bra? Genomgång {ar}',
+ '{n} bilförsäkring {ar} — för vem passar den?',
+ 'Så bra är {n} bilförsäkring — villkor och betyg {ar}',
+ '{n} försäkring {ar} — pris, skydd och oberoende betyg',
+ 'Vad säger betygen om {n} bilförsäkring? ({ar})',
+ '{n} bilförsäkring — villkor, betyg och jämförelse {ar}',
+]
+BOLAG_DESC = [
+ '{n} bilförsäkring: villkor, betyg, vem det passar för och hur du säger upp. Jämför med '
+ 'andra bolag på ditt registreringsnummer.',
+ 'Genomgång av {n} bilförsäkring — vad som ingår, oberoende betyg och vem bolaget passar '
+ 'bäst för.',
+ 'Är {n} rätt bolag för dig? Se villkor, betyg från Konsumenternas, självrisker och vem '
+ 'det passar.',
+ '{n}: omdöme, villkorens innehåll, prisspann och vad du bör kontrollera innan du tecknar.',
+ 'Allt om {n} bilförsäkring — skyddsnivåer, betyg, uppsägning och jämförelse mot marknaden.',
+ 'Vad ingår i {n} bilförsäkring? Villkor, självrisk, oberoende betyg och vem bolaget '
+ 'lämpar sig för.',
+ '{n} bilförsäkring granskad: betyg, villkor, prisspann och de för- och nackdelar som '
+ 'väger tyngst.',
+ 'Så fungerar {n} bilförsäkring. Se betyg, villkor, vem den passar och hur du byter bolag.',
+ 'Omdöme om {n}: oberoende betyg, villkorens omfattning och vad som skiljer bolaget från '
+ 'marknaden.',
+ '{n} bilförsäkring — vad du får, vad det kostar och vem som bör välja bolaget.',
+]
+
+
+def _meta(mallar, n, i, ar='2026'):
+    t = mallar[i % len(mallar)].replace('{n}', n).replace('{ar}', ar)
+    if len(t) > 155:
+        t = t[:152].rsplit(' ', 1)[0].rstrip(',.') + '.'
+    return t
+
+
 def _prisrader(namn, klass):
     """Prisr tabell med uppskattade spann i stället för tomma celler.
 
@@ -538,9 +614,8 @@ def markessidor():
 
         sidor.append({
          'slug': f'bilmarken/{m["slug"]}', 'key': True,
-         'title': f'{n} bilförsäkring 2026 — pris, skydd och jämförelse',
-         'desc': f'Vad kostar det att försäkra en {n}? Se vad som påverkar premien, '
-                 f'vilken skyddsnivå som passar och hur du jämför bolagen.',
+         'title': _meta(MARKE_TITEL, n, i),
+         'desc': _meta(MARKE_DESC, n, i),
          'eyebrow': f'{m["ursprung"]}',
          'h1': f'{n} bilförsäkring',
          'lead': m['karakteristik'].split('. ')[0] + '.',

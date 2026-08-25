@@ -24,9 +24,12 @@ på alla sidor sänker samtliga.
 from modellkatalog import MODELLER
 from modeller_extra import PRISER, SPANN, EXTRA as _E1, META as _META1
 from modeller_extra_2 import EXTRA_2 as _E2
+from modeller_extra_skoda import EXTRA_SKODA as _E3
 
-EXTRA = {**_E1, **_E2}
-META = {**_META1, **{k: v['meta'] for k, v in _E2.items() if v.get('meta')}}
+EXTRA = {**_E1, **_E2, **_E3}
+META = {**_META1,
+        **{k: v['meta'] for k, v in _E2.items() if v.get('meta')},
+        **{k: v['meta'] for k, v in _E3.items() if v.get('meta')}}
 from brands import MARKEN
 import data
 import kort
@@ -425,13 +428,49 @@ FAQ_PRIS = [
  'Jämför på samma nivå och samma självrisk, annars jämför du inte samma sak.',
 ]
 
-def _desc(b, slug, kort):
-    """Metabeskrivning som ryms i sökresultatet utan att kapas."""
-    klausul = META.get(slug) or kort.rstrip('.')
-    text = (f'Vad kostar försäkring till {b}? Se prisexempel för {klausul}, '
-            f'rätt skyddsnivå och villkoren som avgör.')
+TITEL_MALL = [
+ '{b} försäkring — pris, villkor och jämförelse {ar}',
+ 'Försäkring {b} {ar} — vad kostar den och vad ingår?',
+ '{b} bilförsäkring {ar} — prisspann, skyddsnivå och villkor',
+ 'Vad kostar försäkring till {b}? Pris och villkor {ar}',
+ '{b} försäkring {ar} — jämför pris, självrisk och skydd',
+ 'Bilförsäkring {b} — så mycket kostar den {ar}',
+ '{b} — försäkringspris, rätt nivå och villkoren {ar}',
+ 'Försäkra {b} {ar} — prisspann, tillägg och jämförelse',
+ '{b} bilförsäkring — pris, skadebild och villkor {ar}',
+ 'Vad kostar det att försäkra {b}? Guide {ar}',
+]
+
+DESC_MALL = [
+ 'Vad kostar försäkring till {b}? Se prisspann för {k}, rätt skyddsnivå och villkoren '
+ 'som avgör.',
+ '{b} är {k}. Se uppskattat prisspann, vilken nivå som passar och vad du bör kontrollera '
+ 'i offerten.',
+ 'Så mycket kostar det att försäkra {b} — {k}. Prisspann, skadebild och villkor att jämföra.',
+ 'Prisspann, skyddsnivå och villkor för {b}, {k}. Plus vilka tillägg som är värda pengarna.',
+ 'Ska du försäkra {b}? Se vad {k} kostar, vilken nivå som räcker och var bolagen skiljer sig.',
+ '{b} — {k}. Uppskattat prisspann per nivå, vanliga skador och tre bolag att jämföra.',
+ 'Guide till försäkring för {b}, {k}: prisspann, självrisk, tillägg och rätt skyddsnivå.',
+ 'Vad bör du betala för att försäkra {b}? Prisspann för {k} plus villkoren som avgör.',
+ 'Allt om bilförsäkring till {b} — {k}. Pris, skadebild, tillägg och jämförelse.',
+ '{b}: se prisspann, vilken nivå bilen behöver och vad du ska fråga bolaget om. {k}.',
+]
+
+
+def _titel(b, i, ar):
+    return TITEL_MALL[i % len(TITEL_MALL)].replace('{b}', b).replace('{ar}', ar)
+
+
+def _desc(b, slug, kort, i):
+    """Metabeskrivning: roterande mall plus modellens egen klausul.
+
+    Tio mallar gånger unika klausuler ger beskrivningar som varken är
+    identiska eller uppenbart mallade. Kapas alltid under 155 tecken,
+    och aldrig mitt i ett ord."""
+    k = (META.get(slug) or kort).rstrip('.')
+    text = DESC_MALL[i % len(DESC_MALL)].replace('{b}', b).replace('{k}', k)
     if len(text) > 155:
-        text = f'{b} försäkring: prisexempel för {klausul}, rätt skyddsnivå och villkor.'
+        text = text[:152].rsplit(' ', 1)[0].rstrip(',.') + '.'
     return text
 
 
@@ -726,10 +765,10 @@ def sidor():
             ut.append({
                 'slug': f'bilmarken/{m["slug"]}/{mod["slug"]}',
                 'key': True,
-                'title': f'{b} försäkring — pris, villkor och jämförelse {data.UPPDATERAD[:4]}',
+                'title': _titel(b, i, data.UPPDATERAD[:4]),
                 # Metabeskrivning: kapas vid ordgräns så att den aldrig slutar
                 # mitt i ett ord, och håller sig under 155 tecken.
-                'desc': _desc(b, mod['slug'], mod['kort']),
+                'desc': _desc(b, mod['slug'], mod['kort'], i),
                 'eyebrow': f'{m["namn"]} · {mod["typ"].capitalize()}',
                 'h1': f'{b} försäkring',
                 'lead': mod['kort'] + ' ' + mod['vinkel'].split('.')[0] + '.',

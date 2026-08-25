@@ -78,6 +78,11 @@ MODELLKLASS = {
     # XPeng
     'g6': 'elbil', 'g9': 'elbil-stor', 'p7': 'elbil', 'x9': 'elbil-stor',
     # Cupra
+    # Skoda
+    'octavia': 'volym', 'superb': 'stor', 'kodiaq': 'stor', 'karoq': 'volym',
+    'fabia': 'budget', 'scala': 'budget', 'kamiq': 'volym', 'enyaq': 'elbil',
+    'elroq': 'elbil', 'yeti': 'budget',
+    # Cupra
     'formentor': 'volym', 'born': 'elbil', 'leon': 'prestanda',
     'tavascan': 'elbil', 'terramar': 'stor', 'ateca': 'volym',
 }
