@@ -12,6 +12,7 @@ from companies import BOLAG
 from brands import MARKEN, BILD
 import jamforelse
 from modellkatalog import MODELLER
+import uppskattning as upp
 
 TODO = ('<div class="warn"><strong>PLATSHÅLLARE — ersätts före lansering.</strong> '
         'Beloppen är exempelsiffror, inte insamlade marknadspriser.</div>')
@@ -162,16 +163,8 @@ def bolagssidor():
 
         S = {
          'pris': (f'<h2>{H["pris"]}</h2>'
-                  f'<div class="tbl"><table><caption>{b["namn"]} — vägledande årspremie</caption>'
-                  f'<thead><tr><th scope="col">Nivå</th><th scope="col">Per år</th>'
-                  f'<th scope="col">Per månad</th></tr></thead><tbody>'
-                  f'<tr><th scope="row"><a href="/trafikforsakring/">Trafikförsäkring</a></th>'
-                  f'<td>—</td><td>—</td></tr>'
-                  f'<tr><th scope="row"><a href="/halvforsakring/">Halvförsäkring</a></th>'
-                  f'<td>—</td><td>—</td></tr>'
-                  f'<tr><th scope="row"><a href="/helforsakring/">Helförsäkring</a></th>'
-                  f'<td>—</td><td>—</td></tr>'
-                  f'</tbody></table></div>{TODO}{PROFIL}'),
+                  + _prisrader(b['namn'], 'volym')
+                  + upp.metodruta(kort=True, i=i)),
          'villkor': (f'<h2>{H["villkor"]}</h2><p>{b["sammanfattning"]}</p>'
                      f'<div class="tbl"><table><caption>Fakta om {b["namn"]}</caption>'
                      f'<tbody>{fakta}</tbody></table></div>'),
@@ -410,6 +403,24 @@ SPARA = [
 ]
 
 
+def _prisrader(namn, klass):
+    """Prisr tabell med uppskattade spann i stället för tomma celler.
+
+    Så snart data.PRIS är ifylld bör den här funktionen bytas mot de
+    insamlade siffrorna — spannen är en uppskattning och inget annat."""
+    rader = [('/trafikforsakring/', 'Trafikförsäkring', '169\u2013335\u00a0kr/mån',
+              '2\u00a0028\u20134\u00a0020\u00a0kr'),
+             ('/halvforsakring/', 'Halvförsäkring', upp.spann(klass, 'halv'),
+              upp.ar_spann(klass, 'halv')),
+             ('/helforsakring/', 'Helförsäkring', upp.spann(klass, 'hel'),
+              upp.ar_spann(klass, 'hel'))]
+    tr = ''.join(f'<tr><th scope="row"><a href="{u}">{t}</a></th>'
+                 f'<td>{ar}</td><td>{man}</td></tr>' for u, t, man, ar in rader)
+    return (f'<div class="tbl"><table><caption>{namn} — uppskattat prisspann</caption>'
+            f'<thead><tr><th scope="col">Nivå</th><th scope="col">Per år</th>'
+            f'<th scope="col">Per månad</th></tr></thead><tbody>{tr}</tbody></table></div>')
+
+
 def markessidor():
     sidor = []
     for i, m in enumerate(MARKEN):
@@ -420,20 +431,33 @@ def markessidor():
         # Modellrader. Finns en modellsida länkas namnet dit — det är den
         # viktigaste interna länken på hela märkessidan.
         modellsidor_slug = {x['namn']: x['slug'] for x in MODELLER.get(m['slug'], [])}
+
+        def _modellrad(namn_txt, slug=None):
+            """En rad i modelltabellen med uppskattat prisspann.
+
+            Finns ett insamlat pris i data.PRIS för modellen ska det
+            visas i stället — men den insamlingen sker per bolag, inte
+            per modell, så tills vidare är spannet det vi har."""
+            k = upp.klass_for(slug, namn_txt, m['grupp'])
+            return (f'<tr><th scope="row">{namn_txt}</th>'
+                    f'<td>{upp.spann(k, "halv")}</td>'
+                    f'<td>{upp.spann(k, "hel")}</td>'
+                    f'<td>{upp.KLASS_TEXT[k]}</td></tr>')
+
         rader_mod = []
         for mo in m['modeller']:
             if mo in modellsidor_slug:
-                namn = (f'<a href="/bilmarken/{m["slug"]}/{modellsidor_slug[mo]}/">'
+                lank = (f'<a href="/bilmarken/{m["slug"]}/{modellsidor_slug[mo]}/">'
                         f'{n} {mo}</a>')
+                rader_mod.append(_modellrad(lank, modellsidor_slug[mo]).replace(
+                    f'<th scope="row">{lank}</th>', f'<th scope="row">{lank}</th>'))
             else:
-                namn = f'{n} {mo}'
-            rader_mod.append(f'<tr><th scope="row">{namn}</th><td>—</td><td>—</td></tr>')
+                rader_mod.append(_modellrad(f'{n} {mo}'))
         # Modeller som bara finns som egen sida läggs till sist.
         for x in MODELLER.get(m['slug'], []):
             if x['namn'] not in m['modeller']:
-                rader_mod.append(
-                    f'<tr><th scope="row"><a href="/bilmarken/{m["slug"]}/{x["slug"]}/">'
-                    f'{n} {x["namn"]}</a></th><td>—</td><td>—</td></tr>')
+                lank = (f'<a href="/bilmarken/{m["slug"]}/{x["slug"]}/">{n} {x["namn"]}</a>')
+                rader_mod.append(_modellrad(lank, x['slug']))
         modeller = ''.join(rader_mod)
         spara = SPARA[i % len(SPARA)]
 
@@ -447,13 +471,8 @@ def markessidor():
         S = {
          'pris': (f'<h2>{H["pris"]}</h2>'
                   f'<p>{PRIS_INTRO[(i * 3) % len(PRIS_INTRO)]}</p>'
-                  f'<div class="tbl"><table><caption>{n} — vägledande årspremie</caption>'
-                  f'<thead><tr><th scope="col">Nivå</th><th scope="col">Per år</th>'
-                  f'<th scope="col">Per månad</th></tr></thead><tbody>'
-                  f'<tr><th scope="row"><a href="/trafikforsakring/">Trafikförsäkring</a></th><td>—</td><td>—</td></tr>'
-                  f'<tr><th scope="row"><a href="/halvforsakring/">Halvförsäkring</a></th><td>—</td><td>—</td></tr>'
-                  f'<tr><th scope="row"><a href="/helforsakring/">Helförsäkring</a></th><td>—</td><td>—</td></tr>'
-                  f'</tbody></table></div>{TODO}{PROFIL}'),
+                  + _prisrader(n, upp.klass_for(grupp=m['grupp']))
+                  + upp.metodruta(kort=True, i=i)),
          'varfor': (f'<h2>{H["varfor"]}</h2>' + (
              f'<div class="media{" rev" if i % 2 else ""}">'
              f'<figure><img src="/bilder/{m["slug"]}.webp" alt="{bild_alt}" '
@@ -468,9 +487,13 @@ def markessidor():
                       + (f'<p>Varje modell har en egen sida med prisbild, skadeprofil och '
                          f'de villkor som skiljer bolagen åt för just den bilen.</p>'
                          if m['slug'] in MODELLER else '')
-                      + f'<div class="tbl"><table><thead><tr><th scope="col">Modell</th>'
+                      + f'<div class="tbl"><table><caption>Uppskattat prisspann per '
+                      f'{n}-modell</caption><thead><tr><th scope="col">Modell</th>'
                       f'<th scope="col">Halvförsäkring</th><th scope="col">Helförsäkring</th>'
-                      f'</tr></thead><tbody>{modeller}</tbody></table></div>'),
+                      f'<th scope="col">Prisklass</th>'
+                      f'</tr></thead><tbody>{modeller}</tbody></table></div>'
+                      f'<p class="swipe">&larr; Dra i sidled för att se alla kolumner</p>'
+                      + upp.metodruta(kort=True, i=i)),
          'valj': (f'<h2>{H["valj"]}</h2>' + VALJ[m['grupp']].replace('{n}', n)
                   + f'<p>{m["punkter"][2] if len(m["punkter"]) > 2 else m["punkter"][0]} '
                     f'Det är värt att väga in när du väljer mellan '

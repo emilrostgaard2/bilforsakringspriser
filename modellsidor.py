@@ -30,6 +30,7 @@ META = {**_META1, **{k: v['meta'] for k, v in _E2.items() if v.get('meta')}}
 from brands import MARKEN
 import data
 import kort
+import uppskattning as upp
 
 MARKE = {m['slug']: m for m in MARKEN}
 
@@ -462,9 +463,18 @@ def _sektion(nyckel, m, mod, b, i, syskon):
                         f'jämförbara med varandra. Vår egen insamling på en och samma profil '
                         f'pågår.</p>')
         else:
-            rader = [[x['niva'], x['spann'], f'{x["kalla"]}, {x["datum"]}'] for x in SPANN]
-            tabell = _tbl('Marknadens publicerade prisspann',
-                          ['Nivå', 'Spann', 'Källa'], rader)
+            k = upp.klass_for(mod['slug'], mod['namn'], m['grupp'])
+            rader = [['<a href="/halvforsakring/">Halvförsäkring</a>',
+                      upp.spann(k, 'halv'), upp.ar_spann(k, 'halv')],
+                     ['<a href="/helforsakring/">Helförsäkring</a>',
+                      upp.spann(k, 'hel'), upp.ar_spann(k, 'hel')]]
+            tabell = (_tbl(f'Uppskattat prisspann för {b}',
+                           ['Nivå', 'Per månad', 'Per år'], rader)
+                      + upp.metodruta(kort=True, i=i)
+                      + _tbl('Marknadens publicerade siffror',
+                             ['Nivå', 'Spann', 'Källa'],
+                             [[x['niva'], x['spann'], f'{x["kalla"]}, {x["datum"]}']
+                              for x in SPANN]))
             kalltext = (f'<p class="jf-not">Vi har inte hittat publicerade prisuppgifter för '
                         f'specifikt {b}. I stället visas marknadens spann med källa. '
                         f'{SLUT_SPANN[i % len(SLUT_SPANN)]}</p>')
@@ -659,12 +669,18 @@ def _sektion(nyckel, m, mod, b, i, syskon):
     return ''
 
 
-def _syskontabell(m, mod, syskon):
-    rader = [[f'<a href="/bilmarken/{m["slug"]}/{s["slug"]}/">{m["namn"]} {s["namn"]}</a>',
-              s['typ'].capitalize(), s['drivlina'], '—']
-             for s in syskon if s['slug'] != mod['slug']]
-    return _tbl(f'Andra {m["namn"]}-modeller',
-                ['Modell', 'Typ', 'Drivlina', 'Helförsäkring'], rader, swipe=True)
+def _syskontabell(m, mod, syskon, i=0):
+    rader = []
+    for s in syskon:
+        if s['slug'] == mod['slug']:
+            continue
+        k = upp.klass_for(s['slug'], s['namn'], m['grupp'])
+        rader.append([f'<a href="/bilmarken/{m["slug"]}/{s["slug"]}/">'
+                      f'{m["namn"]} {s["namn"]}</a>',
+                      s['typ'].capitalize(), upp.spann(k, 'halv'), upp.spann(k, 'hel')])
+    return (_tbl(f'Andra {m["namn"]}-modeller — uppskattat spann',
+                 ['Modell', 'Typ', 'Halvförsäkring', 'Helförsäkring'], rader, swipe=True)
+            + upp.metodruta(kort=True, i=i))
 
 
 def sidor():
@@ -737,7 +753,7 @@ def sidor():
                     + kroppar
                     + f'<h2>{SYSKON_H2[i % len(SYSKON_H2)].replace("{m}", m["namn"])}</h2>'
                     + f'<p>{SYSKON_ING[i % len(SYSKON_ING)]}</p>'
-                    + _syskontabell(m, mod, lista)
+                    + _syskontabell(m, mod, lista, i)
                     + f'<h2>{mod_extra.get("lang", ("", ""))[0]}</h2>'
                     + f'<p class="direkt">{mod_extra.get("lang", ("", ""))[1]}</p>'
                     + (f'<h2>{mod_extra["lang2"][0]}</h2>'

@@ -921,6 +921,34 @@ sajten finansieras i vår <a href="/redaktionell-metod/">redaktionella metod</a>
 <strong>uppskattningar för jämförelse</strong> — inte offerter. Ditt eget pris ska alltid
 hämtas hos bolaget.</p>
 
+<h2>Uppskattade prisspann — så räknas de fram</h2>
+<p>På märkes- och modellsidorna visar vi uppskattade prisspann i väntan på att vår egen
+insamling ska bli klar. Ett spann är inte en offert och inte ett insamlat pris, och det står
+utskrivet vid varje tabell. Så här går uträkningen till, så att du kan granska den.</p>
+<p>Vi utgår från publicerade marknadssiffror: genomsnittspremien enligt Zmarta och
+Försäkras.se, spannet för trafikförsäkring enligt Tryggvi, samt de lägsta och högsta
+publicerade exemplen för halv- och helförsäkring. Därefter placeras varje modell i en av sju
+prisklasser efter de två faktorer som väger tyngst i bolagens egna beräkningar:
+ersättningsvärde och drivlina. Klassens spann är satt så att marknadens publicerade lägsta
+och högsta värden ryms inom skalan som helhet.</p>
+<div class="tbl"><table><caption>Prisklasserna och vad de omfattar</caption>
+<thead><tr><th scope="col">Klass</th><th scope="col">Halvförsäkring</th>
+<th scope="col">Helförsäkring</th></tr></thead><tbody>
+<tr><th scope="row">Låg prisklass</th><td>230–330 kr/mån</td><td>330–500 kr/mån</td></tr>
+<tr><th scope="row">Volymklass</th><td>280–400 kr/mån</td><td>450–650 kr/mån</td></tr>
+<tr><th scope="row">Stor bil</th><td>340–470 kr/mån</td><td>560–800 kr/mån</td></tr>
+<tr><th scope="row">Premium</th><td>380–520 kr/mån</td><td>620–900 kr/mån</td></tr>
+<tr><th scope="row">Elbil</th><td>310–440 kr/mån</td><td>500–740 kr/mån</td></tr>
+<tr><th scope="row">Stor elbil</th><td>390–540 kr/mån</td><td>650–950 kr/mån</td></tr>
+<tr><th scope="row">Prestandaversion</th><td>400–560 kr/mån</td><td>680–980 kr/mån</td></tr>
+</tbody></table></div>
+<p class="swipe">&larr; Dra i sidled för att se alla kolumner</p>
+<p>Klassindelningen är vår bedömning, inte en uppmätt siffra, och det är den svagaste länken
+i kedjan. Vi redovisar den öppet just därför. Vi anger medvetet spann i stället för exakta
+belopp — ett "från 549 kr/mån" på en modell vi inte har offererat vore ett påhittat tal med
+falsk precision. När vår egen insamling är klar ersätts uppskattningarna av insamlade priser,
+och den här sidan uppdateras samtidigt.</p>
+
 <h2>Källor</h2>
 <ul>
 <li>Konsumenternas Försäkringsbyrå — oberoende betygsättning av villkor</li>
