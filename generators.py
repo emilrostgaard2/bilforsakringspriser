@@ -11,7 +11,7 @@ import re, os
 from companies import BOLAG
 from brands import MARKEN, BILD
 import jamforelse
-from modeller import MODELLER
+from modellkatalog import MODELLER
 
 TODO = ('<div class="warn"><strong>PLATSHÅLLARE — ersätts före lansering.</strong> '
         'Beloppen är exempelsiffror, inte insamlade marknadspriser.</div>')

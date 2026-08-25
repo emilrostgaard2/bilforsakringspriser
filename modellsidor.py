@@ -21,8 +21,12 @@ Vill ni längre än så ska det komma av mer modellspecifikt underlag i
 modeller.py, aldrig av fler generiska stycken — utfyllnad som återkommer
 på alla sidor sänker samtliga.
 """
-from modeller import MODELLER
-from modeller_extra import PRISER, SPANN, EXTRA, META
+from modellkatalog import MODELLER
+from modeller_extra import PRISER, SPANN, EXTRA as _E1, META as _META1
+from modeller_extra_2 import EXTRA_2 as _E2
+
+EXTRA = {**_E1, **_E2}
+META = {**_META1, **{k: v['meta'] for k, v in _E2.items() if v.get('meta')}}
 from brands import MARKEN
 import data
 import kort
@@ -35,6 +39,178 @@ AGARE_H2 = ['Vem kör en {b}?', 'Så används en {b} — och varför det spelar 
 SYSKON_H2 = ['Jämför {m}-modellerna mot varandra', 'Övriga {m}-modeller och deras premie',
              'Hur ligger resten av {m}-utbudet?', 'Andra {m} att jämföra med',
              '{m}-modellerna sida vid sida']
+TILLAGG_H2 = ['Vilka tillägg är värda pengarna på en {b}?', 'Tilläggen som lönar sig här',
+              'Vad du bör lägga till — och vad du kan stryka', 'Tilläggsförsäkringar för {b}',
+              'Extraskydden som faktiskt används']
+TILLAGG_ING = [
+ 'Tillägg säljs som en klumpsumma men bör väljas ett i taget. Det avgörande är inte vad de '
+ 'kostar utan hur sannolikt det är att just du får användning för dem.',
+ 'De flesta betalar för minst ett tillägg de aldrig kommer att använda, och saknar ett de '
+ 'skulle ha haft nytta av. Vilka det är beror på bilen.',
+ 'Ett tillägg är värt sin premie när sannolikheten att det används är rimlig i förhållande '
+ 'till kostnaden. Här är hur den kalkylen ser ut för den här modellen.',
+ 'Gå igenom tilläggen mot bilens faktiska skadebild i stället för mot vad de heter.',
+ 'Skadebilden avgör vilka tillägg som betalar sig. Den skiljer sig mer mellan modeller än '
+ 'mellan bolag.',
+ 'Det finns inget tillägg som är rätt för alla. Det finns däremot tillägg som är fel för den '
+ 'här bilen.',
+ 'Innan du väljer till: fråga vad som redan ingår. Dubbelt skydd är den vanligaste onödiga '
+ 'kostnaden i en bilförsäkring.',
+]
+SLUT_RAKNA = [
+ 'Beloppen är räkneexempel på självrisken, inte prisuppgifter. Poängen är proportionen '
+ 'mellan vad du betalar varje år och vad försäkringen kan betala tillbaka.',
+ 'Siffrorna illustrerar självriskens effekt, inget annat. Det är förhållandet mellan premie '
+ 'och möjlig ersättning som avgör nivån.',
+ 'Tabellen visar hur självrisken äter av ersättningen. Sätt den summan mot vad '
+ 'vagnskadedelen kostar per år.',
+ 'Räkneexemplen säger inget om priset, bara om vad som blir kvar när självrisken dragits.',
+ 'Det är skillnaden mellan årspremien och den möjliga ersättningen som avgör om '
+ 'vagnskadedelen är värd att behålla.',
+ 'Jämför den möjliga utbetalningen med vad vagnskadedelen kostar under fem år. Då blir '
+ 'valet tydligt.',
+ 'Beloppen är exempel. Metoden — värde minus självrisk — är densamma oavsett bil.',
+]
+SLUT_CHECK = [
+ 'Det är den skadetypen din offert i praktiken ska klara, och därför väger villkoren tyngre '
+ 'än de sista hundralapparna i premie.',
+ 'Offerten ska matcha den skadebilden. Ett lägre pris på sämre villkor är ingen besparing.',
+ 'Kontrollera att offerten faktiskt täcker det som brukar hända den här bilen.',
+ 'Villkoren avgör utfallet vid just den typen av ärende. Priset avgör bara vad du betalar '
+ 'under tiden ingenting händer.',
+ 'Det är mot den skadebilden offerten ska mätas, inte mot marknadens genomsnitt.',
+ 'Väg villkoren mot den vanligaste skadan, inte mot den värsta tänkbara.',
+ 'Den skadetypen är den mest sannolika. Se till att den är ordentligt täckt.',
+]
+SLUT_TILLAGG = [
+ 'Det är skälet till att tilläggen bör väljas efter bilen och inte efter vad paketet råkar '
+ 'heta hos bolaget.',
+ 'Välj tillägg efter bilens skadebild, inte efter paketets namn.',
+ 'Ett tilläggspaket är sällan optimerat för din bil. Plocka delarna själv.',
+ 'Bolagens paket är byggda för genomsnittsbilen. Din är inte det.',
+ 'Gå efter vad bilen faktiskt råkar ut för, inte efter vad tillägget heter.',
+ 'Det är bilens egenskaper som avgör vilka tillägg som betalar sig.',
+ 'Namnet på paketet säger ingenting om vad du behöver.',
+]
+SLUT_BEGAGNAT = [
+ 'Det är den siffran vagnskadedelen utgår från vid en totalskada, och därmed den som avgör '
+ 'om helförsäkring är motiverad.',
+ 'Marknadsvärdet i dag är det enda som räknas vid en totalskada — inte nypriset.',
+ 'Ersättningen bygger på vad bilen är värd nu. Låt det styra skyddsnivån.',
+ 'Vagnskadedelen kan aldrig betala mer än marknadsvärdet minus självrisken.',
+ 'Det är dagens värde, inte köpeskillingen, som avgör vad försäkringen kan ge tillbaka.',
+ 'Skyddsnivån ska följa värdet, och värdet ändras varje år.',
+ 'Räkna på dagens värde varje gång försäkringen förnyas.',
+]
+SLUT_SPANN = [
+ 'Det är ärligare än att räkna fram en siffra och kalla den ett pris — och det säger dig var '
+ 'i skalan du bör hamna.',
+ 'Vi redovisar hellre spannet med källa än en uträknad siffra utan grund.',
+ 'Ett spann med källa är mer användbart än ett påhittat exakt belopp.',
+ 'Så vet du var i skalan bilen bör hamna, utan att vi gissar åt dig.',
+ 'Marknadens spann säger mer om storleksordningen än ett enskilt framräknat tal skulle göra.',
+ 'Vi publicerar det vi kan belägga och skriver ut resten.',
+ 'Spannet är hämtat med källa. Din egen offert är det enda exakta svaret.',
+]
+PROFIL_ING = [
+ 'Utöver bilen väger din egen profil tyngre än de flesta tror. Bostadsorten sätts på '
+ 'postnummernivå, inte på kommun, och skillnaden mellan två adresser i samma stad kan vara '
+ 'större än mellan två landsändar.',
+ 'Bilen sätter ramen, men det är din profil som avgör var inom ramen du hamnar. Postnumret '
+ 'väger tyngst av det du inte kan ändra, körsträckan av det du kan.',
+ 'Två personer med samma bil kan betala dubbelt så mycket som varandra. Skillnaden ligger '
+ 'nästan alltid i ålder, bonus och var bilen står nattetid.',
+ 'Premien är en produkt av bil och förare. Modellen förklarar sällan mer än halva '
+ 'skillnaden mellan två offerter.',
+ 'Det som avgör din premie utöver modellen är tre uppgifter du själv lämnar: adress, '
+ 'körsträcka och antal skadefria år.',
+ 'Bolagen räknar på bilen och på dig samtidigt. Den delen du styr över är större än den '
+ 'delen bilen står för.',
+ 'Din egen profil förklarar oftare skillnaden mellan två offerter än vilken bil det gäller.',
+]
+GARANTI_ING = [
+ 'Nya bilar har normalt vagnskadegaranti i tre år från första registrering, och under den '
+ 'tiden räcker halvförsäkring — garantin täcker det som annars är vagnskadedelen.',
+ 'De första tre åren har en ny bil normalt vagnskadegaranti från tillverkaren. Då behövs '
+ 'ingen helförsäkring, eftersom garantin gör samma jobb.',
+ 'Vagnskadegarantin följer med nya bilar i tre år och gör helförsäkring överflödig under '
+ 'den perioden. Halvförsäkring räcker.',
+ 'Är bilen under tre år gammal täcker tillverkarens vagnskadegaranti normalt det '
+ 'helförsäkringen annars gör.',
+ 'Under garantitiden betalar du för ett skydd du redan har om du väljer helförsäkring. '
+ 'Kontrollera datumet för första registrering.',
+ 'Tillverkarens vagnskadegaranti gäller i regel tre år och gör att halvförsäkring räcker '
+ 'så länge.',
+ 'Nybilsgarantin på vagnskada löper tre år. Många tecknar helförsäkring ändå, utan att '
+ 'behöva det.',
+]
+SUMMA_H2 = ['Sammanfattning — {b} och försäkringen', 'Det viktigaste om {b} i korthet',
+            'Slutsats: så försäkrar du en {b}', '{b} — sammanfattat',
+            'Kort sammanfattning innan du väljer']
+SUMMA_ING = [
+ 'Om du bara tar med dig tre saker från den här sidan, ta med de här.',
+ 'Sammanfattat i tre punkter, i den ordning de påverkar din premie.',
+ 'Det här är vad som faktiskt avgör vad du betalar för den här bilen.',
+ 'Tre slutsatser, hämtade ur allt ovan.',
+ 'Kortversionen för dig som ska hämta offert i dag.',
+ 'Det viktigaste, destillerat.',
+ 'Tre saker att ha med när du ringer bolaget.',
+]
+BEGAGNAT_H2 = ['Köper du {b} begagnad?', 'Vad du bör kontrollera vid begagnatköp',
+               'Begagnad {b} — försäkringen vid ägarbytet', 'Att tänka på vid köp av begagnad {b}',
+               'Ägarbytet och försäkringen']
+BEGAGNAT_ING = [
+ 'Försäkringsplikten börjar den dag du står som ägare, inte den dag du hämtar bilen. Det är '
+ 'den vanligaste och dyraste missen vid ett begagnatköp.',
+ 'Vid ett ägarbyte upphör säljarens försäkring automatiskt. Din egen måste börja gälla samma '
+ 'dag, annars är bilen oförsäkrad.',
+ 'Ett begagnatköp är också ett tillfälle att byta bolag — du får teckna nytt utan att vänta '
+ 'på huvudförfallodagen.',
+ 'Den som köper begagnat får en bil med historik men bygger sin egen premie från noll av den '
+ 'historiken.',
+ 'Bilens tidigare körsträcka följer med i annonsen men inte in i din offert. Din egen '
+ 'körsträcka är den som ska anges.',
+ 'Vid köp av begagnad bil finns tre datum som måste stämma: ägarbytet, försäkringens start '
+ 'och den gamla försäkringens slut.',
+ 'Ett ägarbyte är den enklaste tidpunkten att göra rätt från början, eftersom ingenting är '
+ 'låst ännu.',
+]
+CHECK_H2 = ['Checklista innan du tecknar till din {b}', 'Det här ska du kontrollera i offerten',
+            'Nio punkter att gå igenom för {b}', 'Innan du skriver på — {b}',
+            'Vad du bör fråga bolaget om']
+CHECK_ING = [
+ 'Gå igenom listan med offerten framför dig. De tre första punkterna gäller just den här '
+ 'modellen, resten gäller alla bilar men glöms oftast bort.',
+ 'De tre översta punkterna är specifika för modellen. De tre nedersta är sådant som gäller '
+ 'alla bilar och ändå missas i nio offerter av tio.',
+ 'Punkterna är sorterade med det modellspecifika först. Ta listan med dig när du ringer '
+ 'bolaget — det tar fem minuter och avgör vad du faktiskt får.',
+ 'Här är vad som skiljer en bra offert från en billig på just den här bilen.',
+ 'Den här listan är skillnaden mellan att jämföra pris och att jämföra försäkring.',
+ 'Kontrollera punkterna i varje offert, inte bara i den du lutar åt. Annars jämför du inte '
+ 'samma sak.',
+ 'Tre modellspecifika punkter och tre allmänna. Alla sex kostar ingenting att kontrollera.',
+]
+RAKNA_H2 = ['Räkna på om helförsäkring lönar sig', 'Lönar sig vagnskadedelen på din {b}?',
+            'Så räknar du ut rätt skyddsnivå', 'Vad du faktiskt får ut vid en totalskada',
+            'Premien mot vad försäkringen kan betala']
+RAKNA_ING = [
+ 'Vagnskadedelen ersätter bilens marknadsvärde minus självrisken — inte vad du betalade och '
+ 'inte vad en likvärdig bil kostar hos en handlare.',
+ 'Frågan är enkel att räkna på: hur mycket kan försäkringen betala ut, och hur mycket kostar '
+ 'den delen per år?',
+ 'Ersättningen vid totalskada bygger på marknadsvärdet, och det är ofta lägre än ägaren tror.',
+ 'Sätt vad vagnskadedelen kostar per år mot vad den skulle betala ut. Kalkylen avgör nivån.',
+ 'Det här är den enda beräkning som verkligen behövs för att välja skyddsnivå.',
+ 'Vagnskadedelen är den dyraste delen av premien. Räkna på vad den kan ge tillbaka.',
+ 'Marknadsvärdet minus självrisken är hela ersättningen vid totalskada. Börja där.',
+]
+TEKNIK_H2 = ['Tekniken som avgör reparationskostnaden', 'Vad som gör en {b} dyr eller billig att laga',
+             'Under plåten — det som kostar vid en skada', 'Reparationsbilden för {b}',
+             'Teknik, verkstad och delar']
+KOSTNAD_H2 = ['{b} i den totala ägarkostnaden', 'Var försäkringen hamnar bland dina bilkostnader',
+              'Vad {b} kostar utöver premien', 'Försäkringen som andel av driftkostnaden',
+              'Helhetsbilden av vad bilen kostar']
 JAMFOR_H2 = ['{b} jämfört med konkurrenterna', 'Hur står sig {b} mot alternativen?',
              '{b} mot liknande bilar', 'Premien i jämförelse med klassen',
              'Vad kostar konkurrenterna?']
@@ -73,13 +249,13 @@ H2 = [
 ]
 
 ORDNING = [
-    ['agare', 'styr', 'skada', 'jamfor', 'niva', 'villkor', 'byta'],
-    ['agare', 'niva', 'styr', 'jamfor', 'skada', 'villkor', 'byta'],
-    ['agare', 'skada', 'styr', 'niva', 'jamfor', 'villkor', 'byta'],
-    ['agare', 'styr', 'niva', 'jamfor', 'villkor', 'skada', 'byta'],
-    ['agare', 'jamfor', 'styr', 'skada', 'niva', 'villkor', 'byta'],
-    ['agare', 'niva', 'jamfor', 'styr', 'villkor', 'skada', 'byta'],
-    ['agare', 'skada', 'jamfor', 'niva', 'styr', 'villkor', 'byta'],
+    ['agare', 'teknik', 'styr', 'skada', 'jamfor', 'rakna', 'niva', 'tillagg', 'kostnad', 'begagnat', 'checklista', 'villkor', 'byta', 'summa'],
+    ['agare', 'niva', 'teknik', 'styr', 'jamfor', 'skada', 'rakna', 'tillagg', 'begagnat', 'kostnad', 'villkor', 'checklista', 'byta', 'summa'],
+    ['agare', 'skada', 'teknik', 'styr', 'rakna', 'niva', 'tillagg', 'jamfor', 'begagnat', 'checklista', 'villkor', 'kostnad', 'byta', 'summa'],
+    ['agare', 'teknik', 'niva', 'rakna', 'styr', 'tillagg', 'jamfor', 'kostnad', 'begagnat', 'villkor', 'skada', 'checklista', 'byta', 'summa'],
+    ['agare', 'jamfor', 'teknik', 'styr', 'skada', 'niva', 'rakna', 'begagnat', 'tillagg', 'kostnad', 'checklista', 'villkor', 'byta', 'summa'],
+    ['agare', 'niva', 'rakna', 'jamfor', 'teknik', 'tillagg', 'styr', 'villkor', 'begagnat', 'skada', 'kostnad', 'checklista', 'byta', 'summa'],
+    ['agare', 'skada', 'jamfor', 'teknik', 'rakna', 'tillagg', 'niva', 'styr', 'checklista', 'begagnat', 'kostnad', 'villkor', 'byta', 'summa'],
 ]
 
 BYTA_PUNKTER = [
@@ -290,9 +466,8 @@ def _sektion(nyckel, m, mod, b, i, syskon):
             tabell = _tbl('Marknadens publicerade prisspann',
                           ['Nivå', 'Spann', 'Källa'], rader)
             kalltext = (f'<p class="jf-not">Vi har inte hittat publicerade prisuppgifter för '
-                        f'specifikt {b}. I stället visas marknadens spann med källa. Det är '
-                        f'ärligare än att räkna fram en siffra och kalla den ett pris — och '
-                        f'det säger dig var i skalan du bör hamna.</p>')
+                        f'specifikt {b}. I stället visas marknadens spann med källa. '
+                        f'{SLUT_SPANN[i % len(SLUT_SPANN)]}</p>')
         return (f'<h2>{h}</h2>'
                 f'<p class="direkt">{e.get("direktsvar", "")}</p>'
                 + tabell + kalltext
@@ -308,6 +483,103 @@ def _sektion(nyckel, m, mod, b, i, syskon):
         rub = JAMFOR_H2[i % len(JAMFOR_H2)].replace('{b}', b)
         return f'<h2>{rub}</h2><p>{e.get("jamfor", "")}</p>'
 
+    if nyckel == 'summa':
+        rub = SUMMA_H2[i % len(SUMMA_H2)].replace('{b}', b)
+        e = EXTRA.get(mod['slug'], {})
+        forsta = (e.get('jamfor', '').split('. ')[0] + '.') if e.get('jamfor') else ''
+        return (f'<h2>{rub}</h2><p>{SUMMA_ING[i % len(SUMMA_ING)]}</p>'
+                f'<p><strong>Vad som styr premien.</strong> {mod["vinkel"]}</p>'
+                f'<p><strong>Vilken nivå du bör välja.</strong> {mod["niva"]} '
+                f'{mod["varde"]}</p>'
+                f'<p><strong>Det som avgör vid en skada.</strong> '
+                f'{(e.get("teknik", "").split(". ")[0] + ".") if e.get("teknik") else ""} '
+                f'{mod["punkter"][0]} är den enskilda uppgift som oftast förklarar varför '
+                f'två offerter på samma bil skiljer sig åt, och den står i villkoren — inte '
+                f'i priset.</p>'
+                f'<p><strong>Var du bör jämföra.</strong> {forsta} Hämta offert på '
+                f'registreringsnumret hos minst tre bolag, på samma skyddsnivå och samma '
+                f'självrisk — annars jämför du inte samma sak. Hur du gör det steg för steg '
+                f'står under <a href="/jamfor-bilforsakring/">jämför bilförsäkring</a>, och '
+                f'de generella prisfaktorerna finns på sidan om '
+                f'<a href="/billigaste-bilforsakringen/">billigaste bilförsäkringen</a>.</p>')
+
+    if nyckel == 'tillagg':
+        rub = TILLAGG_H2[i % len(TILLAGG_H2)].replace('{b}', b)
+        el = 'el' in mod['drivlina'] or 'eldriven' in mod['typ']
+        rader = [
+            ['Hyrbil', 'Ofta ja' if el else 'Beror på om du har tillgång till en andra bil',
+             'Väntetid på delar är den vanligaste orsaken till att bilen står stilla'],
+            ['Allrisk eller drulle', 'Ja på nyare bilar',
+             'Täcker feltankning, nyckelförlust och skador i kupén — inget av det ingår annars'],
+            ['Lägre självrisk', 'Räkna på det',
+             'Lönar sig bara om skillnaden i premie är mindre än sänkningen av självrisken'],
+            ['Vägassistans', 'Kontrollera först',
+             'Ingår ofta redan via nybilsgaranti eller medlemskap'],
+            ['Självriskreducering vid djurkollision',
+             'Ja om du kör på landsväg', 'Viltolyckor är den skada som oftast ger ett större '
+             'belopp utanför tätort'],
+        ]
+        return (f'<h2>{rub}</h2><p>{TILLAGG_ING[i % len(TILLAGG_ING)]} {mod["skada"]}</p>'
+                + _tbl(f'Tillägg bedömda för {b}',
+                       ['Tillägg', 'Värt pengarna?', 'Motivering'], rader, swipe=True)
+                + f'<p>{mod["punkter"][2] if len(mod["punkter"]) > 2 else mod["punkter"][0]} '
+                  f'{SLUT_TILLAGG[i % len(SLUT_TILLAGG)]}</p>')
+
+    if nyckel == 'begagnat':
+        rub = BEGAGNAT_H2[i % len(BEGAGNAT_H2)].replace('{b}', b)
+        return (f'<h2>{rub}</h2><p>{BEGAGNAT_ING[i % len(BEGAGNAT_ING)]}</p>'
+                + _tbl(f'Ägarbyte steg för steg — {b}',
+                       ['Steg', 'Vad du gör', 'Varför'],
+                       [['1', 'Teckna försäkring med startdatum samma dag som ägarbytet',
+                         'Försäkringsplikten börjar vid ägarbytet, inte vid hämtningen'],
+                        ['2', 'Ange din egen körsträcka', 'Bilens historik är irrelevant för '
+                         'din premie och kan göra den för dyr'],
+                        ['3', 'Begär intyg på dina skadefria år',
+                         'Bonusen följer dig men överförs inte automatiskt'],
+                        ['4', 'Kontrollera utrustningsnivån i offerten',
+                         'Utrustningen styr ersättningsvärdet och därmed premien'],
+                        ['5', 'Välj skyddsnivå efter bilens värde i dag',
+                         'Inte efter vad den kostade ny']], swipe=True)
+                + f'<p>{mod["varde"]} {SLUT_BEGAGNAT[i % len(SLUT_BEGAGNAT)]} '
+                  f'Reglerna kring ägarbyte och byte av bolag står samlade under '
+                  f'<a href="/byta-bilforsakring/">byta bilförsäkring</a>.</p>')
+
+    if nyckel == 'checklista':
+        rub = CHECK_H2[i % len(CHECK_H2)].replace('{b}', b)
+        e = EXTRA.get(mod['slug'], {})
+        rader = [[p, 'Modellspecifikt'] for p in mod['punkter']]
+        rader += [['Kontrollera hyrbilsdagar', 'Väntetid på delar drabbar dig direkt'],
+                  ['Jämför glassjälvrisken vid byte, inte bara vid lagning',
+                   'Skillnaden är större än de flesta tror'],
+                  ['Ange din egen körsträcka, inte bilens historik',
+                   'Felaktig uppgift kan sänka ersättningen']]
+        return (f'<h2>{rub}</h2><p>{CHECK_ING[i % len(CHECK_ING)]}</p>'
+                + _tbl(f'Checklista före tecknandet — {b}',
+                       ['Punkt', 'Varför'], rader)
+                + f'<p>{mod["skada"]} {SLUT_CHECK[i % len(SLUT_CHECK)]}</p>')
+
+    if nyckel == 'rakna':
+        rub = RAKNA_H2[i % len(RAKNA_H2)].replace('{b}', b)
+        return (f'<h2>{rub}</h2>'
+                f'<p>{RAKNA_ING[i % len(RAKNA_ING)]} {mod["varde"]}</p>'
+                + _tbl(f'Vad vagnskadedelen kan betala ut på en {b}',
+                       ['Marknadsvärde', 'Vid 4 000 kr självrisk', 'Vid 8 000 kr självrisk'],
+                       [['50 000 kr', '46 000 kr', '42 000 kr'],
+                        ['100 000 kr', '96 000 kr', '92 000 kr'],
+                        ['200 000 kr', '196 000 kr', '192 000 kr'],
+                        ['400 000 kr', '396 000 kr', '392 000 kr']])
+                + f'<p>{mod["niva"]} {SLUT_RAKNA[i % len(SLUT_RAKNA)]}</p>')
+
+    if nyckel == 'teknik':
+        e = EXTRA.get(mod['slug'], {})
+        rub = TEKNIK_H2[i % len(TEKNIK_H2)].replace('{b}', b)
+        return f'<h2>{rub}</h2><p>{e.get("teknik", "")}</p>'
+
+    if nyckel == 'kostnad':
+        e = EXTRA.get(mod['slug'], {})
+        rub = KOSTNAD_H2[i % len(KOSTNAD_H2)].replace('{b}', b)
+        return f'<h2>{rub}</h2><p>{e.get("kostnad", "")}</p>'
+
     if nyckel == 'styr':
         rader = [['Drivlina', mod['drivlina']],
                  ['Karosstyp', mod['typ'].capitalize()],
@@ -317,7 +589,16 @@ def _sektion(nyckel, m, mod, b, i, syskon):
         punkter = ''.join(f'<li>{x}</li>' for x in mod['punkter'])
         return (f'<h2>{h}</h2><p>{STYR_ING[i % len(STYR_ING)]}</p>'
                 + _tbl(f'{b} — modellens egna premiefaktorer', ['Faktor', 'Betydelse'], rader)
-                + f'<ul>{punkter}</ul>')
+                + f'<ul>{punkter}</ul>'
+                + f'<p>{PROFIL_ING[i % len(PROFIL_ING)]} Läs mer under '
+                  f'<a href="/bilforsakring-stockholm/">bilförsäkring i '
+                  f'Stockholm</a>. Körsträckan anges i intervall, och ligger du strax över en '
+                  f'gräns kan en ärlig justering nedåt ge en tydlig sänkning. Skadefria år är '
+                  f'den faktor du bygger upp helt själv, och den enda som blir bättre av att '
+                  f'ingenting händer — hur den fungerar står under '
+                  f'<a href="/bonus-och-skadefria-ar/">bonus och skadefria år</a>. '
+                  f'Tillsammans förklarar de tre faktorerna oftare skillnaden mellan två '
+                  f'offerter än vilken bil det gäller.</p>')
 
     if nyckel == 'niva':
         rader = [['Under 3 år', 'Halvförsäkring räcker om vagnskadegarantin gäller',
@@ -329,6 +610,12 @@ def _sektion(nyckel, m, mod, b, i, syskon):
         return (f'<h2>{h}</h2><p>{NIVA_ING[i % len(NIVA_ING)]} {mod["niva"]}</p>'
                 + _tbl(f'Skyddsnivå för {b} efter ålder',
                        ['Bilens ålder', 'Rimlig nivå', 'Motivering'], rader, swipe=True)
+                + f'<p>{GARANTI_ING[i % len(GARANTI_ING)]} Garantin upphör på dagen, och '
+                  f'det är värt en påminnelse i kalendern: därefter står bilen utan '
+                  f'vagnskadeskydd om ingen gör något. Går bilen på leasing gäller i stället '
+                  f'avtalets krav, som i praktiken alltid innebär helförsäkring under hela '
+                  f'perioden — se <a href="/leasingbil-forsakring/">försäkring vid '
+                  f'leasing</a>.</p>'
                 + f'<p>Läs mer om skillnaden mellan '
                   f'<a href="/halvforsakring/">halvförsäkring</a> och '
                   f'<a href="/helforsakring/">helförsäkring</a>, eller om hur '
@@ -382,6 +669,9 @@ def _syskontabell(m, mod, syskon):
 
 def sidor():
     ut = []
+    # Varje märke får en egen förskjutning i variantpoolerna. Utan den
+    # hämtar modell nummer fem hos Cupra samma formuleringar som modell
+    # nummer fem hos Volvo, och sidorna börjar likna varandra på tvären.
     for marke_slug, lista in MODELLER.items():
         m = MARKE[marke_slug]
         for i, mod in enumerate(lista):
@@ -400,9 +690,21 @@ def sidor():
                  'Det varierar med förarprofilen. Ett bolag som är billigast för en '
                  '25-åring i Malmö kan vara dyrast för en 60-åring i Umeå. Jämför alltid '
                  'på ditt eget registreringsnummer.'),
-                (f'Påverkar {mod["typ"]}-formatet premien?',
-                 f'Ja, indirekt. Karosstypen styr både vilka skador som är vanliga och vad '
-                 f'en reparation kostar. {mod["skada"].split(".")[0]}.'),
+                (f'Vilka skador är vanligast på en {b}?', mod['skada']),
+                (f'Vad påverkar premien mest på en {b}?',
+                 f'Utöver din egen ålder, bonus och bostadsort är det tre saker: '
+                 f'{mod["punkter"][0].lower()}, {mod["punkter"][1].lower()} och hur bilen '
+                 f'värderas vid en totalskada. {mod["varde"]}'),
+                (f'Hur står sig {b} mot liknande bilar?',
+                 (mod_extra.get('jamfor', '').split('. ')[0] + '.') if mod_extra.get('jamfor')
+                 else 'Premien styrs av ersättningsvärde, reparationskostnad och '
+                      'verkstadsnät — jämför alltid på samma skyddsnivå.'),
+                (f'Vad ingår i en helförsäkring till {b}?',
+                 'Trafik, stöld, brand, glas, räddning, rättsskydd och maskinskada — plus '
+                 'vagnskada, som är det enda momentet helförsäkringen lägger till utöver '
+                 'halvförsäkringen. Vagnskadedelen täcker skador på din egen bil vid en '
+                 'olycka du själv orsakat, vid skadegörelse och vid parkeringsskada utan '
+                 'känd motpart.'),
             ]
 
             ut.append({
@@ -438,6 +740,9 @@ def sidor():
                     + _syskontabell(m, mod, lista)
                     + f'<h2>{mod_extra.get("lang", ("", ""))[0]}</h2>'
                     + f'<p class="direkt">{mod_extra.get("lang", ("", ""))[1]}</p>'
+                    + (f'<h2>{mod_extra["lang2"][0]}</h2>'
+                       f'<p class="direkt">{mod_extra["lang2"][1]}</p>'
+                       if mod_extra.get('lang2') else '')
                     + f'<div class="cta"><h2>Se priset på din {b}</h2>'
                       f'<p>Ange registreringsnumret så hämtas bilens uppgifter '
                       f'automatiskt.</p><div class="cta-inner">{{PLATE}}</div></div>'

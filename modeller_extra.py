@@ -78,6 +78,10 @@ SPANN = [
 EXTRA = {
 
 'xc60': {
+ 'teknik':
+  'XC60 delar plattform med V60, S60 och V90 inom Volvos SPA-arkitektur, vilket betyder att delkatalogen är stor och att verkstäderna känner bilen. Det som kostar är sensorerna. Bakom vindrutan sitter kameran som styr styrassistans och autobroms, och efter varje rutbyte krävs kalibrering — ett moment som kostar mer än själva rutan på vissa årsmodeller. Laddhybriderna T6 och T8 lägger till ett batteripaket i mitten av bilen och en elmotor på bakaxeln, vilket gör underredet känsligare vid kontakt med farthinder.',
+ 'kostnad':
+  'Försäkringen är en måttlig del av vad en XC60 kostar att äga. Värdeminskningen dominerar de första åren, därefter tar bränsle och däck över. Det gör inte premien oviktig, men det betyder att motorvalet påverkar totalen mer än bolagsvalet gör: en T8 kostar mer i både premie, däck och värdeminskning än en B4, medan skillnaden mellan två försäkringsbolag på samma bil sällan når samma belopp.',
  'direktsvar':
   'Publicerade prisexempel för Volvo XC60 ligger på omkring 194 kr i månaden för '
   'trafikförsäkring, 281 kr för halvförsäkring och 501 kr för helförsäkring hos det '
@@ -108,6 +112,10 @@ EXTRA = {
 },
 
 'xc40': {
+ 'teknik':
+  'XC40 bygger på CMA-plattformen, som Volvo delar med Polestar och Lynk & Co. Delstillgången är god och verkstadsnätet stort. Den tekniska detalj som påverkar försäkringen mest är sensorpaketet i fronten: radar och kamera sitter samlade bakom grillen, och en parkeringssmäll i låg fart kan därför utlösa kalibrering av hela assistanspaketet. På laddhybriderna tillkommer ett batteri under mittkonsolen, vilket inte påverkar reparationen men väl ersättningsvärdet.',
+ 'kostnad':
+  'XC40 är en bil där försäkringen väger tyngre i kalkylen än på större Volvomodeller, helt enkelt för att övriga kostnader är lägre. För en förare under trettio kan premien vara den största enskilda posten efter värdeminskningen. Det gör att jämförelsen mellan bolag ger mer tillbaka här än på en dyrare bil — och att en sänkt körsträcka eller en korrekt registrerad bonus märks direkt i månadskostnaden.',
  'direktsvar':
   'Publicerade prisexempel för Volvo XC40 börjar runt 549 kr i månaden för helförsäkring på '
   'en 2019 års modell i Göteborg med en 36-årig förare och 1 500 mil om året. Är du yngre än '
@@ -135,6 +143,10 @@ EXTRA = {
 },
 
 'v60': {
+ 'teknik':
+  'V60 delar SPA-plattform med XC60 och V90, vilket ger samma goda delstillgång. Cross Country-versionen har högre markfrigång och andra fjäderben, men i övrigt är delarna desamma. Det tekniskt intressanta för försäkringen är att kombikarossen har en stor bakruta och en lång takkontur — glasskador blir därför en tyngre post än på en sedan, medan de klassiska parkeringsskadorna är färre eftersom bilen är smalare än en SUV.',
+ 'kostnad':
+  'V60 är billig att äga i förhållande till sin storlek. Bränsleförbrukningen är måttlig, delarna billiga och premien låg. Det gör att den samlade ägarkostnaden ofta hamnar under en mindre SUV:s, vilket är värt att räkna på om du står mellan de två. Försäkringen är den minst dominerande posten i kalkylen — men också den enda du kan sänka utan att byta bil.',
  'direktsvar':
   'Volvo V60 hör till de billigare bilarna att försäkra i sin storleksklass. Skadefrekvensen '
   'är lägre än för märkets SUV-modeller, ägarprofilen är äldre och en stor del av beståndet '
@@ -160,6 +172,10 @@ EXTRA = {
 },
 
 'v90': {
+ 'teknik':
+  'V90 använder samma SPA-plattform som XC60 och V60, men i sitt största utförande. Karossdelarna är stora, vilket gör att en plåtskada sällan blir liten. Luftfjädringen finns på en del exemplar och är dyr att ersätta — kontrollera om maskinskademomentet omfattar den. Cross Country-versionen har annan fjädring och plastdetaljer runt hjulhusen som ofta tar skada först vid kontakt med kantsten.',
+ 'kostnad':
+  'V90 kostar mer i alla poster än V60, men skillnaden i försäkring är mindre än skillnaden i värdeminskning. På ett begagnat exemplar är bilden en annan: värdet har redan fallit, medan premien följer efter långsammare. Det är i det läget skyddsnivån bör räknas om, eftersom vagnskadedelen då kostar mer i förhållande till vad den kan betala ut.',
  'direktsvar':
   'Volvo V90 kostar mer att försäkra än V60, men mindre än nypriset antyder. Premien följer '
   'marknadsvärdet, och V90 tappar kraftigt i värde de första fyra åren. En begagnad V90 '
@@ -184,6 +200,10 @@ EXTRA = {
 },
 
 'xc90': {
+ 'teknik':
+  'XC90 är byggd på SPA-plattformen och delar mycket med XC60, men i större format och med sju säten. Luftfjädringen sitter på en stor del av beståndet och är en dyr reparationspost som inte alltid täcks av maskinskademomentet. Bilens bredd gör den utsatt i äldre parkeringshus, och de stora karossektionerna gör att även måttliga skador kräver omfattande arbete.',
+ 'kostnad':
+  'XC90 är dyr i samtliga poster: bränsle, däck, värdeminskning och premie. Det gör försäkringen till en mindre andel av totalen än på en liten bil, men beloppet i kronor är ändå det högsta i Volvos utbud. Kraven på stöldskydd kan dessutom innebära en engångskostnad för spårsändare — räkna in den när du jämför offerter, eftersom ett bolag med lägre premie och krav på spårsändare kan bli dyrare totalt.',
  'direktsvar':
   'Volvo XC90 ligger högst i premie av Volvos modeller. Bilens värde, storlek och '
   'stöldbegärlighet driver priset, och flera bolag ställer krav på godkänt stöldskydd eller '
@@ -208,6 +228,10 @@ EXTRA = {
 },
 
 's60': {
+ 'teknik':
+  'S60 delar allt av betydelse med V60: SPA-plattform, drivlinor, elektronik och delkatalog. Skillnaden är karossen bakåt. Sedanens bakruta är mindre än kombins, vilket gör glasmomentet något lättare, medan bagageluckan är en mindre och billigare komponent än en kombibaklucka. I praktiken är S60 därför marginellt billigare att reparera än V60 vid de vanligaste skadetyperna.',
+ 'kostnad':
+  'S60 kostar ungefär detsamma att äga som V60, med skillnaden att andrahandsvärdet är lägre. Det påverkar två saker i motsatt riktning: värdeminskningen i kronor blir mindre på ett begagnat exemplar, medan vagnskadedelen har mindre att ersätta vid totalskada. Kombinationen gör att gränsen för när halvförsäkring blir rimlig kommer tidigare på S60 än på V60. Det finns också en praktisk skillnad värd att nämna: sedanens bagageutrymme är slutet, vilket i statistiken ger något färre stölder ur bilen än på en kombi där lastutrymmet syns genom rutorna. Effekten på premien är liten men den finns, och den är ett av få exempel på att karossformen påverkar mer än storleken.',
  'direktsvar':
   'Volvo S60 kostar ungefär detsamma att försäkra som V60, eftersom bilarna delar teknik, '
   'delkatalog och verkstadsnät. Skillnaden ligger i marknadsvärdet, där kombin står något '
@@ -231,6 +255,10 @@ EXTRA = {
 },
 
 's90': {
+ 'teknik':
+  'S90 delar teknik med V90 rakt av. Det som skiljer försäkringsmässigt är utrustningsnivån, som varierar mer på S90 än på någon annan Volvomodell — allt från enkelt utrustade tjänstebilar till fullt utrustade representationsbilar går under samma modellnamn. Utrustningen styr ersättningsvärdet, och skillnaden mellan två exemplar kan vara sexsiffrig.',
+ 'kostnad':
+  'S90 har haft den brantaste värdekurvan i Volvos utbud, vilket gör begagnade exemplar prisvärda att köpa och billiga att försäkra i förhållande till storleken. Den samlade ägarkostnaden domineras av bränsle på dieselversionerna och av värdeminskning på nyare exemplar. Försäkringen är sällan den post som avgör om bilen är prisvärd. En detalj som ofta förbises vid begagnatköp är att många exemplar har utrustningspaket som inte syns utanpå — luftfjädring, ljudanläggning och förarstödssystem kan skilja hundratusentals kronor i ersättningsvärde mellan två bilar med samma årsmodell. Kontrollera att offerten utgår från rätt specifikation.',
  'direktsvar':
   'Volvo S90 har det minsta beståndet av Volvos storbilar, vilket gör att bolagens priser '
   'skiljer sig mer på den här modellen än på vanligare bilar. Här lönar det sig särskilt att '
@@ -254,6 +282,10 @@ EXTRA = {
 },
 
 'ex30': {
+ 'teknik':
+  'EX30 bygger på Geelys SEA-plattform, inte på Volvos egna. Det betyder att delkatalogen skiljer sig från övriga Volvomodeller och att delvägarna varit under uppbyggnad. Batteriet ligger i golvet och utgör en stor andel av bilens värde. Fronten rymmer sensorer och radar, vilket gör en låg parkeringssmäll dyrare än den ser ut. Det är inte reparationens svårighetsgrad utan tillgången på delar som varit den verkliga risken.',
+ 'kostnad':
+  'EX30 är billig att köpa och billig att köra, vilket gör försäkringen till en stor andel av den totala ägarkostnaden. Den post som kan bli oväntat dyr är väntetid vid skada, och den kostnaden bärs av hyrbilsmomentet. Ett bolag med tjugo hyrbilsdagar och ett med fem kan ha samma premie och helt olika utfall den dag bilen står på verkstad.',
  'direktsvar':
   'Volvo EX30 kostar mer att försäkra än en bensindriven bil i samma storlek. Batteriet utgör '
   'en stor andel av bilens värde, arbete på högvoltssystemet kräver certifierad verkstad, och '
@@ -278,6 +310,10 @@ EXTRA = {
 },
 
 'ex40': {
+ 'teknik':
+  'EX40 delar kaross och delkatalog med bensindrivna XC40, vilket är en fördel: plåtskador repareras likadant och delarna finns hos alla Volvoverkstäder. Skillnaden ligger i drivlinan. Batteriet i golvet och elmotorerna kräver högvoltsbehörighet, vilket begränsar antalet verkstäder som får utföra arbetet — och det är den begränsningen, inte kostnaden per timme, som gör elbilar dyrare att reparera.',
+ 'kostnad':
+  'EX40 kostar mindre att köra än bensinversionen och mer att försäkra. Nettot beror på hur mycket du kör: vid låga körsträckor äter premieskillnaden upp bränslebesparingen, vid höga gör den inte det. Räkna på din egen körsträcka innan du drar slutsatsen att elbilen är billigare — det är en av få kalkyler där svaret faktiskt vänder.',
  'direktsvar':
   'Volvo EX40 är den eldrivna XC40 och hette tidigare XC40 Recharge. Premien ligger högre än '
   'för bensinversionen, eftersom batteriet utgör en stor del av ersättningsvärdet och '
@@ -301,6 +337,10 @@ EXTRA = {
 },
 
 'v70': {
+ 'teknik':
+  'V70 är byggd i en tid före sensorpaketen, och det är dess stora fördel i det här sammanhanget. En vindruta är en vindruta, utan kalibrering efteråt. Delarna finns i överflöd både nya och begagnade, och varje verkstad i landet har lagat modellen. Det som kostar är i stället ålder: automatlådor, EGR-ventiler på dieselversionerna och rost i hjulhusen — och inget av det ersätts av någon försäkringsnivå, eftersom slitage inte är skada.',
+ 'kostnad':
+  'V70 är en av få bilar där försäkringen kan vara den största löpande kostnaden efter bränslet. Värdeminskningen är i princip noll på ett välskött exemplar, servicen är billig och delarna finns. Det gör valet av skyddsnivå till den viktigaste ekonomiska beslutet: skillnaden mellan hel- och halvförsäkring är på den här bilen ofta större än hela årets servicekostnad.',
  'direktsvar':
   'En helförsäkring till Volvo V70 kostar enligt publicerade uppgifter typiskt mellan 350 och '
   '900 kr i månaden beroende på årsmodell, förarens ålder och bostadsort. På de flesta '

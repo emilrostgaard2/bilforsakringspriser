@@ -123,6 +123,13 @@ def hero(d):
         if len(dele) > 1:
             far = {'forsakringsbolag': 'Försäkringsbolag', 'bilmarken': 'Bilmärken'}.get(dele[0], dele[0])
             mid = f'<a href="/{dele[0]}/">{far}</a> <span aria-hidden="true">/</span> '
+        # Modellsidor har tre nivåer: Start / Bilmärken / Volvo / Volvo XC60.
+        # Utan mellanledet tappar besökaren vägen tillbaka till märket.
+        if len(dele) > 2:
+            import brands as _b
+            _namn = {x['slug']: x['namn'] for x in _b.MARKEN}.get(dele[1], dele[1].title())
+            mid += (f'<a href="/{dele[0]}/{dele[1]}/">{_namn}</a> '
+                    f'<span aria-hidden="true">/</span> ')
         crumbs = ('<nav class="crumbs" aria-label="Brödsmulor"><a href="/">Start</a> '
                   f'<span aria-hidden="true">/</span> {mid}<span>{d["h1"]}</span></nav>')
     return f'''<section class="hero"><div class="wrap hero-in">
