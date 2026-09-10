@@ -74,7 +74,8 @@ PARTNERS = [
                 'nätet, vilket är en del av förklaringen till prisbilden.',
         'taggar': ['Ofta lägst i prisexempel', 'Helt digitalt', 'Villkorsbetyg 4,1 av 5'],
         'sida': '/forsakringsbolag/gofido/',
-        'aff': '',
+        # Adtraction, godkänd januari 2026.
+        'aff': 'https://go.adt231.net/t/t?a=1720558515&as=2105554353&t=2&tk=1',
     },
 ]
 
@@ -86,8 +87,9 @@ TJANST = {
     'text': 'Jämförelsetjänst som hämtar offerter från flera bolag i ett formulär. '
             'Täcker bara anslutna bolag och får provision av dem — använd den som ett '
             'av flera underlag, inte som hela marknaden.',
-    'taggar': ['Flera offerter i ett formulär', 'Endast anslutna bolag'],
-    'aff': '',
+    'taggar': ['Flera offerter i ett formulär', 'Kostnadsfritt', 'Endast anslutna bolag'],
+    # Adtraction, godkänd januari 2026.
+    'aff': 'https://go.adt242.com/t/t?a=2065996918&as=2105554353&t=2&tk=1',
 }
 
 BADGE_IKON = {'guld': '\u2605', 'silver': '\u25cf', 'blaa': '\u25be'}

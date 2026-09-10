@@ -49,6 +49,46 @@ BYTA = [
   'första fakturan att åren registrerats — annars börjar du om från noll.'),
 ]
 
+SKADA_SLUT = [
+ 'Hur ärendet sedan drivs vidare, vad som händer med <a href="/bonus-och-skadefria-ar/">'
+ 'bonusen</a> och hur <a href="/sjalvrisk/">självrisken</a> räknas skiljer sig mellan '
+ 'bolagen — kontrollera det i villkoren innan du tecknar.',
+ 'Vad som händer med <a href="/bonus-och-skadefria-ar/">bonusen</a> efter en utbetalning, och '
+ 'vilken <a href="/sjalvrisk/">självrisk</a> som gäller, står i villkoren. Läs det före '
+ 'skadan, inte efter.',
+ 'Fortsättningen — handläggningstid, <a href="/sjalvrisk/">självrisk</a> och effekten på '
+ '<a href="/bonus-och-skadefria-ar/">skadefria år</a> — varierar mellan bolagen och är värd '
+ 'att jämföra.',
+ 'Det som skiljer bolagen åt är vad som sker efteråt: hur snabbt ärendet regleras, vilken '
+ '<a href="/sjalvrisk/">självrisk</a> som dras och hur '
+ '<a href="/bonus-och-skadefria-ar/">bonusen</a> påverkas.',
+ 'Resten av processen står i villkoren: <a href="/sjalvrisk/">självriskens</a> storlek, '
+ 'hyrbilsdagar och hur många <a href="/bonus-och-skadefria-ar/">skadefria år</a> du tappar.',
+ 'Efter anmälan avgörs utfallet av villkoren — <a href="/sjalvrisk/">självrisk</a>, '
+ 'verkstadsval och vad som händer med <a href="/bonus-och-skadefria-ar/">bonusen</a>.',
+ 'Hur ärendet regleras och vad det kostar dig i <a href="/sjalvrisk/">självrisk</a> och '
+ 'förlorade <a href="/bonus-och-skadefria-ar/">skadefria år</a> skiljer sig mer mellan '
+ 'bolagen än priset gör.',
+]
+
+BYTA_SLUT = [
+ 'De allmänna reglerna — huvudförfallodag, uppsägningstid och när du får byta i förtid — '
+ 'gäller oavsett bolag och står samlade under '
+ '<a href="/byta-bilforsakring/">byta bilförsäkring</a>.',
+ 'När du får byta, hur lång uppsägningstiden är och vad som gäller vid bilköp står under '
+ '<a href="/byta-bilforsakring/">byta bilförsäkring</a>.',
+ 'Reglerna för uppsägning och huvudförfallodag är desamma hos alla bolag och finns samlade '
+ 'under <a href="/byta-bilforsakring/">byta bilförsäkring</a>.',
+ 'Bytesreglerna gäller lika för alla bolag. De står i sin helhet under '
+ '<a href="/byta-bilforsakring/">byta bilförsäkring</a>.',
+ 'Vill du veta exakt när du får säga upp och hur du gör det, läs '
+ '<a href="/byta-bilforsakring/">byta bilförsäkring</a>.',
+ 'Uppsägningstid, huvudförfallodag och undantagen för bilköp och flytt står under '
+ '<a href="/byta-bilforsakring/">byta bilförsäkring</a>.',
+ 'Det formella kring bytet — datum, uppsägning och intyg — hittar du under '
+ '<a href="/byta-bilforsakring/">byta bilförsäkring</a>.',
+]
+
 SKADA = [
  [('Säkra platsen', 'Vid personskada ringer du 112. I annat fall varningstriangel och '
    'fotografering av båda bilarna innan något flyttas.'),
@@ -179,21 +219,14 @@ def bolagssidor():
          # resten länkas.
          'byta': (f'<h2>{H["byta"]}</h2>'
                   + f'<h3>{byta_par[0][0]}</h3><p>{byta_par[0][1]}</p>'
-                  + f'<p>De allmänna reglerna — huvudförfallodag, uppsägningstid och när du '
-                    f'får byta i förtid — gäller oavsett bolag och står samlade under '
-                    f'<a href="/byta-bilforsakring/">byta bilförsäkring</a>. Där finns också '
-                    f'hur du flyttar med dina '
-                    f'<a href="/bonus-och-skadefria-ar/">skadefria år</a> utan att tappa '
-                    f'bonus.</p>'),
+                  + f'<p>{BYTA_SLUT[(i * 5 + 1) % len(BYTA_SLUT)]} Där står också hur du '
+                    f'flyttar med dina <a href="/bonus-och-skadefria-ar/">skadefria år</a>.</p>'),
          # Skadeanmälan följer samma logik: två steg här, resten på den
          # sida som faktiskt ska ranka på frågan.
          'skada': (f'<h2>{H["skada"]}</h2>'
                    + ''.join(f'<h3>{n}. {t}</h3><p>{p}</p>'
                              for n, (t, p) in enumerate(skada_steg[:2], 1))
-                   + f'<p>Hur ärendet sedan drivs vidare, vad som händer med '
-                     f'<a href="/bonus-och-skadefria-ar/">bonusen</a> och hur '
-                     f'<a href="/sjalvrisk/">självrisken</a> räknas skiljer sig mellan '
-                     f'bolagen — kontrollera det i villkoren innan du tecknar.</p>'),
+                   + f'<p>{SKADA_SLUT[(i * 3 + 2) % len(SKADA_SLUT)]}</p>'),
         }
 
         body = ''.join((_sec_alt if n % 2 else _sec)(S[k])

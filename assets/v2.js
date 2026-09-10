@@ -7,16 +7,20 @@
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
 
   /* ── Affiliatemål ────────────────────────────────────────────────
-     ÄNDRA HÄR när partneravtalet är på plats. utm_content sätts per
-     sida så att det går att se vilken sida som konverterar — förutsatt
-     att partnern vidarebefordrar parametern. Fråga dem om fältnamnet;
-     vissa nätverk använder "subid" i stället.                        */
-  var AFF_BASE = 'https://www.example-partner.se/jamfor';
+     Registreringsnummerknappen går till Zmarta, som är en
+     jämförelsetjänst och därmed det enda rimliga målet för en knapp
+     som lovar att jämföra flera bolag. Gofido är ett enskilt bolag och
+     länkas från korten, inte härifrån.
+
+     epi bär vår spårning genom Adtraction. Nätverket skickar tillbaka
+     värdet i rapporten, vilket gör att varje konvertering går att
+     härleda till den sida den kom från. Byter ni nätverk: kontrollera
+     vad parametern heter där, alla använder inte epi.               */
+  var AFF_BASE = 'https://go.adt242.com/t/t?a=2065996918&as=2105554353&t=2&tk=1';
   var SLUG = (location.pathname.replace(/^\/|\/$/g, '') || 'start').replace(/\//g, '-');
   var AFF = AFF_BASE
     + (AFF_BASE.indexOf('?') > -1 ? '&' : '?')
-    + 'utm_source=bilforsakringspriser&utm_medium=web&utm_campaign=organisk'
-    + '&utm_content=' + encodeURIComponent(SLUG);
+    + 'epi=' + encodeURIComponent(SLUG);
 
   /* ── Registreringsnummer: formatering ABC 123 / ABC 12A ────────── */
   function fmt(raw) {
@@ -41,6 +45,9 @@
     var url;
     try { url = new URL(AFF); }
     catch (e) { window.open(AFF, '_blank', 'noopener,noreferrer'); return; }
+    // Registreringsnumret skickas med som parameter. Om det faktiskt når
+    // fram till partnerns formulär beror på om spårlänken har deep link
+    // aktiverad — be Adtraction om url-parametern om det inte fungerar.
     if (plate) url.searchParams.set('regnr', plate);
     window.open(url.toString(), '_blank', 'noopener,noreferrer');
   }

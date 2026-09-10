@@ -594,3 +594,10 @@ tbody tr:last-child td,tbody tr:last-child th{border-bottom:0}
   font-size:1.02rem;line-height:1.7;color:var(--ink);
   border-left:3px solid var(--blue);padding-left:15px;margin:0 0 18px;
 }
+
+/* Annonsmärkning under registreringsnummerknappen. Ska vara läsbar,
+   inte gömd — kravet är att reklam går att känna igen som reklam. */
+.plate-ad{
+  margin:10px 0 0;font-size:.78rem;line-height:1.5;color:var(--ink-2);
+}
+.plate-ad a{text-decoration:underline}

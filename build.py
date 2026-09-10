@@ -10,7 +10,7 @@ import os, json, re, html
 import data, forfattare
 
 BASE = 'https://bilforsakringspriser.se'
-V = '20260825b'           # cache-stämpel — höj vid ändring i css/js
+V = '20260826a'           # cache-stämpel — höj vid ändring i css/js
 ROOT = os.path.dirname(os.path.abspath(__file__))
 os.chdir(ROOT)
 
@@ -102,7 +102,33 @@ CK = ('<span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColo
 ARR = '<span class="arw" aria-hidden="true">&rarr;</span>'
 
 
-def plate(pid, btn_text, note=''):
+# Knappen går till en annonslänk. Marknadsföringslagen kräver att
+# reklam går att känna igen som reklam, så raden nedan ska stå kvar så
+# länge målet är en affiliatelänk — och tas bort om det slutar vara det.
+ANNONSNOTER = [
+ 'Annonslänk. Vi kan få ersättning om du tecknar via Zmarta, vilket inte påverkar ditt pris.',
+ 'Knappen går till Zmarta via en annonslänk. Ersättningen vi får påverkar inte vad du betalar.',
+ 'Annonslänk till jämförelsetjänsten Zmarta. Vi får ersättning, du betalar samma pris.',
+ 'Detta är en annonslänk. Zmarta ersätter oss för förmedlade kunder — ditt pris är detsamma.',
+ 'Annonslänk. Vi tjänar pengar när någon tecknar via Zmarta, men priset för dig är oförändrat.',
+ 'Länken är en annonslänk till Zmarta. Vår ersättning läggs inte på din premie.',
+ 'Annonslänk till Zmarta. Vi får betalt av dem, aldrig av dig.',
+]
+
+
+def annonsnot(slug):
+    """Annonsmärkning under knappen.
+
+    Marknadsföringslagen kräver att reklam går att känna igen som reklam,
+    så raden ska stå kvar så länge målet är en affiliatelänk. Sju
+    formuleringar, valda per sida — varje variant säger samma sak
+    fullständigt, men samma mening hamnar inte på tvåhundra sidor."""
+    i = sum(ord(c) for c in (slug or 'start'))
+    return (f'<p class="plate-ad">{ANNONSNOTER[i % len(ANNONSNOTER)]} '
+            f'<a href="/redaktionell-metod/">Så finansieras sajten</a>.</p>')
+
+
+def plate(pid, btn_text, note='', slug=''):
     """Registreringsnummerfält med knapp."""
     n = f'<p class="anchor-note">{note}</p>' if note else ''
     return f'''<div class="plate">
@@ -111,7 +137,7 @@ def plate(pid, btn_text, note=''):
 </span></div>
 <button type="button" class="btn" data-go="{pid}">{btn_text} {ARR}</button>
 <button type="button" class="btn-ghost" data-go="">Jag kan inte mitt registreringsnummer</button>
-{n}'''.replace('</span></div>', '</div>', 1)
+{n}{annonsnot(slug)}'''.replace('</span></div>', '</div>', 1)
 
 
 def hero(d):
@@ -143,7 +169,7 @@ def hero(d):
 <span class="card-lab">Gratis jämförelse</span>
 <p class="card-t">{d.get("card_t", "Se vad din bil kostar att försäkra")}</p>
 <p class="card-s">{d.get("card_s", "Ange registreringsnumret, så hämtas bilens uppgifter automatiskt. Du fyller inte i märke, modell eller årsmodell.")}</p>
-{plate("heroPlate", d.get("card_btn", "Jämför gratis nu"), d.get("card_note", ""))}
+{plate("heroPlate", d.get("card_btn", "Jämför gratis nu"), d.get("card_note", ""), d["slug"])}
 <div class="trust"><span>Kostnadsfritt</span><span>Ingen registrering</span><span>Ingen bindning</span></div>
 </div></div>
 </div></section>'''
@@ -272,7 +298,7 @@ def page(d):
         li = ''.join(f'<li><a href="{u}">{t}</a></li>' for u, t in d['rel'])
         rel = f'<div class="{wr}"><nav class="rel" aria-label="Läs vidare"><h2>Läs vidare</h2><ul>{li}</ul></nav></div>'
 
-    body_html = d['body'].replace('{PLATE}', plate('pagePlate', 'Jämför gratis nu'))
+    body_html = d['body'].replace('{PLATE}', plate('pagePlate', 'Jämför gratis nu', slug=slug))
 
     # Sidor med egen bild delas med stor förhandsvisning, övriga med logotypen.
     if d.get('bild'):
