@@ -202,8 +202,8 @@ den vanligaste situationen först.</p>
  'sticky': 'Hämta din offert',
  'body': f'''
 {kort.sektion('Bolag att begära offert från',
-    'Behöver du en startpunkt för de tre offerterna: här är tre bolag med olika profil — villkorsbetyg på trafikförsäkring, lokala kontor och låga premier i publicerade prisexempel.',
-    ['ica-forsakring', 'dina-forsakringar', 'gofido'], smal=True)}
+    'Behöver du en startpunkt för de tre offerterna: här är två bolag med olika profil — lokala kontor och låga premier i publicerade prisexempel — plus en jämförelsetjänst för den tredje.',
+    ['dina-forsakringar', 'gofido'], smal=True)}
 
 <section class="sec"><div class="wrap narrow">
 <div class="note"><p><strong>Kort sagt.</strong> Ett listpris säger nästan ingenting.
@@ -410,9 +410,9 @@ vilka du ska begära offert från.</p>
             'Täcker aldrig skador på din egen bil'],
  'sticky': 'Se pris på trafikförsäkring',
  'body': f'''
-{kort.sektion('Bolag med starka villkor på trafikförsäkring',
-    'Trafikförsäkringen är samma lagstadgade skydd överallt, så det som skiljer är pris, service och hur snabbt ett ärende hanteras. ICA Försäkring har det högsta betyget på just den här nivån.',
-    ['ica-forsakring', 'gofido', 'dina-forsakringar'], smal=True)}
+{kort.sektion('Bolag att jämföra trafikförsäkring hos',
+    'Trafikförsäkringen är samma lagstadgade skydd överallt, så det som skiljer är pris, service och hur snabbt ett ärende hanteras.',
+    ['gofido', 'dina-forsakringar'], smal=True)}
 
 <section class="sec"><div class="wrap narrow">
 <div class="note"><p><strong>Kort sagt.</strong> Trafikförsäkring är enligt trafikskadelagen
@@ -561,8 +561,8 @@ lagstadgade skyddet handlar om andra, inte om din egen egendom.</p>
  'sticky': 'Se pris på halvförsäkring',
  'body': f'''
 {kort.sektion('Bolag att jämföra halvförsäkring hos',
-    'På halvförsäkring är det momenten som skiljer — glassjälvrisk, maskinskadans åldersgräns och kraven på stöldskydd. Här är tre bolag med olika profil att ställa mot varandra.',
-    ['dina-forsakringar', 'ica-forsakring', 'gofido'], smal=True)}
+    'På halvförsäkring är det momenten som skiljer — glassjälvrisk, maskinskadans åldersgräns och kraven på stöldskydd. Här är två bolag med olika profil att ställa mot varandra.',
+    ['dina-forsakringar', 'gofido'], smal=True)}
 
 <section class="sec"><div class="wrap narrow">
 <div class="note"><p><strong>Kort sagt.</strong> Halvförsäkring är trafikförsäkring plus ett
@@ -709,7 +709,7 @@ oftast rätt långt ned i värdeskalan — står den på gatan i
  'body': f'''
 {kort.sektion('Bolag att jämföra helförsäkring hos',
     'Helförsäkring är den dyraste nivån, och därför den där skillnaden mellan bolagen ger störst utslag i kronor. Kundnöjdheten väger tyngre här, eftersom det är på vagnskadeärenden handläggningen märks.',
-    ['dina-forsakringar', 'ica-forsakring', 'gofido'], smal=True)}
+    ['dina-forsakringar', 'gofido'], smal=True)}
 
 <section class="sec"><div class="wrap narrow">
 <div class="note"><p><strong>Kort sagt.</strong> Helförsäkring är halvförsäkring plus

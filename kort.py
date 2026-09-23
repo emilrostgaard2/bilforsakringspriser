@@ -38,19 +38,6 @@ import data
 
 PARTNERS = [
     {
-        'slug': 'ica-forsakring',
-        'namn': 'ICA Försäkring',
-        'logo': '/assets/logotyper/ica-forsakring.webp',
-        'badge': 'Högst betyg på trafikförsäkring',
-        'badge_typ': 'guld',
-        'text': 'Fick högsta betyg, 4,8 av 5, för sin trafikförsäkring i Konsumenternas '
-                'Försäkringsbyrås jämförelse. Bonus på ICA-kortet vid köp av försäkring, '
-                'vilket gör den intressant om du redan handlar där.',
-        'taggar': ['Konsumenternas 4,8 av 5', 'Bonus på ICA-kortet', 'Öppen för alla'],
-        'sida': '/forsakringsbolag/ica-forsakring/',
-        'aff': '',
-    },
-    {
         'slug': 'dina-forsakringar',
         'namn': 'Dina Försäkringar',
         'logo': '/assets/logotyper/dina-forsakringar.webp',
@@ -195,12 +182,12 @@ def sektion(rubrik='Bolag att börja med', ingress=None, ordning=None,
         + '<a href="/redaktionell-metod/">redaktionella metod</a>, inte på ersättning.</p>')
 
     if kompakt and ingress is None:
-        ingress = 'Tre bolag med olika profil att begära offert från.'
+        ingress = 'Två bolag med olika profil att begära offert från.'
     if ingress is None:
-        ingress = ('Tre bolag med olika profil — villkor, lokal närvaro och digitalt '
-                   'upplägg. Etiketterna hänvisar till uppgifter från Konsumenternas '
-                   'Försäkringsbyrå, bolagen själva och publicerade prisexempel, aldrig '
-                   'till egna omdömen.')
+        ingress = ('Två bolag med olika profil — lokal närvaro och digitalt upplägg — '
+                   'plus en jämförelsetjänst för fler offerter. Etiketterna hänvisar till '
+                   'uppgifter från bolagen själva och publicerade prisexempel, aldrig till '
+                   'egna omdömen.')
 
     wrap = 'wrap narrow' if smal else 'wrap'
     klass = 'sec pk-sek smal' if smal else 'sec pk-sek'

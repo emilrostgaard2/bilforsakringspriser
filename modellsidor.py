@@ -465,7 +465,7 @@ DESC_MALL = [
  'Så mycket kostar det att försäkra {b} — {k}. Prisspann, skadebild och villkor att jämföra.',
  'Prisspann, skyddsnivå och villkor för {b}, {k}. Plus vilka tillägg som är värda pengarna.',
  'Ska du försäkra {b}? Se vad {k} kostar, vilken nivå som räcker och var bolagen skiljer sig.',
- '{b} — {k}. Uppskattat prisspann per nivå, vanliga skador och tre bolag att jämföra.',
+ '{b} — {k}. Uppskattat prisspann per nivå, vanliga skador och bolag att jämföra.',
  'Guide till försäkring för {b}, {k}: prisspann, självrisk, tillägg och rätt skyddsnivå.',
  'Vad bör du betala för att försäkra {b}? Prisspann för {k} plus villkoren som avgör.',
  'Allt om bilförsäkring till {b} — {k}. Pris, skadebild, tillägg och jämförelse.',
@@ -802,7 +802,7 @@ def sidor():
                     # när frågan "vad kostar det" precis besvarats.
                     + kort.sektion(
                         f'Bolag att begära offert från till {b}',
-                        None, ['ica-forsakring', 'dina-forsakringar', 'gofido'],
+                        None, ['dina-forsakringar', 'gofido'],
                         smal=True, kompakt=True)
                     + f'<section class="sec"><div class="wrap narrow">'
                     + kroppar

@@ -151,9 +151,9 @@ def sidan():
                    'insamlade för merparten av bolagen publiceras listan som rankning.</div>')
 
     body = f'''
-{kort.sektion('Bolagen som utmärker sig i underlaget',
-    'Två bolag som ligger högt på var sitt kriterium i sammanställningen nedan. Placeringen på hela listan hittar du i tabellen längre ned.',
-    ['ica-forsakring', 'gofido'], smal=True)}
+{kort.sektion('Bolaget som utmärker sig på pris',
+    'Gofido ligger högt på pris i sammanställningen nedan. Placeringen på hela listan hittar du i tabellen längre ned.',
+    ['gofido'], smal=True)}
 
 <section class="sec"><div class="wrap narrow">
 <div class="note"><p><strong>Kort sagt.</strong> Det finns ingen försäkring som är bäst för

@@ -77,8 +77,8 @@ SIDOR = [
  'sticky': 'Hitta din billigaste bilförsäkring',
  'body': f'''
 {kort.sektion('Bolag som ofta ligger lågt',
-    'Priset räknas fram individuellt, så ingen lista kan peka ut det billigaste bolaget för din bil. De här två återkommer däremot i andras prisexempel och i de oberoende betygen, och är en rimlig startpunkt för dina egna offerter.',
-    ['gofido', 'ica-forsakring'], smal=True)}
+    'Priset räknas fram individuellt, så ingen lista kan peka ut det billigaste bolaget för din bil. Gofido återkommer däremot bland de lägsta premierna i andras prisexempel och är en rimlig startpunkt för dina egna offerter.',
+    ['gofido'], smal=True)}
 
 <section class="sec"><div class="wrap narrow">
 <div class="note"><p><strong>Kort sagt.</strong> Ingen lista kan peka ut det billigaste bolaget
@@ -242,7 +242,7 @@ offerter — hur du gör det steg för steg står i vår guide till
  'body': f'''
 {kort.sektion('Bolag att jämföra elbilsförsäkring hos',
     'På elbil är det batteriets omfattning, verkstadsnätet och antalet hyrbilsdagar som avgör, inte premien ensam. Begär offert hos flera och ställ samma fyra frågor till var och en.',
-    ['ica-forsakring', 'gofido', 'dina-forsakringar'], smal=True)}
+    ['gofido', 'dina-forsakringar'], smal=True)}
 
 <section class="sec"><div class="wrap narrow">
 <div class="note"><p><strong>Kort sagt.</strong> Elbilar har historiskt legat högre i premie

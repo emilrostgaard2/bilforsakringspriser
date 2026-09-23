@@ -503,7 +503,7 @@ MARKE_DESC = [
  'Guide till {n} bilförsäkring — prisspann, självrisk, tillägg och hur du jämför rätt.',
  'Vad bör du betala för att försäkra en {n}? Se prisspann per modell och villkoren som '
  'väger tyngst.',
- 'Jämför bilförsäkring till {n}. Prisspann per modell, skadeprofil och tre bolag att '
+ 'Jämför bilförsäkring till {n}. Prisspann per modell, skadeprofil och bolag att '
  'begära offert från.',
 ]
 BOLAG_TITEL = [
