@@ -77,8 +77,8 @@ SIDOR = [
  'sticky': 'Hitta din billigaste bilförsäkring',
  'body': f'''
 {kort.sektion('Bolag som ofta ligger lågt',
-    'Priset räknas fram individuellt, så ingen lista kan peka ut det billigaste bolaget för din bil. De här tre återkommer däremot i andras prisexempel och i de oberoende betygen, och är en rimlig startpunkt för dina egna offerter.',
-    ['gofido', 'ica-forsakring', 'dina-forsakringar'], smal=True)}
+    'Priset räknas fram individuellt, så ingen lista kan peka ut det billigaste bolaget för din bil. De här två återkommer däremot i andras prisexempel och i de oberoende betygen, och är en rimlig startpunkt för dina egna offerter.',
+    ['gofido', 'ica-forsakring'], smal=True)}
 
 <section class="sec"><div class="wrap narrow">
 <div class="note"><p><strong>Kort sagt.</strong> Ingen lista kan peka ut det billigaste bolaget

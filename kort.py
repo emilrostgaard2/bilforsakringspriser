@@ -54,14 +54,18 @@ PARTNERS = [
         'slug': 'dina-forsakringar',
         'namn': 'Dina Försäkringar',
         'logo': '/assets/logotyper/dina-forsakringar.webp',
-        'badge': 'Högst kundnöjdhet',
+        # Dinas annonsregler (Adtraction): ingen rankning eller betyg, inga
+        # råd eller rekommendationer, inte orden bäst, billigast, trygg,
+        # säker eller heltäckande. Håll texten ren fakta.
+        'strikt': True,
+        'badge': 'Lokala, kundägda bolag',
         'badge_typ': 'silver',
-        'text': 'Ligger högst av samtliga bolag i vår sammanställning av kundnöjdhet. '
-                'Lokalt förankrade bolag med egna kontor, vilket märks i handläggningen '
-                'när något faktiskt har hänt.',
-        'taggar': ['Högst kundnöjdhet', 'Lokala kontor', 'Personlig handläggning'],
+        'text': 'En federation av lokala, kundägda försäkringsbolag med egna kontor '
+                'runt om i landet. Bolagen försäkrar över 374 000 fordon i Sverige.',
+        'taggar': ['Kundägt', 'Lokala kontor', 'Personlig kontakt'],
         'sida': '/forsakringsbolag/dina-forsakringar/',
-        'aff': '',
+        # Adtraction, godkänd september 2026.
+        'aff': 'https://go.adt284.net/t/t?a=1841416841&as=2105554353&t=2&tk=1',
     },
     {
         'slug': 'gofido',
@@ -95,7 +99,7 @@ TJANST = {
 BADGE_IKON = {'guld': '\u2605', 'silver': '\u25cf', 'blaa': '\u25be'}
 
 
-def _knapp(p, text='Se din pris'):
+def _knapp(p, text='Se ditt pris'):
     """Partnerlänk om den finns, annars vår egen bolagssida."""
     if p.get('aff'):
         return (f'<a class="pk-cta" href="{p["aff"]}" '
@@ -193,10 +197,10 @@ def sektion(rubrik='Bolag att börja med', ingress=None, ordning=None,
     if kompakt and ingress is None:
         ingress = 'Tre bolag med olika profil att begära offert från.'
     if ingress is None:
-        ingress = ('Tre bolag som utmärker sig på var sin punkt — betyg, kundnöjdhet och '
-                   'pris. Etiketterna hänvisar till betyg från Konsumenternas '
-                   'Försäkringsbyrå och till publicerade prisexempel, aldrig till egna '
-                   'omdömen.')
+        ingress = ('Tre bolag med olika profil — villkor, lokal närvaro och digitalt '
+                   'upplägg. Etiketterna hänvisar till uppgifter från Konsumenternas '
+                   'Försäkringsbyrå, bolagen själva och publicerade prisexempel, aldrig '
+                   'till egna omdömen.')
 
     wrap = 'wrap narrow' if smal else 'wrap'
     klass = 'sec pk-sek smal' if smal else 'sec pk-sek'

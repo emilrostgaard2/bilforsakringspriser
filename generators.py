@@ -11,6 +11,7 @@ import re, os
 from companies import BOLAG
 from brands import MARKEN, BILD
 import jamforelse
+import kort
 from modellkatalog import MODELLER
 import uppskattning as upp
 
@@ -229,8 +230,23 @@ def bolagssidor():
                    + f'<p>{SKADA_SLUT[(i * 3 + 2) % len(SKADA_SLUT)]}</p>'),
         }
 
+        # Strikta annonsörer (Dina): inga betyg och ingen passar/passar inte-
+        # sektion, eftersom deras regler förbjuder betyg och råd om val.
+        ordning = [k for k in b['ordning']
+                   if not (b.get('strikt') and k in ('betyg', 'passar'))]
         body = ''.join((_sec_alt if n % 2 else _sec)(S[k])
-                       for n, k in enumerate(b['ordning']))
+                       for n, k in enumerate(ordning))
+        # Bolag med annonsavtal får en direktlänk till sin bilförsäkring.
+        # Länken hämtas ur kort.PARTNERS så att den bara finns på ett ställe.
+        aff = next((p.get('aff') for p in kort.PARTNERS if p['slug'] == b['slug']), '')
+        if aff:
+            body += _sec(
+                f'<div class="cta"><h2>Till {b["namn"]}</h2>'
+                f'<p>Läs om villkoren och räkna på din egen bil direkt hos bolaget.</p>'
+                f'<div class="cta-inner"><a class="pk-cta" href="{aff}" '
+                f'rel="sponsored nofollow noopener" target="_blank">Bilförsäkring hos {b["namn"]} \u2192</a>'
+                f'<p class="pk-upp" style="margin-top:10px">Annonslänk. Vi kan få ersättning om du '
+                f'klickar, det påverkar inte ditt pris.</p></div></div>')
         body += _sec(
             f'<div class="cta"><h2>Jämför {b["kort"]} med andra bolag</h2>'
             f'<p>Ange registreringsnumret och se vad du får betala hos flera bolag.</p>'
@@ -251,6 +267,20 @@ def bolagssidor():
           b['passar'][0] + '. ' + b['passar'][1] + '.'),
         ]
 
+        if b.get('strikt'):
+            faq = [
+             (f'Vad kostar bilförsäkring hos {b["namn"]}?',
+              'Priset räknas fram individuellt utifrån bil, ålder, bostadsort, körsträcka och '
+              'vald självrisk. Du får ett exakt pris genom att ange ditt registreringsnummer '
+              'hos bolaget.'),
+             (f'Vad är {b["namn"]}?',
+              b['sammanfattning']),
+             (f'Hur säger jag upp min försäkring hos {b["namn"]}?',
+              'Huvudregeln är en månads skriftlig uppsägning till huvudförfallodagen. Vid bilköp, '
+              'flytt eller aviserad premiehöjning får du byta direkt. Begär intyg på dina '
+              'skadefria år samtidigt.'),
+            ]
+
         rel = [('/forsakringsbolag/', 'Alla försäkringsbolag'),
                ('/jamfor-bilforsakring/', 'Så jämför du rätt'),
                ('/halvforsakring/', 'Halvförsäkring — vad ingår?'),
@@ -261,8 +291,11 @@ def bolagssidor():
 
         sidor.append({
          'slug': f'forsakringsbolag/{b["slug"]}', 'key': True,
-         'title': _meta(BOLAG_TITEL, b['namn'], i),
-         'desc': _meta(BOLAG_DESC, b['namn'], i),
+         'title': (f'{b["namn"]} bilförsäkring 2026 — villkor, självrisk och pris'
+                   if b.get('strikt') else _meta(BOLAG_TITEL, b['namn'], i)),
+         'desc': (f'Fakta om {b["namn"]}s bilförsäkring: skyddsnivåer, självrisk, hur du '
+                  f'tecknar och hur du säger upp.'
+                  if b.get('strikt') else _meta(BOLAG_DESC, b['namn'], i)),
          'eyebrow': b['typ'],
          'h1': f'{b["namn"]} bilförsäkring',
          'lead': b['sammanfattning'].split('. ')[0] + '.',

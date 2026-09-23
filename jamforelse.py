@@ -34,7 +34,9 @@ NIVAER = [('alla', 'Alla'), ('trafik', 'Trafik'),
 # Bolag med egen logotyp. Övriga får en monogramplatta.
 LOGOTYPER = {'gofido', 'dina-forsakringar', 'ica-forsakring'}
 
-AFF = {p['slug']: p.get('aff', '') for p in kort.PARTNERS}
+# Partners med 'strikt' (Dina) tillåter inte annonslänkar bredvid betyg och
+# rankning, så de får bara länk till vår egen genomgång i tabellen.
+AFF = {p['slug']: p.get('aff', '') for p in kort.PARTNERS if not p.get('strikt')}
 
 
 def _logo(b):

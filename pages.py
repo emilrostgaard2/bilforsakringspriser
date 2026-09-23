@@ -202,7 +202,7 @@ den vanligaste situationen först.</p>
  'sticky': 'Hämta din offert',
  'body': f'''
 {kort.sektion('Bolag att begära offert från',
-    'Behöver du en startpunkt för de tre offerterna: här är tre bolag som utmärker sig på var sitt sätt — högsta betyget på trafikförsäkring, högsta kundnöjdheten och lägsta premien i publicerade prisexempel.',
+    'Behöver du en startpunkt för de tre offerterna: här är tre bolag med olika profil — villkorsbetyg på trafikförsäkring, lokala kontor och låga premier i publicerade prisexempel.',
     ['ica-forsakring', 'dina-forsakringar', 'gofido'], smal=True)}
 
 <section class="sec"><div class="wrap narrow">

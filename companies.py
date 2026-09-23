@@ -155,10 +155,10 @@ BOLAG = [
  'slug': 'dina-forsakringar', 'namn': 'Dina Försäkringar', 'kort': 'Dina',
  'ski': 80.2, 'kons': None, 'kons_produkt': None,
  'typ': 'Federation av lokala bolag', 'grundat': 1990,
- 'sammanfattning': 'Vinnaren i SKI:s kundnöjdhetsmätning 2025 med 80,2 poäng — högst av '
-   'samtliga bilförsäkringsbolag. Dina är en federation av lokala, kundägda bolag och '
-   'försäkrar över 374 000 fordon.',
- 'fakta': [('SKI 80,2', 'Högsta kundnöjdheten på marknaden 2025'),
+ 'strikt': True,  # Dinas annonsregler: inga betyg, råd eller superlativ på sidan
+ 'sammanfattning': 'Dina Försäkringar är en federation av lokala, kundägda försäkringsbolag '
+   'med egna kontor runt om i Sverige. Bolagen försäkrar tillsammans över 374 000 fordon.',
+ 'fakta': [('Kundägt', 'Bolagen ägs av sina kunder'),
            ('374 000 fordon', 'Försäkrade i Sverige'),
            ('Lokalt ägande', 'Federation av självständiga bolag'),
            ('Personlig kontakt', 'Lokala kontor snarare än callcenter')],
