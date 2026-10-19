@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 """Guidesidor: billigaste, elbil, leasing, pensionär och ung förare.
 
-PRISERNA ÄR PLATSHÅLLARE
-Alla pristabeller står med tankstreck och TODO-rutan ovanför. Strukturen är
-klar — fyll i egna insamlade siffror innan lansering. Se README.md.
+PRISER
+Inga egna belopp skrivs här. Pristabeller använder publicerade uppgifter ur
+marknad.py (med källa och datum) eller uppskattade spann ur uppskattning.py
+(märkta som uppskattningar). Finns inget underlag visas ingen priskolumn.
 
 TABELLER
 Varje sida har fyra till fem tabeller. De som inte innehåller pris är färdiga
@@ -13,13 +14,28 @@ companies.py — inte på siffror vi ännu inte samlat in.
 from companies import BOLAG
 import data, marknad, kort
 
-TODO = ('<div class="warn"><strong>PLATSHÅLLARE — ska ersättas före lansering.</strong> '
-        'Beloppen i tabellen är exempelplatser och inte insamlade marknadspriser.</div>')
+import uppskattning as upp
 
-METOD = ('<div class="src"><p><strong>Så räknar vi.</strong> Alla priser gäller samma '
-         'jämförelseprofil: 40 år, 15 000 km/år, ort utanför storstad, sex skadefria år '
-         'och 4 000 kr i självrisk. Ändras en förutsättning ändras priset — ofta mycket. '
-         'Läs mer i vår <a href="/redaktionell-metod/">redaktionella metod</a>.</p></div>')
+METOD = upp.metodruta()
+
+KONS = ('<a href="https://www.konsumenternas.se/" rel="noopener" target="_blank">'
+        'Konsumenternas Försäkringsbyrå</a>')
+
+
+def _src(text):
+    return f'<div class="src"><p>{text}</p></div>'
+
+
+# Publicerade uppgifter ur marknad.py, återgivna med källa och datum.
+_TRAFIK_KALLA = next(p for p in marknad.PRISEXEMPEL if p['kalla'] == 'Tryggvi')
+_SNITT = marknad.GENOMSNITT[0]
+KALLRAD = _src(
+    'Källor: trafikförsäkring 169–335 kr/mån är lägsta och högsta värde i de prisexempel '
+    f'som {marknad._kalla(_TRAFIK_KALLA)} publicerade i {_TRAFIK_KALLA["datum"]}. '
+    'Halv- och helförsäkring är vårt uppskattade spann för en bil i volymklass, framräknat '
+    'ur publicerade marknadssiffror — inte offerter. Genomsnittet över alla nivåer är '
+    f'{_SNITT["belopp"]} enligt {marknad._kalla(_SNITT)} ({_SNITT["datum"]}). '
+    'Ditt eget pris kan hamna både under och över spannen.')
 
 SWIPE = '<p class="swipe">&larr; Dra i sidled för att se alla kolumner</p>'
 
@@ -34,7 +50,7 @@ def _tbl(caption, kolumner, rader, swipe=True):
             f'<tbody>{tr}</tbody></table></div>' + (SWIPE if swipe and len(kolumner) > 3 else ''))
 
 
-def bolagstabell(pris_kolumn=True):
+def bolagstabell(pris_kolumn=False):
     """Alla bolag med typ och oberoende betyg — data hämtas ur companies.py."""
     kol = ['Bolag', 'Typ', 'Konsumenternas', 'SKI', 'Trustpilot']
     if pris_kolumn:
@@ -81,21 +97,26 @@ SIDOR = [
     ['gofido'], smal=True)}
 
 <section class="sec"><div class="wrap narrow">
-<div class="note"><p><strong>Kort sagt.</strong> Ingen lista kan peka ut det billigaste bolaget
-för just din bil, eftersom priset räknas fram individuellt. Det du kan göra är att förstå
-vilka faktorer som väger tyngst, rätta till dem som är felaktiga i din nuvarande försäkring
-och sedan begära offert från flera bolag på samma villkor.</p></div>
+<div class="note"><p><strong>Kort sagt.</strong> Det finns inget bolag som har den billigaste
+bilförsäkringen för alla, eftersom varje bolag räknar fram premien individuellt ur bil, ålder,
+bostadsort, körsträcka och skadefria år. Det lägsta priset för din bil hittar du genom att
+begära offert från flera bolag på samma skyddsnivå och självrisk. Som referens låg
+genomsnittspremien på 5 406 kronor per år 2025 enligt Zmarta.</p></div>
 
 <h2>Prisbilden per skyddsnivå</h2>
 <p>Steget från trafikförsäkring till halvförsäkring är oftast litet i kronor och stort i
 skydd. Steget från halv till hel är det omvända: det är där premien verkligen stiger, eftersom
 vagnskadedelen är den dyraste delen av en bilförsäkring.</p>
-{_tbl('Vägledande årspremie per nivå',
-      ['Nivå', 'Per år', 'Per månad', 'Andel av helförsäkring'],
-      [['<a href="/trafikforsakring/">Trafikförsäkring</a>', '—', '—', '—'],
-       ['<a href="/halvforsakring/">Halvförsäkring</a>', '—', '—', '—'],
-       ['<a href="/helforsakring/">Helförsäkring</a>', '—', '—', '—']])}
-{TODO}{METOD}
+{_tbl('Prisbild per nivå enligt publicerade uppgifter',
+      ['Nivå', 'Per månad', 'Underlag'],
+      [['<a href="/trafikforsakring/">Trafikförsäkring</a>', '169–335 kr/mån',
+        'Publicerat prisexempel, Tryggvi'],
+       ['<a href="/halvforsakring/">Halvförsäkring</a>', upp.spann('volym', 'halv'),
+        'Uppskattat spann, volymklass'],
+       ['<a href="/helforsakring/">Helförsäkring</a>', upp.spann('volym', 'hel'),
+        'Uppskattat spann, volymklass']],
+      swipe=False)}
+{KALLRAD}
 
 <h2>Vad som styr priset — och hur mycket du kan påverka</h2>
 <p>Den här tabellen är den viktigaste på sidan. Många lägger tid på att jaga rabatter på
@@ -138,11 +159,10 @@ nivå — med filter på skyddsnivå och utfällbara detaljer per bolag.
 
 <h2>Bolagen på marknaden</h2>
 <p>Priset är bara ena halvan. Den andra är hur bolaget faktiskt beter sig när du väl behöver
-det. Konsumenternas Försäkringsbyrå betygsätter villkorens innehåll på en skala från 1 till 5,
+det. {KONS} betygsätter villkorens innehåll på en skala från 1 till 5,
 och Svenskt Kvalitetsindex mäter kundnöjdheten. Ett lågt pris hos ett bolag med svaga villkor
 är ingen besparing.</p>
 {bolagstabell()}
-{TODO}
 <p>Läs mer om enskilda bolag på våra <a href="/forsakringsbolag/">bolagssidor</a>, eller se
 vad försäkringen kostar för just ditt märke bland våra <a href="/bilmarken/">bilmärken</a>.</p>
 
@@ -170,7 +190,9 @@ marknaden.</p>
 det billigare priset gäller en högre självrisk, en kortare hyrbilsperiod eller en försäkring
 utan maskinskada. Kontrollera fyra saker innan du väljer, och gör det på samma sätt i alla
 offerter — hur du gör det steg för steg står i vår guide till
-<a href="/jamfor-bilforsakring/">hur du jämför bilförsäkring</a>.</p>
+<a href="/jamfor-bilforsakring/">hur du jämför bilförsäkring</a>. Vill du väga in villkor
+och kundnöjdhet finns de oberoende betygen samlade i
+<a href="/basta-bilforsakringen/">vår sammanställning av bolagen</a>.</p>
 {_tbl('Jämför alltid på samma villkor',
       ['Post', 'Att kontrollera'],
       [['Självrisk', 'Grundsjälvrisk, glassjälvrisk och eventuell ungdomssjälvrisk'],
@@ -219,7 +241,7 @@ offerter — hur du gör det steg för steg står i vår guide till
          ('/halvforsakring/', 'Halvförsäkring — vad ingår?'),
          ('/helforsakring/', 'Helförsäkring — när behövs den?'),
          ('/forsakringsbolag/', 'Alla försäkringsbolag'),
-         ('/redaktionell-metod/', 'Så samlar vi in priserna')],
+         ('/redaktionell-metod/', 'Så redovisar vi källor och priser')],
 },
 
 # ═══ ELBIL ═════════════════════════════════════════════════════════
@@ -245,10 +267,10 @@ offerter — hur du gör det steg för steg står i vår guide till
     ['gofido', 'dina-forsakringar'], smal=True)}
 
 <section class="sec"><div class="wrap narrow">
-<div class="note"><p><strong>Kort sagt.</strong> Elbilar har historiskt legat högre i premie
-än jämnstora bensinbilar, framför allt för att reparationerna är dyrare och verkstäderna
-färre. Skillnaden krymper i takt med att volymerna växer, men den finns kvar — och den är
-störst på märken med tunt verkstadsnät.</p></div>
+<div class="note"><p><strong>Kort sagt.</strong> En elbil försäkras med samma tre nivåer som
+andra bilar — trafik, halv och hel — men premien är ofta högre än för en jämnstor bensinbil,
+eftersom batteriet utgör en stor del av bilens värde och reparationer kräver certifierad
+verkstad. Laddboxen på väggen hör normalt till hemförsäkringen, inte till bilförsäkringen.</p></div>
 
 <h2>Vad som skiljer en elbil från en bensinbil</h2>
 {_tbl('Premiedrivande skillnader',
@@ -262,14 +284,15 @@ störst på märken med tunt verkstadsnät.</p></div>
        ['Skadestatistik', 'Yngre bestånd, tunnare underlag', 'Väldokumenterad']],
       swipe=False)}
 
-<h2>Vägledande premie för elbil</h2>
-{_tbl('Elbil — årspremie per nivå',
-      ['Nivå', 'Per år', 'Per månad'],
-      [['<a href="/trafikforsakring/">Trafikförsäkring</a>', '—', '—'],
-       ['<a href="/halvforsakring/">Halvförsäkring</a>', '—', '—'],
-       ['<a href="/helforsakring/">Helförsäkring</a>', '—', '—']],
+<h2>Uppskattad premie för elbil</h2>
+{_tbl('Elbil — uppskattat spann per nivå',
+      ['Nivå', 'Elbil', 'Stor elbil'],
+      [['<a href="/halvforsakring/">Halvförsäkring</a>', upp.spann('elbil', 'halv'),
+        upp.spann('elbil-stor', 'halv')],
+       ['<a href="/helforsakring/">Helförsäkring</a>', upp.spann('elbil', 'hel'),
+        upp.spann('elbil-stor', 'hel')]],
       swipe=False)}
-{TODO}{METOD}
+{METOD}
 
 <h2>Batteri, kabel och laddbox — vad täcks var?</h2>
 <p>Den här tabellen är anledningen till att elbilsägare bör läsa villkoren i stället för att
@@ -293,18 +316,18 @@ vanligaste källan till besvikelse vid en skada.</p>
 <p>Premien styrs mer av märke och modell än av drivlinan i sig. Här är de vanligaste
 elbilsmärkena på svenska vägar med länk till respektive märkessida.</p>
 {_tbl('Vanliga elbilar i Sverige',
-      ['Märke', 'Exempel på modeller', 'Halvförsäkring', 'Helförsäkring'],
-      [['<a href="/bilmarken/tesla/">Tesla</a>', 'Model 3, Model Y', '—', '—'],
-       ['<a href="/bilmarken/volvo/">Volvo</a>', 'EX30, EX40', '—', '—'],
-       ['<a href="/bilmarken/polestar/">Polestar</a>', 'Polestar 2, Polestar 4', '—', '—'],
-       ['<a href="/bilmarken/volkswagen/">Volkswagen</a>', 'ID.3, ID.4', '—', '—'],
-       ['<a href="/bilmarken/kia/">Kia</a>', 'EV6, Niro, EV9', '—', '—'],
-       ['<a href="/bilmarken/hyundai/">Hyundai</a>', 'IONIQ 5, IONIQ 6', '—', '—'],
-       ['<a href="/bilmarken/byd/">BYD</a>', 'Atto 3, Dolphin, Seal', '—', '—'],
-       ['<a href="/bilmarken/mg/">MG</a>', 'MG4, ZS EV', '—', '—'],
-       ['<a href="/bilmarken/xpeng/">XPeng</a>', 'G6, G9, P7', '—', '—'],
-       ['<a href="/bilmarken/zeekr/">Zeekr</a>', 'X, 001, 7X', '—', '—']])}
-{TODO}
+      ['Märke', 'Exempel på modeller'],
+      [['<a href="/bilmarken/tesla/">Tesla</a>', 'Model 3, Model Y'],
+       ['<a href="/bilmarken/volvo/">Volvo</a>', 'EX30, EX40'],
+       ['<a href="/bilmarken/polestar/">Polestar</a>', 'Polestar 2, Polestar 4'],
+       ['<a href="/bilmarken/volkswagen/">Volkswagen</a>', 'ID.3, ID.4'],
+       ['<a href="/bilmarken/kia/">Kia</a>', 'EV6, Niro, EV9'],
+       ['<a href="/bilmarken/hyundai/">Hyundai</a>', 'IONIQ 5, IONIQ 6'],
+       ['<a href="/bilmarken/byd/">BYD</a>', 'Atto 3, Dolphin, Seal'],
+       ['<a href="/bilmarken/mg/">MG</a>', 'MG4, ZS EV'],
+       ['<a href="/bilmarken/xpeng/">XPeng</a>', 'G6, G9, P7'],
+       ['<a href="/bilmarken/zeekr/">Zeekr</a>', 'X, 001, 7X']], swipe=False)}
+<p>Uppskattade prisspann per modell finns på respektive märkessida.</p>
 
 <h2>Fyra frågor att ställa till bolaget</h2>
 {_tbl('Checklista före tecknandet',
@@ -355,7 +378,7 @@ elbilsmärkena på svenska vägar med länk till respektive märkessida.</p>
 # ═══ LEASING ═══════════════════════════════════════════════════════
 {
  'slug': 'leasingbil-forsakring', 'key': True,
- 'title': 'Försäkring på leasingbil 2026 — krav, självrisk och vagnskadegaranti',
+ 'title': 'Försäkring på leasingbil 2026 — krav och självrisk',
  'desc': 'Vad krävs av försäkringen när du privatleasar? Se vem som äger bilen, '
          'varför helförsäkring nästan alltid krävs och när vagnskadegarantin räcker.',
  'eyebrow': 'Guide',
@@ -412,16 +435,15 @@ nödvändigtvis är giltig för dig.</p>
        ['Krav på godkänt stöldskydd', 'Kan gälla särskilt eftertraktade modeller']],
       swipe=False)}
 
-<h2>Vägledande premie på leasad bil</h2>
+<h2>Vilken nivå leasingavtalet tillåter</h2>
 <p>Priset sätts på bilen och på dig som förare, precis som vanligt. Att bilen är leasad gör
 den varken dyrare eller billigare i sig — men kravet på helförsäkring gör att du landar på
 den dyraste nivån.</p>
-{_tbl('Leasingbil — årspremie per nivå',
-      ['Nivå', 'Per år', 'Per månad', 'Tillåten vid leasing?'],
-      [['<a href="/trafikforsakring/">Trafikförsäkring</a>', '—', '—', 'Nej'],
-       ['<a href="/halvforsakring/">Halvförsäkring</a>', '—', '—', 'Endast med vagnskadegaranti'],
-       ['<a href="/helforsakring/">Helförsäkring</a>', '—', '—', 'Ja']])}
-{TODO}{METOD}
+{_tbl('Leasingbil — skyddsnivåer och avtalets krav',
+      ['Nivå', 'Tillåten vid leasing?'],
+      [['<a href="/trafikforsakring/">Trafikförsäkring</a>', 'Nej'],
+       ['<a href="/halvforsakring/">Halvförsäkring</a>', 'Endast med vagnskadegaranti'],
+       ['<a href="/helforsakring/">Helförsäkring</a>', 'Ja']], swipe=False)}
 
 <h2>Det försäkringen inte löser</h2>
 <p>Vid återlämningen bedöms bilens skick mot avtalets slitagenorm. Repor, däckslitage och
@@ -499,13 +521,12 @@ premien utan att försämra skyddet.</p></div>
 strax över en gräns kan en ärlig justering nedåt ge en tydlig sänkning. Ange aldrig lägre än
 du faktiskt kör: överskrider du intervallet kan ersättningen sänkas vid en skada.</p>
 {_tbl('Körsträckeintervall och premie',
-      ['Intervall per år', 'Typisk förarprofil', 'Årspremie'],
-      [['Upp till 1 000 mil', 'Bilen används mest lokalt', '—'],
-       ['1 000–1 500 mil', 'Regelbundna resor, ingen pendling', '—'],
-       ['1 500–2 000 mil', 'Motsvarar en normal pendlarprofil', '—'],
-       ['Över 2 000 mil', 'Långa resor eller flera förare', '—']],
+      ['Intervall per år', 'Typisk förarprofil', 'Relativ premie'],
+      [['Upp till 1 000 mil', 'Bilen används mest lokalt', 'Lägst'],
+       ['1 000–1 500 mil', 'Regelbundna resor, ingen pendling', 'Lägre'],
+       ['1 500–2 000 mil', 'Motsvarar en normal pendlarprofil', 'Högre'],
+       ['Över 2 000 mil', 'Långa resor eller flera förare', 'Högst']],
       swipe=False)}
-{TODO}{METOD}
 
 <h2>Skyddsnivå när bilen blir äldre</h2>
 <p>Många behåller helförsäkringen långt efter att den slutat löna sig. Vagnskadedelen ersätter
@@ -573,7 +594,7 @@ du på sidan om <a href="/billigaste-bilforsakringen/">billigaste bilförsäkrin
 # ═══ UNG FÖRARE ════════════════════════════════════════════════════
 {
  'slug': 'bilforsakring-ung-forare', 'key': True,
- 'title': 'Bilförsäkring för unga 2026 — pris under 25 och ungdomssjälvrisk',
+ 'title': 'Bilförsäkring för unga 2026 — pris och ungdomssjälvrisk',
  'desc': 'Varför är bilförsäkring så dyr för unga? Se hur premien faller med åldern, '
          'vad ungdomssjälvrisk innebär och vilka genvägar som kan kosta dig ersättningen.',
  'eyebrow': 'Guide',
@@ -588,19 +609,21 @@ du på sidan om <a href="/billigaste-bilforsakringen/">billigaste bilförsäkrin
  'sticky': 'Jämför bilförsäkring för unga',
  'body': f'''
 <section class="sec"><div class="wrap narrow">
-<div class="note"><p><strong>Kort sagt.</strong> Det finns inga trick som gör ung förare
-billig. Det finns däremot fyra lagliga åtgärder som fungerar, och en genväg — att låta en
-förälder stå som ägare på en bil du själv kör dagligen — som kan leda till nedsatt ersättning
-just när du behöver försäkringen.</p></div>
+<div class="note"><p><strong>Kort sagt.</strong> Bilförsäkring är dyrast för förare under 25
+år, eftersom premien bygger på åldersgruppens skadestatistik och unga saknar skadefria år.
+Premien sjunker tydligt vid 25, när ungdomssjälvrisken faller bort hos de flesta bolag. Att
+låta en förälder stå som ägare på en bil du själv kör dagligen kan leda till nedsatt
+ersättning vid skada.</p></div>
 
 <h2>Hur premien faller med åldern</h2>
 {_tbl('Åldersintervall och premie',
-      ['Ålder', 'Relativ premienivå', 'Vad som förändras', 'Årspremie'],
-      [['18–20 år', 'Högst', 'Ingen bonus, ingen körhistorik', '—'],
-       ['21–24 år', 'Mycket hög', 'Första skadefria åren börjar räknas', '—'],
-       ['25–29 år', 'Tydligt lägre', 'Åldersgränsen för ungdomssjälvrisk passerad', '—'],
-       ['30 år och uppåt', 'Normal', 'Bonusen börjar väga tungt', '—']])}
-{TODO}{METOD}
+      ['Ålder', 'Relativ premienivå', 'Vad som förändras'],
+      [['18–20 år', 'Högst', 'Ingen bonus, ingen körhistorik'],
+       ['21–24 år', 'Mycket hög', 'Första skadefria åren börjar räknas'],
+       ['25–29 år', 'Tydligt lägre', 'Åldersgränsen för ungdomssjälvrisk passerad'],
+       ['30 år och uppåt', 'Normal', 'Bonusen börjar väga tungt']], swipe=False)}
+<p>Vi publicerar inga belopp per åldersgrupp, eftersom vi saknar en källa som redovisar dem
+på jämförbart sätt. Relationen mellan grupperna är densamma hos i princip alla bolag.</p>
 
 <h2>Ungdomssjälvrisk — det som inte syns i priset</h2>
 <p>Flera bolag lägger på en extra självrisk om föraren vid skadetillfället är under en viss

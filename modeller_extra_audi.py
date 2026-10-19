@@ -145,7 +145,7 @@ EXTRA_AUDI = {
   'Volvo XC40 är avståndet måttligt — XC40 har yngre ägarprofil, Q3 har högre '
   'ersättningsvärde.',
  'kostnad':
-  'Q3 är den billigaste vägen in i Audis SUV-utbud, både i inköp och i drift. Försäkringen '
+  'Q3 är den mest prisvärda vägen in i Audis SUV-utbud, både i inköp och i drift. Försäkringen '
   'är måttlig för segmentet, medan däcken kan bli en oväntat stor post om bilen har S '
   'line-fälgar. Just fälgskador mot kantsten faller dessutom ofta utanför försäkringen helt, '
   'eftersom de saknar yttre händelse i villkorens mening.',

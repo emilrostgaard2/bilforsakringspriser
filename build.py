@@ -7,10 +7,11 @@ Alla sidor genereras om från grunden, så redigera innehållet här — inte i
 de färdiga HTML-filerna.
 """
 import os, json, re, html
-import data, forfattare
+import data, forfattare, datum
 
 BASE = 'https://bilforsakringspriser.se'
-V = '20260826a'           # cache-stämpel — höj vid ändring i css/js
+KONTAKT = 'info@bilforsakringspriser.se'
+V = '20261019a'           # cache-stämpel — höj vid ändring i css/js
 ROOT = os.path.dirname(os.path.abspath(__file__))
 os.chdir(ROOT)
 
@@ -29,14 +30,17 @@ NAV = [
         ('/billigaste-bilforsakringen/', 'Billigaste bilförsäkringen'),
         ('/byta-bilforsakring/', 'Byta bilförsäkring'),
         ('/bonus-och-skadefria-ar/', 'Bonus och skadefria år'),
+        ('/bilforsakring-pris-per-manad/', 'Pris per månad'),
         ('/trafikforsakringsavgift/', 'Trafikförsäkringsavgift'),
-        ('/avstalld-bil/', 'Avställd bil'),
+        ('/viltolycka-forsakring/', 'Viltolycka'),
     ]),
     ('Din situation', [
         ('/bilforsakring-elbil/', 'Elbil'),
         ('/leasingbil-forsakring/', 'Leasingbil'),
         ('/bilforsakring-ung-forare/', 'Ung förare'),
         ('/bilforsakring-pensionar/', 'Pensionär'),
+        ('/bilforsakring-18-ar/', '18-åring'),
+        ('/kopa-bil-forsakring/', 'Köpa bil'),
     ]),
     ('Bolag', [
         ('/forsakringsbolag/folksam/', 'Folksam'),
@@ -136,8 +140,30 @@ def plate(pid, btn_text, note='', slug=''):
 <input id="{pid}" data-plate type="text" inputmode="latin" placeholder="ABC 123" maxlength="7" aria-label="Registreringsnummer" autocomplete="off" spellcheck="false">
 </span></div>
 <button type="button" class="btn" data-go="{pid}">{btn_text} {ARR}</button>
-<button type="button" class="btn-ghost" data-go="">Jag kan inte mitt registreringsnummer</button>
+<button type="button" class="btn-ghost" data-go="">Fortsätt utan registreringsnummer</button>
 {n}{annonsnot(slug)}'''.replace('</span></div>', '</div>', 1)
+
+
+MANAD = ['januari', 'februari', 'mars', 'april', 'maj', 'juni', 'juli', 'augusti',
+         'september', 'oktober', 'november', 'december']
+
+
+def svdatum(iso):
+    a, m, dg = iso.split('-')
+    return f'{int(dg)} {MANAD[int(m) - 1]} {a}'
+
+
+def _upd(d):
+    """Synligt uppdateringsdatum och byline under ingressen.
+
+    Samma datum som dateModified i schemat — Google och AI-sök jämför
+    dem, och ett datum som bara finns i koden räknas inte som färskt."""
+    if d['slug'] in ('integritetspolicy', 'cookiepolicy'):
+        return ''
+    import forfattare as _f
+    return (f'<p class="upd">Uppdaterad <time datetime="{d["_mod"]}">{svdatum(d["_mod"])}</time>'
+            f'<span aria-hidden="true">&middot;</span>'
+            f'<span>Av <a href="{_f.FORFATTARE["sida"]}">{_f.FORFATTARE["namn"]}</a></span></p>')
 
 
 def hero(d):
@@ -163,14 +189,15 @@ def hero(d):
 <span class="eyebrow">{d["eyebrow"]}</span>
 <h1>{d["h1"]}</h1>
 <p class="lead">{d["lead"]}</p>
+{_upd(d)}
 <ul class="checks">{checks}</ul>
 </div>
 <div><div class="card">
 <span class="card-lab">Gratis jämförelse</span>
 <p class="card-t">{d.get("card_t", "Se vad din bil kostar att försäkra")}</p>
-<p class="card-s">{d.get("card_s", "Ange registreringsnumret, så hämtas bilens uppgifter automatiskt. Du fyller inte i märke, modell eller årsmodell.")}</p>
+<p class="card-s">{d.get("card_s", "Fortsätt till Zmarta och jämför offerter från flera bolag i ett och samma formulär. Bilens uppgifter hämtas via registreringsnumret.")}</p>
 {plate("heroPlate", d.get("card_btn", "Jämför gratis nu"), d.get("card_note", ""), d["slug"])}
-<div class="trust"><span>Kostnadsfritt</span><span>Ingen registrering</span><span>Ingen bindning</span></div>
+<div class="trust"><span>Kostnadsfritt</span><span>Ingen bindning</span><span>Flera bolag i ett formulär</span></div>
 </div></div>
 </div></section>'''
 
@@ -186,37 +213,47 @@ def footer():
     return f'''<footer class="ft"><div class="wrap">
 <div class="ft-grid">
 <div>
-<h3>Bilförsäkringspriser.se</h3>
+<p class="ft-h">Bilförsäkringspriser.se</p>
 <p>Oberoende jämförelse av bilförsäkring i Sverige. Vi säljer inga försäkringar och företräder inget bolag.</p>
 <p>Sidan innehåller kommersiella länkar. <a href="/redaktionell-metod/">Så tjänar vi pengar</a>.</p>
 </div>
-<div><h3>Försäkring</h3><ul>
+<div><p class="ft-h">Försäkring</p><ul>
 <li><a href="/jamfor-bilforsakring/">Jämför priser</a></li>
 <li><a href="/trafikforsakring/">Trafikförsäkring</a></li>
 <li><a href="/halvforsakring/">Halvförsäkring</a></li>
 <li><a href="/helforsakring/">Helförsäkring</a></li>
 </ul></div>
-<div><h3>Guider</h3><ul>
+<div><p class="ft-h">Guider</p><ul>
 <li><a href="/basta-bilforsakringen/">Bästa bilförsäkringen</a></li>
 <li><a href="/billigaste-bilforsakringen/">Billigaste bilförsäkringen</a></li>
 <li><a href="/bilforsakring-elbil/">Bilförsäkring elbil</a></li>
 <li><a href="/leasingbil-forsakring/">Försäkring vid leasing</a></li>
 <li><a href="/bilforsakring-ung-forare/">Ung förare</a></li>
 <li><a href="/bilforsakring-pensionar/">Pensionär</a></li>
+<li><a href="/bilforsakring-18-ar/">18-åring</a></li>
+<li><a href="/bilforsakring-utan-bonus/">Utan bonus</a></li>
+<li><a href="/bilforsakring-pris-per-manad/">Pris per månad</a></li>
+<li><a href="/kopa-bil-forsakring/">Köpa bil</a></li>
+<li><a href="/saga-upp-bilforsakring/">Säga upp</a></li>
 </ul></div>
-<div><h3>Fakta</h3><ul>
+<div><p class="ft-h">Fakta</p><ul>
 <li><a href="/sjalvrisk/">Självrisk</a></li>
 <li><a href="/byta-bilforsakring/">Byta bilförsäkring</a></li>
 <li><a href="/bonus-och-skadefria-ar/">Bonus och skadefria år</a></li>
 <li><a href="/trafikforsakringsavgift/">Trafikförsäkringsavgift</a></li>
 <li><a href="/avstalld-bil/">Avställd bil</a></li>
+<li><a href="/viltolycka-forsakring/">Viltolycka</a></li>
+<li><a href="/glasskada-bil/">Glasskada</a></li>
+<li><a href="/vagnskadegaranti/">Vagnskadegaranti</a></li>
+<li><a href="/bilforsakring-utomlands/">Utomlands</a></li>
+<li><a href="/korstracka-mil-per-ar/">Körsträcka</a></li>
 </ul></div>
-<div><h3>Orter</h3><ul>
+<div><p class="ft-h">Orter</p><ul>
 <li><a href="/bilforsakring-stockholm/">Stockholm</a></li>
 <li><a href="/bilforsakring-goteborg/">Göteborg</a></li>
 <li><a href="/bilforsakring-malmo/">Malmö</a></li>
 </ul></div>
-<div><h3>Om sajten</h3><ul>
+<div><p class="ft-h">Om sajten</p><ul>
 <li><a href="/om-oss/">Om oss</a></li>
 <li><a href="/redaktionell-metod/">Redaktionell metod</a></li>
 <li><a href="/integritetspolicy/">Integritetspolicy</a></li>
@@ -224,10 +261,42 @@ def footer():
 </ul></div>
 </div>
 <div class="ft-btm">
-<span>&copy; 2026 Bilförsäkringspriser.se</span>
+<span>&copy; 2026 Bilförsäkringspriser.se &middot; Ansvarig utgivare: Emil Rostgaard Clausen &middot; <a href="mailto:{KONTAKT}">{KONTAKT}</a></span>
 <span>Priser är redaktionella uppskattningar, inte offerter. Ditt eget pris beräknas av försäkringsbolaget.</span>
 </div>
 </div></footer>'''
+
+
+# Trafikförsäkringsavgift per dag, från Trafikförsäkringsföreningen.
+# Källa: https://www.tff.se/sv/krav/avgift-for-oforsakrade-fordon/
+# (sidan uppdaterad oktober 2026). Kontrollera satserna varje januari.
+TFA = {'kalla': 'https://www.tff.se/sv/krav/avgift-for-oforsakrade-fordon/',
+       'datum': 'oktober 2026', 'min': 200,
+       'satser': [('Personbil (privat)', 202), ('Motorcykel över 125 cc', 224),
+                  ('Lätt motorcykel', 34)]}
+
+
+def tfa_kalkylator():
+    """Räknar ut avgiften för en period utan trafikförsäkring.
+
+    Ingen annan svensk sajt har en sådan räknare — TFF publicerar bara
+    tabellen. Fungerar utan JS som en vanlig tabell med satserna."""
+    opt = ''.join(f'<option value="{v}">{t} — {v} kr/dag</option>' for t, v in TFA['satser'])
+    return f'''<section class="sec"><div class="wrap narrow">
+<h2>Räkna ut trafikförsäkringsavgiften</h2>
+<p>Välj fordonstyp och hur många dagar fordonet varit utan trafikförsäkring. Från dag 91
+sjunker dagsavgiften till 50 procent och från dag 181 till 25 procent.</p>
+<form class="kalk" data-tfa data-min="{TFA['min']}" onsubmit="return false">
+<div class="kalk-rad">
+<label>Fordonstyp<select>{opt}</select></label>
+<label>Dagar utan försäkring<input type="number" inputmode="numeric" min="1" max="3650" value="30"></label>
+</div>
+<p class="kalk-res" aria-live="polite">Uppskattad avgift beräknas när sidan laddats.</p>
+<p class="kalk-not">Uppskattning utifrån satserna hos
+<a href="{TFA['kalla']}" target="_blank" rel="noopener">Trafikförsäkringsföreningen</a>
+({TFA['datum']}), minimiavgift {TFA['min']} kr. Beslutet om din avgift fattas av TFF.
+Veteranfordon 30 år och äldre har lägre avgift.</p>
+</form></div></section>'''
 
 
 def page(d):
@@ -249,35 +318,57 @@ def page(d):
             bc.append({"@type": "ListItem", "position": 3, "name": _namn,
                        "item": f"{BASE}/{dele[0]}/{dele[1]}/"})
         bc.append({"@type": "ListItem", "position": len(bc) + 1, "name": d["h1"], "item": url})
-    ld = [{"@context": "https://schema.org", "@type": "BreadcrumbList",
-           "itemListElement": bc}] if slug else []
+
+    # Ett sammanhängande @graph med fasta @id:n. Organisation, webbplats
+    # och författare beskrivs en gång och refereras sedan — det är så
+    # Google och AI-sök knyter ihop sidorna till samma utgivare.
+    ORG, SITE, PERS = BASE + '/#org', BASE + '/#website', BASE + '/#emil'
+    graf = [
+        {"@type": "Organization", "@id": ORG, "name": "Bilförsäkringspriser.se", "url": BASE + "/",
+         "email": KONTAKT,
+         "logo": {"@type": "ImageObject", "url": BASE + "/assets/icon-512.png", "width": 512, "height": 512},
+         "founder": {"@id": PERS}},
+        {"@type": "WebSite", "@id": SITE, "name": "Bilförsäkringspriser.se", "url": BASE + "/",
+         "inLanguage": "sv-SE", "publisher": {"@id": ORG}},
+        {**forfattare.schema(BASE), "@id": PERS, "worksFor": {"@id": ORG}},
+    ]
+    typ = ('CollectionPage' if slug in ('bilmarken', 'forsakringsbolag')
+           else 'AboutPage' if slug == 'om-oss'
+           else 'WebPage')
+    sida = {"@type": typ, "@id": url + "#webpage", "url": url, "name": d['title'],
+            "description": d['desc'], "inLanguage": "sv-SE", "isPartOf": {"@id": SITE},
+            "datePublished": d['_pub'], "dateModified": d['_mod']}
+    if slug:
+        sida["breadcrumb"] = {"@id": url + "#breadcrumb"}
+        graf.append({"@type": "BreadcrumbList", "@id": url + "#breadcrumb", "itemListElement": bc})
+    graf.append(sida)
+
+    # Artikel bara där det är en artikel — inte på startsidan, hubbar
+    # eller juridiska sidor.
+    if slug and typ == 'WebPage' and slug not in ('integritetspolicy', 'cookiepolicy', 'redaktionell-metod'):
+        art = {"@type": "Article", "@id": url + "#article", "headline": d['h1'],
+               "description": d['desc'], "inLanguage": "sv-SE",
+               "author": {"@id": PERS}, "publisher": {"@id": ORG},
+               "datePublished": d['_pub'], "dateModified": d['_mod'],
+               "mainEntityOfPage": {"@id": url + "#webpage"}, "isPartOf": {"@id": SITE}}
+        if d.get('bild'):
+            art["image"] = {"@type": "ImageObject", "url": BASE + d['bild'], "width": 1200,
+                            "height": 750, "caption": d.get('bild_alt', d['h1'])}
+        graf.append(art)
+    else:
+        sida["author"] = {"@id": PERS}
+        sida["publisher"] = {"@id": ORG}
 
     if d.get('faq'):
-        ld.append({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
-            {"@type": "Question", "name": q,
+        graf.append({"@type": "FAQPage", "@id": url + "#faq", "isPartOf": {"@id": url + "#webpage"},
+                     "mainEntity": [
+            {"@type": "Question", "name": re.sub(r'<[^>]+>', '', q),
              "acceptedAnswer": {"@type": "Answer", "text": re.sub(r'<[^>]+>', '', a)}}
             for q, a in d['faq']]})
 
-    ld.append({
-        "@context": "https://schema.org", "@type": "Article",
-        "headline": d['title'], "description": d['desc'],
-        "inLanguage": "sv-SE",
-        "author": forfattare.schema(BASE),
-        "publisher": {"@type": "Organization", "name": "Bilförsäkringspriser.se", "url": BASE + "/",
-                      "logo": {"@type": "ImageObject", "url": BASE + "/assets/icon-512.png",
-                               "width": 512, "height": 512}},
-        "datePublished": "2026-01-01", "dateModified": data.UPPDATERAD,
-        "mainEntityOfPage": {"@type": "WebPage", "@id": url},
-        **({"image": {"@type": "ImageObject", "url": BASE + d['bild'],
-                      "width": 1200, "height": 750,
-                      "caption": d.get('bild_alt', d['h1'])}} if d.get('bild') else {})})
-
-    if not slug:
-        ld.append({"@context": "https://schema.org", "@type": "WebSite",
-                   "name": "Bilförsäkringspriser.se", "url": BASE + "/", "inLanguage": "sv-SE"})
-
-    ld_tags = ''.join(f'<script type="application/ld+json">{json.dumps(x, ensure_ascii=False)}</script>'
-                      for x in ld)
+    ld_tags = ('<script type="application/ld+json">'
+               + json.dumps({"@context": "https://schema.org", "@graph": graf}, ensure_ascii=False)
+               + '</script>')
 
     # Startsidan har breda partnerkort högst upp; då ska FAQ, läs vidare
     # och författarrutan linjera med dem i stället för att hoppa in.
@@ -299,6 +390,8 @@ def page(d):
         rel = f'<div class="{wr}"><nav class="rel" aria-label="Läs vidare"><h2>Läs vidare</h2><ul>{li}</ul></nav></div>'
 
     body_html = d['body'].replace('{PLATE}', plate('pagePlate', 'Jämför gratis nu', slug=slug))
+    if slug == 'trafikforsakringsavgift':
+        body_html = tfa_kalkylator() + body_html
 
     # Sidor med egen bild delas med stor förhandsvisning, övriga med logotypen.
     if d.get('bild'):
@@ -320,7 +413,8 @@ def page(d):
 <meta name="description" content="{d['desc']}">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <link rel="canonical" href="{url}">
-<meta property="og:type" content="website">
+<meta property="og:type" content="{'website' if not slug else 'article'}">
+<meta name="author" content="Emil Rostgaard Clausen">
 <meta property="og:locale" content="sv_SE">
 <meta property="og:site_name" content="Bilförsäkringspriser.se">
 <meta property="og:title" content="{d['title']}">
@@ -343,7 +437,7 @@ def page(d):
 <a class="logo" href="/">{LOGO_SVG}<span class="logo-t"><b>Bilförsäkrings</b>priser.se</span></a>
 <button type="button" class="burger" aria-label="Meny" aria-controls="nav"><span></span></button>
 <nav class="nav" id="nav" aria-label="Huvudmeny">{nav}</nav>
-<a class="hd-cta" href="#" data-go="">Jämför gratis</a>
+<button type="button" class="hd-cta" data-go="">Jämför gratis</button>
 </div></header>
 
 <main id="main">
@@ -369,6 +463,15 @@ import pages, generators, guider, fakta, orter, topplista, modellsidor
 PAGES = (pages.PAGES + generators.alla() + guider.SIDOR
          + [topplista.sidan()] + fakta.SIDOR + orter.SIDOR
          + modellsidor.sidor())
+try:
+    import nya
+    PAGES += nya.SIDOR
+except ImportError:
+    pass
+
+for d in PAGES:
+    datum.satt(d)
+datum.spara()
 
 for d in PAGES:
     out = os.path.join(d['slug'], 'index.html') if d['slug'] else 'index.html'
@@ -379,16 +482,72 @@ for d in PAGES:
     print(f'{("/" + d["slug"] + "/") if d["slug"] else "/":34s} {words:5d} ord')
 
 # ── Sitemap ─────────────────────────────────────────────────────────
-urls = ''.join(
-    f'\n  <url><loc>{BASE}/{d["slug"]}/</loc>' if d['slug'] else f'\n  <url><loc>{BASE}/</loc>'
-    for d in PAGES)
+# lastmod är sidans eget uppdateringsdatum. priority och changefreq är
+# borttagna: Google ignorerar dem, och samma värde på alla sidor sade
+# ändå ingenting.
 sm = ['<?xml version="1.0" encoding="UTF-8"?>',
       '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
 for d in PAGES:
     loc = f'{BASE}/{d["slug"]}/' if d['slug'] else f'{BASE}/'
-    pri = '1.0' if not d['slug'] else ('0.9' if d.get('key') else '0.6')
-    sm.append(f'  <url><loc>{loc}</loc><lastmod>{data.UPPDATERAD}</lastmod>'
-              f'<changefreq>monthly</changefreq><priority>{pri}</priority></url>')
+    sm.append(f'  <url><loc>{loc}</loc><lastmod>{d["_mod"]}</lastmod></url>')
 sm.append('</urlset>')
 open('sitemap.xml', 'w', encoding='utf-8').write('\n'.join(sm) + '\n')
 print(f'\nsitemap.xml: {len(PAGES)} adresser')
+
+# ── 404 ─────────────────────────────────────────────────────────────
+# Byggs från samma mall som allt annat, så att css-versionen och menyn
+# alltid stämmer. noindex sätts i efterhand.
+_404 = {'slug': '', 'title': 'Sidan finns inte — Bilförsäkringspriser.se',
+        'desc': 'Sidan du sökte finns inte. Här är guiderna de flesta letar efter.',
+        'eyebrow': 'Fel 404', 'h1': 'Sidan finns inte',
+        'lead': 'Adressen kan ha ändrats eller skrivits fel. Här är sidorna de flesta letar efter.',
+        '_pub': data.UPPDATERAD, '_mod': data.UPPDATERAD,
+        'body': '<section class="sec"><div class="wrap narrow"><ul>'
+                + ''.join(f'<li><a href="{u}">{t}</a></li>' for u, t in [
+                    ('/jamfor-bilforsakring/', 'Jämför bilförsäkring'),
+                    ('/bilforsakring-pris-per-manad/', 'Vad kostar bilförsäkring per månad?'),
+                    ('/halvforsakring/', 'Halvförsäkring'), ('/helforsakring/', 'Helförsäkring'),
+                    ('/forsakringsbolag/', 'Alla försäkringsbolag'), ('/bilmarken/', 'Bilmärken och modeller')])
+                + '</ul></div></section>'}
+h = page(_404)
+h = h.replace('<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">',
+              '<meta name="robots" content="noindex, follow">')
+h = re.sub(r'<link rel="canonical"[^>]*>\n', '', h)
+h = re.sub(r'<script type="application/ld\+json">.*?</script>', '', h, flags=re.S)
+h = h.replace('<p class="upd">', '<p class="upd" hidden>')
+open('404.html', 'w', encoding='utf-8').write(h)
+
+# ── llms.txt ────────────────────────────────────────────────────────
+# Kort karta över sajten för AI-sökmotorer (llmstxt.org). Den ersätter
+# inte sitemap.xml, men talar om vad sajten är och var svaren finns.
+_grupper = [
+    ('Jämföra och priser', ['', 'jamfor-bilforsakring', 'bilforsakring-pris-per-manad',
+                            'billigaste-bilforsakringen', 'basta-bilforsakringen', 'byta-bilforsakring']),
+    ('Skyddsnivåer och villkor', ['trafikforsakring', 'halvforsakring', 'helforsakring', 'sjalvrisk',
+                                  'vagnskadegaranti', 'glasskada-bil', 'viltolycka-forsakring']),
+    ('Regler och avgifter', ['trafikforsakringsavgift', 'avstalld-bil', 'saga-upp-bilforsakring',
+                             'kopa-bil-forsakring', 'bonus-och-skadefria-ar', 'korstracka-mil-per-ar',
+                             'bilforsakring-utomlands']),
+    ('Förare och bil', ['bilforsakring-ung-forare', 'bilforsakring-18-ar', 'bilforsakring-utan-bonus',
+                        'bilforsakring-pensionar', 'bilforsakring-elbil', 'leasingbil-forsakring']),
+    ('Bolag och bilmärken', ['forsakringsbolag', 'bilmarken']),
+    ('Om sajten', ['om-oss', 'redaktionell-metod']),
+]
+_per = {d['slug']: d for d in PAGES}
+rader = ['# Bilförsäkringspriser.se', '',
+         '> Oberoende svensk guide till bilförsäkring: vad trafik-, halv- och helförsäkring '
+         'täcker, vad som påverkar priset, regler för trafikförsäkringsavgift, avställning och '
+         'ägarbyte, samt genomgångar av 16 försäkringsbolag och drygt 120 bilmodeller. Siffror '
+         'redovisas med källa och datum. Sajten förmedlar inga försäkringar och innehåller '
+         'annonslänkar, vilket redovisas på /redaktionell-metod/.', '',
+         f'Senast uppdaterad: {max(d["_mod"] for d in PAGES)}. Ansvarig utgivare: Emil Rostgaard Clausen ({KONTAKT}).', '']
+for rubrik, slugs in _grupper:
+    rader.append(f'## {rubrik}')
+    for sl in slugs:
+        if sl in _per:
+            d = _per[sl]
+            rader.append(f'- [{d["h1"]}]({BASE}/{sl + "/" if sl else ""}): {d["desc"]}')
+    rader.append('')
+rader += ['## Valfritt', f'- [Sitemap med alla sidor]({BASE}/sitemap.xml)', '']
+open('llms.txt', 'w', encoding='utf-8').write('\n'.join(rader))
+print('llms.txt och 404.html skrivna')

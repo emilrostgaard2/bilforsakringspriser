@@ -14,6 +14,14 @@ import data
 SWIPE = '<p class="swipe">&larr; Dra i sidled för att se alla kolumner</p>'
 
 
+def _ext(url, namn):
+    return f'<a href="{url}" rel="noopener" target="_blank">{namn}</a>'
+
+
+TFF = _ext('https://www.tff.se/', 'Trafikförsäkringsföreningen')
+TS = _ext('https://www.transportstyrelsen.se/', 'Transportstyrelsen')
+
+
 def _t(caption, kol, rader, swipe=None):
     th = ''.join(f'<th scope="col">{k}</th>' for k in kol)
     tr = ''.join('<tr><th scope="row">' + r[0] + '</th>'
@@ -24,7 +32,12 @@ def _t(caption, kol, rader, swipe=None):
 
 
 def sjalvrisktabell():
-    """Per bolag, direkt ur villkoren. Unik på den svenska marknaden."""
+    """Per bolag, direkt ur villkoren. Visas först när beloppen är ifyllda."""
+    if not any(v for s in data.SJALVRISK.values() for v in s.values()):
+        return ('<p>Vi har ännu inte sammanställt självriskbeloppen per bolag ur villkoren, '
+                'och vi publicerar inga belopp innan de är kontrollerade. Tills dess hittar du '
+                'dem i respektive bolags förköpsinformation, och på våra '
+                '<a href="/forsakringsbolag/">bolagssidor</a> finns länkar vidare.</p>')
     rader = []
     for b in BOLAG:
         s = data.SJALVRISK.get(b['slug'], {})
@@ -56,9 +69,11 @@ SIDOR = [
  'sticky': 'Jämför självrisk mellan bolagen',
  'body': f'''
 <section class="sec"><div class="wrap narrow">
-<div class="note"><p><strong>Kort sagt.</strong> Höjd självrisk sänker premien, men bara om
-mellanskillnaden går ihop. Räkna alltid: om premien sjunker 400 kronor om året när
-självrisken höjs 2 000 kronor, tjänar du på det först efter fem skadefria år.</p></div>
+<div class="note"><p><strong>Kort sagt.</strong> Självrisk är det belopp du själv betalar
+när en skada ersätts av bilförsäkringen. En bilförsäkring har normalt fem till sju olika
+självrisker, en per skadetyp, till exempel vagnskada, glas och stöld. Höjd självrisk sänker
+premien, men lönar sig bara om premiesänkningen tjänar in mellanskillnaden inom några
+skadefria år.</p></div>
 
 <h2>De självrisker som finns i en bilförsäkring</h2>
 {_t('Självrisktyper och när de gäller',
@@ -82,10 +97,9 @@ självrisken. På bilar med förarassistans bakom vindrutan tillkommer dessutom 
 vilket är den verkliga kostnadsdrivaren på nyare bilar.</p>
 
 <h2>Självrisk per bolag</h2>
-<p>Beloppen står i respektive bolags villkor och gäller oavsett vilken bil du har. De är
-alltså jämförbara rakt av — till skillnad från premien.</p>
+<p>Självriskbeloppen står i respektive bolags villkor och gäller oftast oavsett vilken bil du
+har. De är alltså jämförbara rakt av — till skillnad från premien.</p>
 {sjalvrisktabell()}
-{data.saknas_ruta('självriskbeloppen')}
 {data.kontrollerad()}
 
 <h2>Lönar det sig att höja självrisken?</h2>
@@ -148,9 +162,10 @@ bara om mellanskillnaden går ihop inom tre år. Läs mer om
  'sticky': 'Jämför innan du byter',
  'body': f'''
 <section class="sec"><div class="wrap narrow">
-<div class="note"><p><strong>Kort sagt.</strong> Säg aldrig upp den gamla försäkringen först.
-Teckna den nya med startdatum, och låt den gamla löpa ut samma dag. Ett glapp på ett dygn
-utan trafikförsäkring kostar mer i avgift än du sparat på hela bytet.</p></div>
+<div class="note"><p><strong>Kort sagt.</strong> Du kan byta bilförsäkring vid
+huvudförfallodagen, normalt med en månads uppsägningstid, och direkt vid bilköp, ägarbyte
+eller när bolaget höjer premien. Teckna den nya försäkringen med samma startdatum som den
+gamla upphör, så att bilen aldrig står utan trafikförsäkring.</p></div>
 
 <h2>När får du byta?</h2>
 {_t('Bytestillfällen och vad som krävs',
@@ -185,6 +200,9 @@ när du tecknar. Fråga uttryckligen om de gör det.</p>
 automatiskt. Det nya bolaget utgår från vad du uppger tills de fått intyg. Kontrollera
 första fakturan: ligger premien högre än offerten är det nästan alltid bonusen som inte
 registrerats. Läs mer om <a href="/bonus-och-skadefria-ar/">hur bonusen byggs upp</a>.</p>
+<p>Inför bytet kan det vara värt att se vilka bolag som har starka villkorsbetyg hos
+Konsumenternas Försäkringsbyrå — de finns samlade i
+<a href="/basta-bilforsakringen/">sammanställningen av bolagen</a>.</p>
 
 <h2>Fyra myter om att byta</h2>
 {_t('Vad som faktiskt gäller',
@@ -245,9 +263,10 @@ registrerats. Läs mer om <a href="/bonus-och-skadefria-ar/">hur bonusen byggs u
  'sticky': 'Kontrollera att din bonus är registrerad',
  'body': f'''
 <section class="sec"><div class="wrap narrow">
-<div class="note"><p><strong>Kort sagt.</strong> Bonusen är personlig, byggs upp ett år i
-taget och måste registreras hos varje nytt bolag med intyg. Den vanligaste förlusten sker
-inte vid en skada, utan vid ett byte där ingen kom ihåg att skicka intyget.</p></div>
+<div class="note"><p><strong>Kort sagt.</strong> Bonus är den rabatt på premien som du
+bygger upp genom skadefria år, alltså försäkringsår utan skada som ersatts på din egen
+försäkring. Bonusen är personlig, följer dig och inte bilen, och når hos de flesta bolag sin
+högsta nivå efter ungefär sju år. Vid byte av bolag måste den registreras med intyg.</p></div>
 
 <h2>Så byggs bonusen upp</h2>
 <p>Varje helt försäkringsår utan skada räknas som ett skadefritt år. Bolagen använder olika
@@ -318,7 +337,7 @@ alltid med, förutsatt att intyget skickas — se
 # ═══ TRAFIKFÖRSÄKRINGSAVGIFT ═══════════════════════════════════════
 {
  'slug': 'trafikforsakringsavgift', 'key': True,
- 'title': 'Trafikförsäkringsavgift — vad den kostar och hur du slipper den',
+ 'title': 'Trafikförsäkringsavgift — vad den är och hur du slipper den',
  'desc': 'Kör du utan trafikförsäkring tar Trafikförsäkringsföreningen ut en avgift '
          'som är betydligt högre än premien. Se hur den räknas och hur du stoppar den.',
  'eyebrow': 'Faktasida',
@@ -334,14 +353,15 @@ alltid med, förutsatt att intyget skickas — se
  'sticky': 'Stoppa avgiften — teckna försäkring',
  'body': f'''
 <section class="sec"><div class="wrap narrow">
-<div class="note"><p><strong>Kort sagt.</strong> Har du fått ett krav ska du agera samma dag.
-Avgiften löper per dygn och stoppas först den dag en försäkring börjar gälla eller bilen är
-avställd hos Transportstyrelsen. Att bestrida kravet stoppar den inte.</p></div>
+<div class="note"><p><strong>Kort sagt.</strong> Trafikförsäkringsavgift är en avgift som
+{TFF} tar ut för varje dag ett påställt fordon saknar trafikförsäkring. Den är avsiktligt
+högre än en vanlig premie och stoppas först när en försäkring börjar gälla eller bilen är
+avställd hos {TS}. Att bestrida kravet stoppar inte avgiften.</p></div>
 
 <h2>Varför avgiften finns</h2>
 <p>Alla fordon som används i trafik i Sverige ska ha trafikförsäkring. Den som ändå kör
 oförsäkrad skjuter över risken på alla andra, eftersom skador som oförsäkrade orsakar
-ersätts av Trafikförsäkringsföreningen — som i sin tur finansieras av försäkringsbolagen och
+ersätts av {TFF} — som i sin tur finansieras av försäkringsbolagen och
 därmed av alla andra bilägare. Avgiften är konstruerad så att det aldrig ska löna sig att
 avstå från försäkring.</p>
 
@@ -369,7 +389,7 @@ det är gratis att ha den några timmar för tidigt.</p>
      ['2', 'Kontrollera vilka datum kravet avser'],
      ['3', 'Har du haft försäkring under perioden: skicka bevis till föreningen'],
      ['4', 'Är kravet riktigt: betala, avgiften växer inte när den väl stoppats'],
-     ['5', 'Kontrollera hos Transportstyrelsen att fordonet står rätt registrerat']],
+     ['5', 'Kontrollera hos ' + TS + ' att fordonet står rätt registrerat']],
     swipe=False)}
 <p>Ska bilen inte användas ett tag är avställning nästan alltid rätt lösning — läs vad som
 gäller under <a href="/avstalld-bil/">avställd bil</a>. Ska den användas är
@@ -424,9 +444,11 @@ gäller under <a href="/avstalld-bil/">avställd bil</a>. Ska den användas är
  'sticky': 'Jämför pris inför påställningen',
  'body': f'''
 <section class="sec"><div class="wrap narrow">
-<div class="note"><p><strong>Kort sagt.</strong> Ställ av bilen hos Transportstyrelsen, säg
-upp trafikdelen — men behåll ett skydd mot stöld och brand om bilen har ett värde. Det är
-den kombinationen som är både laglig och billig.</p></div>
+<div class="note"><p><strong>Kort sagt.</strong> En avställd bil är en bil som tillfälligt
+tagits ur trafik genom en anmälan till vägtrafikregistret hos {TS}, och den behöver därför
+ingen trafikförsäkring — men den får
+inte köras. Bilen kan fortfarande stjälas eller brinna, så en avställningsförsäkring med
+stöld- och brandskydd är vanlig för bilar som har ett värde.</p></div>
 
 <h2>Vad avställning innebär</h2>
 <p>Avställning är en registreringsåtgärd hos Transportstyrelsen, inte något du gör hos

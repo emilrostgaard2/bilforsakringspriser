@@ -156,10 +156,13 @@ def sidan():
     ['gofido'], smal=True)}
 
 <section class="sec"><div class="wrap narrow">
-<div class="note"><p><strong>Kort sagt.</strong> Det finns ingen försäkring som är bäst för
-alla. Den här listan rangordnar bolagen på fyra kriterier med öppna vikter, så att du kan se
-exakt varför ett bolag hamnar där det hamnar — och räkna om det själv om du värderar pris
-högre än villkor.</p></div>
+<div class="note"><p><strong>Kort sagt.</strong> Det finns ingen bilförsäkring som är bäst
+för alla, eftersom pris och behov skiljer sig mellan förare och bilar. Den mest oberoende
+måttstocken på villkorens innehåll är
+<a href="{marknad.BETYG[0]['url']}" rel="noopener" target="_blank">Konsumenternas
+Försäkringsbyrås</a> jämförelse: i {marknad.BETYG[0]['datum']} hade {marknad.BETYG[0]['bolag']}
+högst betyg bland stor- och tilläggsprodukterna med {marknad.BETYG[0]['varde']}. Sammanställningen
+nedan väger samman villkor, kundnöjdhet, pris och omdömen med öppna vikter.</p></div>
 
 <h2>Så här rankar vi</h2>
 <p>De flesta topplistor på marknaden utser en vinnare och motiverar den i efterhand. Vi gör
@@ -206,7 +209,7 @@ listan för att välja vilka tre eller fyra bolag du begär offert från — int
         'title': f'Bästa bilförsäkringen {data.UPPDATERAD[:4]} — rankning av {len(BOLAG)} bolag',
         'desc': 'Vilken är bästa bilförsäkringen? Vi rankar bolagen på villkor, pris, '
                 'kundnöjdhet och omdömen — med öppna vikter du kan granska.',
-        'eyebrow': f'Uppdaterad {data.UPPDATERAD_TEXT}',
+        'eyebrow': 'Bolagen jämförda 2026',
         'h1': 'Bästa bilförsäkringen',
         'lead': 'Vi rangordnar de svenska bilförsäkringsbolagen på fyra kriterier: villkorens '
                 'innehåll, pris på jämförelseprofilen, kundnöjdhet och kundomdömen. Vikterna '

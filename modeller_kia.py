@@ -21,7 +21,7 @@ MODELLER_KIA = {
  'drivlina': 'bensin, mildhybrid, hybrid och laddhybrid',
  'kort': 'Kias mest sålda modell i Sverige och märkets viktigaste familjebil.',
  'vinkel': 'Sportage ligger mitt i volymklassen och prissätts därefter. Beståndet är stort '
-           'nog för säker skadestatistik, delarna delas med Hyundai Tucson, och '
+           'nog för stabil skadestatistik, delarna delas med Hyundai Tucson, och '
            'ägarprofilen är gynnsam. Laddhybriden är undantaget — den har både högre '
            'ersättningsvärde och en drivlina med fler dyra komponenter i samma bil.',
  'punkter': ['Delar plattform och delkatalog med Hyundai Tucson',
@@ -180,7 +180,7 @@ MODELLER_KIA = {
  'slug': 'picanto', 'namn': 'Picanto', 'typ': 'minibil', 'ar': '2017–',
  'drivlina': 'bensin',
  'kort': 'Kias minsta bil och en av de sista kvarvarande minibilarna på svenska marknaden.',
- 'vinkel': 'Picanto är sannolikt bland de billigaste bilarna att försäkra som säljs ny i '
+ 'vinkel': 'Picanto är sannolikt bland de bilar som kostar minst att försäkra som säljs ny i '
            'Sverige. Lägst ersättningsvärde i Kias utbud, låg vikt och skador på motparten '
            'som begränsas av ren fysik. För en ung förare är det den kombination som betyder '
            'mest — mer än vilket märke det står på.',

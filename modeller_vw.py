@@ -79,7 +79,7 @@ MODELLER_VW = {
  'slug': 'polo', 'namn': 'Polo', 'typ': 'liten halvkombi', 'ar': '2018–',
  'drivlina': 'bensin',
  'kort': 'Volkswagens minsta modell och ett av de vanligaste valen som förstabil.',
- 'vinkel': 'Polo hör till de billigaste bilarna att försäkra i Sverige. Låg vikt betyder '
+ 'vinkel': 'Polo hör till de bilar som kostar minst att försäkra i Sverige. Låg vikt betyder '
            'mindre skada både på egen bil och på motparten, ersättningsvärdet är lågt och '
            'delarna delas med Skoda Fabia och Seat Ibiza. Det som drar upp genomsnittet är '
            'förarprofilen — en stor del av beståndet körs av unga utan uppbyggd bonus.',
@@ -122,7 +122,7 @@ MODELLER_VW = {
  'slug': 'id3', 'namn': 'ID.3', 'typ': 'eldriven halvkombi', 'ar': '2020–',
  'drivlina': 'helt eldriven',
  'kort': 'Volkswagens eldrivna svar på Golf och märkets första MEB-modell.',
- 'vinkel': 'ID.3 är den billigaste elbilen att försäkra i Volkswagens utbud, och en av de '
+ 'vinkel': 'ID.3 är den elbil som kostar minst att försäkra i Volkswagens utbud, och en av de '
            'billigare på marknaden överhuvudtaget. Den är mindre och lättare än ID.4, har '
            'lägre ersättningsvärde och delar hela sin teknik med Cupra Born och Skoda Elroq. '
            'Verkstadsnätet är därmed betydligt bredare än beståndets storlek antyder.',

@@ -7,10 +7,11 @@ egna stadsdelsavsnitt. Ingen text återanvänds mellan orterna. Det är
 avgörande här: ortssidor är den sidtyp som lättast blir mallutfyllnad
 och som Google är hårdast mot när den blir det.
 
-Premieindex hämtas från data.ORTER och visas som "—" tills det är
-insamlat. Vi påstår alltså aldrig en procentsiffra vi inte har.
+Premieindex per ort finns inte insamlat ännu. Pristabellen visar därför
+bara publicerade uppgifter ur marknad.py, med källa och datum — aldrig en
+procentsiffra eller ett belopp vi inte har.
 """
-import data
+import data, marknad
 
 SWIPE = '<p class="swipe">&larr; Dra i sidled för att se alla kolumner</p>'
 
@@ -24,15 +25,24 @@ def _t(caption, kol, rader, swipe=False):
 
 
 def _pristabell(ort):
+    """Publicerade referensvärden med källa. Lokala exempel tas med bara
+    när källan själv uppger orten i sin profil."""
     o = data.ORTER[ort]
-    return _t(f'{o["namn"]} — vägledande årspremie',
-              ['Nivå', 'Per år', 'Per månad', 'Index mot riket'],
-              [['<a href="/trafikforsakring/">Trafikförsäkring</a>', '—', '—',
-                data.betyg(o['index'])],
-               ['<a href="/halvforsakring/">Halvförsäkring</a>', '—', '—',
-                data.betyg(o['index'])],
-               ['<a href="/helforsakring/">Helförsäkring</a>', '—', '—',
-                data.betyg(o['index'])]], swipe=True)
+    rader = []
+    for g in marknad.GENOMSNITT[:1]:
+        rader.append([g['vad'], g['belopp'], 'Hela Sverige',
+                      f'{marknad._kalla(g)}, {g["datum"]}'])
+    for p in marknad.PRISEXEMPEL:
+        if p['kalla'] == 'Tryggvi' or o['namn'] in p['profil']:
+            rader.append([f'{p["vad"]} ({p["bolag"]})', p['belopp'],
+                          o['namn'] if o['namn'] in p['profil'] else 'Källans egen profil',
+                          f'{marknad._kalla(p)}, {p["datum"]}'])
+    return (_t(f'Publicerade prisuppgifter som referens för {o["namn"]}',
+               ['Uppgift', 'Belopp', 'Gäller', 'Källa'], rader, swipe=True)
+            + '<div class="src"><p>Uppgifterna är andra källors publicerade siffror, inte '
+              'våra. Vi har ännu inget eget premieindex per ort, och beloppen ovan säger '
+              'därför inget om hur ' + o['namn'] + ' ligger mot riket. '
+              '<a href="/redaktionell-metod/">Så redovisar vi källor</a>.</p></div>')
 
 
 SIDOR = [
@@ -40,7 +50,7 @@ SIDOR = [
 # ═══ STOCKHOLM ═════════════════════════════════════════════════════
 {
  'slug': 'bilforsakring-stockholm', 'key': True,
- 'title': 'Bilförsäkring Stockholm — pris, postnummer och parkeringsskador',
+ 'title': 'Bilförsäkring Stockholm — pris, postnummer och skador',
  'desc': 'Varför är bilförsäkring dyrare i Stockholm? Se hur postnumret påverkar '
          'premien, vilka skadetyper som dominerar och vad du kan göra åt det.',
  'eyebrow': 'Stockholms län',
@@ -62,8 +72,6 @@ verkligheten i försäkringsbrevet — och hos många gör de inte det.</p></div
 
 <h2>Prisbilden i Stockholm</h2>
 {_pristabell('stockholm')}
-{data.saknas_ruta('ortsindex och priser')}
-{data.profil_ruta()}
 
 <h2>Varför postnumret väger så tungt här</h2>
 <p>Försäkringsbolagen sätter premien på postnummernivå, inte på kommunnivå. Skillnaden mellan
@@ -150,8 +158,6 @@ sannolikt mindre än en granne några kilometer bort som gatuparkerar.</p></div>
 
 <h2>Vad det kostar i Göteborg</h2>
 {_pristabell('goteborg')}
-{data.saknas_ruta('ortsindex och priser')}
-{data.profil_ruta()}
 
 <h2>Skillnaden mellan centrum och kranskommun</h2>
 <p>Premien beräknas på postnummer, och Göteborgsregionen rymmer båda ytterligheterna. I de
@@ -214,7 +220,7 @@ ofta rätt — samma bil i Majorna talar för <a href="/helforsakring/">helförs
 # ═══ MALMÖ ═════════════════════════════════════════════════════════
 {
  'slug': 'bilforsakring-malmo', 'key': True,
- 'title': 'Bilförsäkring Malmö — pris, stöldrisk och skånska förutsättningar',
+ 'title': 'Bilförsäkring Malmö — pris, stöldrisk och villkor',
  'desc': 'Bilförsäkring i Malmö: se hur postnumret påverkar premien, varför '
          'stöldskyddet väger tungt i Skåne och vad som gäller vid körning till Danmark.',
  'eyebrow': 'Skåne',
@@ -235,8 +241,6 @@ Sverige. Båda står i villkoren, ingen av dem syns i priset.</p></div>
 
 <h2>Prisbilden i Malmö</h2>
 {_pristabell('malmo')}
-{data.saknas_ruta('ortsindex och priser')}
-{data.profil_ruta()}
 
 <h2>Stöldskyddet — den lokala skillnaden</h2>
 <p>Flera bolag ställer skarpare krav på stöldskydd i vissa postnummerområden, och de kraven

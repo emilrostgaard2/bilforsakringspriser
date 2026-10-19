@@ -82,7 +82,7 @@ EXTRA_BMW = {
 'x1': {
  'meta': 'BMW:s minsta SUV',
  'direktsvar':
-  'BMW X1 är den billigaste vägen in i märkets SUV-utbud, men inte nödvändigtvis den '
+  'BMW X1 är den mest prisvärda vägen in i märkets SUV-utbud, men inte nödvändigtvis den '
   'billigaste BMW:n att försäkra. Ägarprofilen är yngre än för 3-serie och X3, och förarens '
   'ålder väger tyngre än bilens storlek i premieberäkningen.',
  'agare':

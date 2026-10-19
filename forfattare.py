@@ -57,6 +57,11 @@ FORFATTARE = {
 # vad personen granskat — aldrig ett namn utan att personen läst texten.
 GRANSKARE = {'namn': '', 'titel': '', 'text': ''}
 
+# Författarens profiler på andra ställen (schema.org sameAs).
+SAMEAS = [
+    'https://billigste-bilforsikring.dk/author/admin/',
+]
+
 
 def ruta(wrap='wrap narrow'):
     """Kompakt författarruta sist på varje sida.
@@ -97,7 +102,11 @@ def schema(bas):
         'image': bas + f['bild2x'],
         'jobTitle': f['roll'],
         'description': f['kort'],
-        'knowsAbout': ['Bilförsäkring', 'Prisjämförelse', 'Sökmotoroptimering'],
+        'knowsAbout': ['Bilförsäkring', 'Trafikförsäkring', 'Prisjämförelse',
+                       'Konsumentekonomi', 'Sökmotoroptimering'],
+        # Profiler som bevisar att det är samma person. Lägg till LinkedIn
+        # här — det är den länk Google och AI-sök väger tyngst.
+        'sameAs': SAMEAS,
         'worksFor': {'@type': 'Organization', 'name': 'Bilförsäkringspriser.se',
                      'url': bas + '/'},
     }

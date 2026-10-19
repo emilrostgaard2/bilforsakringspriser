@@ -6,7 +6,7 @@ EXTRA_TOYOTA = {
 'yaris': {
  'meta': 'Toyotas småbil',
  'direktsvar':
-  'Toyota Yaris hör till de billigaste bilarna att försäkra i Sverige. Låg vikt, lågt '
+  'Toyota Yaris hör till de bilar som kostar minst att försäkra i Sverige. Låg vikt, lågt '
   'ersättningsvärde och en av marknadens lägsta skadefrekvenser drar alla åt samma håll. '
   'Räkna med den låga prisklassens spann, 230–330 kr i månaden för halvförsäkring i '
   'uppskattning.',
@@ -229,7 +229,7 @@ EXTRA_TOYOTA = {
 'aygo-x': {
  'meta': 'Toyotas minsta bil',
  'direktsvar':
-  'Toyota Aygo X är bland de billigaste bilarna att försäkra som säljs ny i Sverige. Lägst '
+  'Toyota Aygo X är bland de bilar som kostar minst att försäkra som säljs ny i Sverige. Lägst '
   'ersättningsvärde i Toyotas utbud och låg vikt begränsar både premien och den skada bilen '
   'kan orsaka på motparten. För en ung förare är det den kombination som betyder mest.',
  'agare':

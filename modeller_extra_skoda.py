@@ -168,7 +168,7 @@ EXTRA_SKODA = {
 'fabia': {
  'meta': 'Skodas minsta bil',
  'direktsvar':
-  'Skoda Fabia är en av de billigaste bilarna att försäkra på den svenska marknaden. Låg '
+  'Skoda Fabia är en av de bilar som kostar minst att försäkra på den svenska marknaden. Låg '
   'vikt, lågt ersättningsvärde och god delstillgång drar alla åt samma håll. Det som kan '
   'höja premien är förarprofilen — en stor del av beståndet körs av unga utan uppbyggd bonus.',
  'agare':

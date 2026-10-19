@@ -94,7 +94,7 @@ MODELLER_SKODA = {
  'slug': 'fabia', 'namn': 'Fabia', 'typ': 'liten halvkombi', 'ar': '2015–',
  'drivlina': 'bensin',
  'kort': 'Skodas minsta bil och ett vanligt val som förstabil och andrabil.',
- 'vinkel': 'Fabia är en av de billigaste bilarna att försäkra på den svenska marknaden. '
+ 'vinkel': 'Fabia är en av de bilar som kostar minst att försäkra på den svenska marknaden. '
            'Låg vikt betyder mindre skada vid kollision, både på egen bil och på motparten, '
            'och det låga ersättningsvärdet gör vagnskadedelen billig. Det som kan dra upp '
            'premien är förarprofilen — en stor del av beståndet körs av unga utan bonus.',

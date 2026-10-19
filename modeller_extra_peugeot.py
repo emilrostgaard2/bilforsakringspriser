@@ -6,7 +6,7 @@ EXTRA_PEUGEOT = {
 '208': {
  'meta': 'Peugeots mest sålda modell',
  'direktsvar':
-  'Peugeot 208 hör till de billigaste bilarna att försäkra i Sverige. Låg vikt, lågt '
+  'Peugeot 208 hör till de bilar som kostar minst att försäkra i Sverige. Låg vikt, lågt '
   'ersättningsvärde och en delkatalog som delas med Opel Corsa och Citroën C3 drar alla åt '
   'samma håll. Räkna med den låga prisklassens spann, 230–330 kr i månaden för '
   'halvförsäkring i uppskattning.',
@@ -124,7 +124,7 @@ EXTRA_PEUGEOT = {
  'meta': 'Peugeots kompaktbil',
  'direktsvar':
   'Peugeot 308 ligger mitt i volymklassen, alltså omkring 280–400 kr i månaden för '
-  'halvförsäkring i uppskattning. Beståndet är stort nog för säker skadestatistik och delarna '
+  'halvförsäkring i uppskattning. Beståndet är stort nog för stabil skadestatistik och delarna '
   'delas med Opel Astra inom Stellantis. Laddhybriden ligger högre eftersom '
   'ersättningsvärdet är större.',
  'agare':
@@ -333,7 +333,7 @@ EXTRA_PEUGEOT = {
   'Mot en sjusitsig SUV är avståndet stort till Rifters fördel — man betalar för '
   'karossformens status, inte för utrymmet.',
  'kostnad':
-  'Rifter är ett av de billigaste sätten att få stort lastutrymme och sju säten i Sverige. '
+  'Rifter är ett av de mest prisvärda sätten att få stort lastutrymme och sju säten i Sverige. '
   'Alla poster är låga: inköp, bränsle, delar och premie. Den enda kostnaden som är högre än '
   'väntat är däck, eftersom bilen är tyngre än formatet antyder. Skyddsnivån bör räknas om '
   'årligen, eftersom värdet sjunker snabbt.',

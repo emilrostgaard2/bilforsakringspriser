@@ -18,7 +18,7 @@ MODELLER_TOYOTA = {
  'slug': 'yaris', 'namn': 'Yaris', 'typ': 'liten halvkombi', 'ar': '2020–',
  'drivlina': 'bensin och hybrid',
  'kort': 'Toyotas småbil och en av Sveriges vanligaste hybrider.',
- 'vinkel': 'Yaris är en av de billigaste bilarna att försäkra i Sverige. Låg vikt, lågt '
+ 'vinkel': 'Yaris är en av de bilar som kostar minst att försäkra i Sverige. Låg vikt, lågt '
            'ersättningsvärde och Toyotas låga skadefrekvens drar alla åt samma håll. '
            'Hybridversionen dominerar beståndet, och den prissätts som en bensinbil — inte '
            'som en laddbar bil, vilket är viktigt att kontrollera i offerten.',
@@ -141,7 +141,7 @@ MODELLER_TOYOTA = {
  'slug': 'aygo-x', 'namn': 'Aygo X', 'typ': 'minibil', 'ar': '2022–',
  'drivlina': 'bensin och hybrid',
  'kort': 'Toyotas minsta bil och en av få kvarvarande minibilarna på marknaden.',
- 'vinkel': 'Aygo X är sannolikt bland de billigaste bilarna att försäkra som säljs ny i '
+ 'vinkel': 'Aygo X är sannolikt bland de bilar som kostar minst att försäkra som säljs ny i '
            'Sverige. Lägst ersättningsvärde i Toyotas utbud, låg vikt och skador på motparten '
            'som begränsas av ren fysik. För en ung förare är det den kombination som betyder '
            'mest — mer än vilket märke det står på.',

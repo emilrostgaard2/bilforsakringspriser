@@ -19,7 +19,7 @@ MODELLER_PEUGEOT = {
  'slug': '208', 'namn': '208', 'typ': 'liten halvkombi', 'ar': '2019–',
  'drivlina': 'bensin och mildhybrid',
  'kort': 'Peugeots mest sålda modell och en av Europas vanligaste småbilar.',
- 'vinkel': 'Peugeot 208 hör till de billigaste bilarna att försäkra i Sverige. Låg vikt, '
+ 'vinkel': 'Peugeot 208 hör till de bilar som kostar minst att försäkra i Sverige. Låg vikt, '
            'lågt ersättningsvärde och en delkatalog som delas med hela Stellantis-koncernen '
            'drar alla åt samma håll. Det som höjer genomsnittspremien är förarprofilen — 208 '
            'är en vanlig förstabil, och beståndet innehåller många unga utan uppbyggd bonus.',
@@ -82,7 +82,7 @@ MODELLER_PEUGEOT = {
  'drivlina': 'bensin, diesel, mildhybrid och laddhybrid',
  'kort': 'Peugeots kompaktbil och märkets svar på Golf och Octavia.',
  'vinkel': '308 ligger mitt i volymklassen och prissätts därefter. Beståndet är stort nog '
-           'för säker skadestatistik, och delarna delas med Opel Astra och DS 4 inom '
+           'för stabil skadestatistik, och delarna delas med Opel Astra och DS 4 inom '
            'Stellantis. Laddhybriden är undantaget — den har både högre ersättningsvärde och '
            'en drivlina med fler dyra komponenter i samma bil.',
  'punkter': ['Delar EMP2-plattform med Opel Astra och DS 4',

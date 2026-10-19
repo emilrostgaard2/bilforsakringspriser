@@ -1,0 +1,1047 @@
+{
+ "": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "11046ad66085b454"
+ },
+ "avstalld-bil": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "6d93a835cd42bcc2"
+ },
+ "basta-bilforsakringen": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "caf858316e67af27"
+ },
+ "bilforsakring-18-ar": {
+  "pub": "2026-10-19",
+  "mod": "2026-10-19",
+  "hash": "5009539c3eaec109"
+ },
+ "bilforsakring-elbil": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "6bbdd6eb6291bbdc"
+ },
+ "bilforsakring-goteborg": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "36cf31b90133ca5f"
+ },
+ "bilforsakring-malmo": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "3c57feedb6c3b892"
+ },
+ "bilforsakring-pensionar": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "4382d3521a1e72f2"
+ },
+ "bilforsakring-pris-per-manad": {
+  "pub": "2026-10-19",
+  "mod": "2026-10-19",
+  "hash": "1dc063d61528ecf9"
+ },
+ "bilforsakring-stockholm": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "b7846678f9a55042"
+ },
+ "bilforsakring-ung-forare": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "822290e08884d622"
+ },
+ "bilforsakring-utan-bonus": {
+  "pub": "2026-10-19",
+  "mod": "2026-10-19",
+  "hash": "1da4cb293b71b418"
+ },
+ "bilforsakring-utomlands": {
+  "pub": "2026-10-19",
+  "mod": "2026-10-19",
+  "hash": "83b61010e4341104"
+ },
+ "billigaste-bilforsakringen": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "72a1f8665f59edb5"
+ },
+ "bilmarken": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "13b687fcc8674efb"
+ },
+ "bilmarken/alfa-romeo": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "f54af76531f96bfa"
+ },
+ "bilmarken/audi": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "9a4737651c2f8fc9"
+ },
+ "bilmarken/audi/a3": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "b142c766e4106c38"
+ },
+ "bilmarken/audi/a4": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "1d2f887572a1908c"
+ },
+ "bilmarken/audi/a6": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "492e2f28e37f52a3"
+ },
+ "bilmarken/audi/a6-e-tron": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "3467fb399551555a"
+ },
+ "bilmarken/audi/e-tron-gt": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "5178776d557d5f68"
+ },
+ "bilmarken/audi/q3": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "3d125106299f0e44"
+ },
+ "bilmarken/audi/q4-e-tron": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "6be983345659af14"
+ },
+ "bilmarken/audi/q5": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "7bcf42e3a00da41e"
+ },
+ "bilmarken/audi/q6-e-tron": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "e1a41f0a5c40809e"
+ },
+ "bilmarken/audi/q7": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "f6e13d8309e453f2"
+ },
+ "bilmarken/bmw": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "4815d4e062166e7f"
+ },
+ "bilmarken/bmw/3-serie": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "94a495dc27097539"
+ },
+ "bilmarken/bmw/5-serie": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "a3b306ae99d44653"
+ },
+ "bilmarken/bmw/i4": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "6d50c3532d2cf5c2"
+ },
+ "bilmarken/bmw/i5": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "4acbbb39f79aba31"
+ },
+ "bilmarken/bmw/ix": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "71133df2efde5b1f"
+ },
+ "bilmarken/bmw/ix1": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "978ba567f6ba4a4f"
+ },
+ "bilmarken/bmw/ix3": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "d283ac577720e9da"
+ },
+ "bilmarken/bmw/x1": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "b0002f2b7c76e07a"
+ },
+ "bilmarken/bmw/x3": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "2341aa6807ed7266"
+ },
+ "bilmarken/bmw/x5": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "9b5b7feb4c923268"
+ },
+ "bilmarken/byd": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "98cb69a339928c63"
+ },
+ "bilmarken/citroen": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "e3d65348b7817a2d"
+ },
+ "bilmarken/cupra": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "1f9b63df51a1dbde"
+ },
+ "bilmarken/cupra/ateca": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "634ef9c5021a306c"
+ },
+ "bilmarken/cupra/born": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "52a044cd6f445a8b"
+ },
+ "bilmarken/cupra/formentor": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "834b635b705da7c7"
+ },
+ "bilmarken/cupra/leon": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "1e372409445d9926"
+ },
+ "bilmarken/cupra/tavascan": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "0efd0a6b87442fb6"
+ },
+ "bilmarken/cupra/terramar": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "b9519bc4b9832b43"
+ },
+ "bilmarken/dacia": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "e6ce570de70af2da"
+ },
+ "bilmarken/fiat": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "776ca9dea23ad766"
+ },
+ "bilmarken/ford": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "a518d9688813bbc5"
+ },
+ "bilmarken/honda": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "e5f2a245c2774bc0"
+ },
+ "bilmarken/hyundai": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "645225bb1205e9d7"
+ },
+ "bilmarken/hyundai/bayon": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "6c25bf84b32b66b4"
+ },
+ "bilmarken/hyundai/i10": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "510e3bf38c327341"
+ },
+ "bilmarken/hyundai/i20": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "e84f6fdb5cd060cc"
+ },
+ "bilmarken/hyundai/inster": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "d8b6a10b0d3744ba"
+ },
+ "bilmarken/hyundai/ioniq-5": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "41ce65b085ef4a72"
+ },
+ "bilmarken/hyundai/ioniq-6": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "48c321e9e0f6f1ef"
+ },
+ "bilmarken/hyundai/ioniq-9": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "a20add673214a4f7"
+ },
+ "bilmarken/hyundai/kona": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "f4e1f81625be62f5"
+ },
+ "bilmarken/hyundai/santa-fe": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "d831cd3e9a2fc626"
+ },
+ "bilmarken/hyundai/tucson": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "aab50005465aac38"
+ },
+ "bilmarken/jaguar": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "5f4d30f2301893dd"
+ },
+ "bilmarken/jeep": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "5a21ecb7fdd81e9e"
+ },
+ "bilmarken/kia": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "7da207cefe8fdd86"
+ },
+ "bilmarken/kia/ceed": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "c64357113dfcb5d0"
+ },
+ "bilmarken/kia/ev3": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "135cfbec3a09b95e"
+ },
+ "bilmarken/kia/ev6": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "4b47835639babe68"
+ },
+ "bilmarken/kia/ev9": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "2c2ef328b9b602df"
+ },
+ "bilmarken/kia/niro": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "19dfda6faacebdea"
+ },
+ "bilmarken/kia/picanto": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "bee2eac211d42eb1"
+ },
+ "bilmarken/kia/sorento": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "be7b75826083f64e"
+ },
+ "bilmarken/kia/sportage": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "6ed88eb5017d4051"
+ },
+ "bilmarken/kia/stonic": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "779646bcfc821b33"
+ },
+ "bilmarken/kia/xceed": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "96cd250d51b449bd"
+ },
+ "bilmarken/land-rover": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "a9f6ca5ca7ba5022"
+ },
+ "bilmarken/lexus": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "adb0a392e2e19456"
+ },
+ "bilmarken/mazda": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "f612545deef2246d"
+ },
+ "bilmarken/mercedes": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "ada5e349788559b2"
+ },
+ "bilmarken/mercedes/a-klass": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "12504b87c95d0a78"
+ },
+ "bilmarken/mercedes/c-klass": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "066825842db69e0b"
+ },
+ "bilmarken/mercedes/cla": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "2751651d063d4a09"
+ },
+ "bilmarken/mercedes/e-klass": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "e16f0daba8eb1c48"
+ },
+ "bilmarken/mercedes/eqa": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "3052d019551b316b"
+ },
+ "bilmarken/mercedes/gla": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "96f922344cf2ef64"
+ },
+ "bilmarken/mercedes/glb": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "d7b3cc3023086bbb"
+ },
+ "bilmarken/mercedes/glc": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "df79671eda7e7129"
+ },
+ "bilmarken/mercedes/gle": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "9e8344c692c01dde"
+ },
+ "bilmarken/mercedes/v-klass": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "03f546d2746971af"
+ },
+ "bilmarken/mg": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "41643fc9d6fd7a76"
+ },
+ "bilmarken/mini": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "f72dad3986e6aedb"
+ },
+ "bilmarken/mitsubishi": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "e9dc10dd11666421"
+ },
+ "bilmarken/nissan": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "a7f3811673eddd45"
+ },
+ "bilmarken/opel": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "bc9dc9d38d6f62ff"
+ },
+ "bilmarken/peugeot": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "1c8a2a7896b5a71f"
+ },
+ "bilmarken/peugeot/2008": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "1cb58277fc2ba8e9"
+ },
+ "bilmarken/peugeot/208": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "8e7a05aa9951e694"
+ },
+ "bilmarken/peugeot/3008": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "cba8b904e02a1224"
+ },
+ "bilmarken/peugeot/308": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "b5009fa272815268"
+ },
+ "bilmarken/peugeot/408": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "33812aef21621bae"
+ },
+ "bilmarken/peugeot/5008": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "d153c104ffce35ca"
+ },
+ "bilmarken/peugeot/508": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "910cb86bd33e4a2c"
+ },
+ "bilmarken/peugeot/e-208": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "1ff744dabfef3f4b"
+ },
+ "bilmarken/peugeot/rifter": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "6c54660be7f9e01b"
+ },
+ "bilmarken/peugeot/traveller": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "bc8343f273be43f5"
+ },
+ "bilmarken/polestar": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "cde99b6a588593ac"
+ },
+ "bilmarken/polestar/polestar-2": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "373971141d9201a9"
+ },
+ "bilmarken/polestar/polestar-3": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "8c0d4e76ebe75f89"
+ },
+ "bilmarken/polestar/polestar-4": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "ac40f491d071a238"
+ },
+ "bilmarken/porsche": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "3fffb61642ba2e22"
+ },
+ "bilmarken/renault": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "8796540f364f571a"
+ },
+ "bilmarken/seat": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "a5572f0b835d478e"
+ },
+ "bilmarken/skoda": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "bc7f8b4c7a60680c"
+ },
+ "bilmarken/skoda/elroq": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "9398a8ed5c030a9f"
+ },
+ "bilmarken/skoda/enyaq": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "bea4460e9561a1e7"
+ },
+ "bilmarken/skoda/fabia": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "c644bfb63eeab8d1"
+ },
+ "bilmarken/skoda/kamiq": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "179d5b7d5beafbc9"
+ },
+ "bilmarken/skoda/karoq": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "ba7296f4f74216a8"
+ },
+ "bilmarken/skoda/kodiaq": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "d7beb407a829fa40"
+ },
+ "bilmarken/skoda/octavia": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "1ac30cceaba90700"
+ },
+ "bilmarken/skoda/scala": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "eb2edb06d66b9ced"
+ },
+ "bilmarken/skoda/superb": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "6105712652bb6a83"
+ },
+ "bilmarken/skoda/yeti": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "0700ec40a3c87a24"
+ },
+ "bilmarken/subaru": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "77224d2b3e2281d1"
+ },
+ "bilmarken/suzuki": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "cc1de7864b086b8d"
+ },
+ "bilmarken/tesla": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "07f3c5c69e8dd0a0"
+ },
+ "bilmarken/tesla/model-3": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "2213e1a230c55d91"
+ },
+ "bilmarken/tesla/model-s": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "766f8756785ca514"
+ },
+ "bilmarken/tesla/model-x": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "efda87c98a492407"
+ },
+ "bilmarken/tesla/model-y": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "b66c4d3bd45449eb"
+ },
+ "bilmarken/toyota": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "161e2c857d89887c"
+ },
+ "bilmarken/toyota/aygo-x": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "60dda5d21e084dc5"
+ },
+ "bilmarken/toyota/bz4x": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "32bcdf39f79bfcb7"
+ },
+ "bilmarken/toyota/c-hr": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "5077c32895ed45cb"
+ },
+ "bilmarken/toyota/camry": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "fecf36b7f970bacc"
+ },
+ "bilmarken/toyota/corolla": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "b6c451f0e68133d5"
+ },
+ "bilmarken/toyota/corolla-cross": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "09d5b5cb788ec316"
+ },
+ "bilmarken/toyota/land-cruiser": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "196b9359e1de1c8b"
+ },
+ "bilmarken/toyota/rav4": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "26b62522efa60090"
+ },
+ "bilmarken/toyota/yaris": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "91c62626a4dc7c18"
+ },
+ "bilmarken/toyota/yaris-cross": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "85e40f681bb32108"
+ },
+ "bilmarken/volkswagen": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "3f7396fda3422566"
+ },
+ "bilmarken/volkswagen/golf": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "1a3ce1061c661d90"
+ },
+ "bilmarken/volkswagen/id-buzz": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "3d61c939d191ad9d"
+ },
+ "bilmarken/volkswagen/id3": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "f06960e59a42f728"
+ },
+ "bilmarken/volkswagen/id4": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "7bbfd2be3551fc4d"
+ },
+ "bilmarken/volkswagen/id7": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "360f2e7035b84e0d"
+ },
+ "bilmarken/volkswagen/passat": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "e16f61dc22ef94a6"
+ },
+ "bilmarken/volkswagen/polo": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "ed308ee29a623827"
+ },
+ "bilmarken/volkswagen/t-roc": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "167b84d9cba5b8ba"
+ },
+ "bilmarken/volkswagen/tayron": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "d6f53309ea727fdd"
+ },
+ "bilmarken/volkswagen/tiguan": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "9af352421f7339c5"
+ },
+ "bilmarken/volkswagen/touran": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "633f7ba26c9ad407"
+ },
+ "bilmarken/volvo": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "507e9da459fdf1cf"
+ },
+ "bilmarken/volvo/ex30": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "7f5f467083dcc9eb"
+ },
+ "bilmarken/volvo/ex40": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "989f27e92d85b37a"
+ },
+ "bilmarken/volvo/s60": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "33ab29c982f9fd9f"
+ },
+ "bilmarken/volvo/s90": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "c07e766f6805a2a0"
+ },
+ "bilmarken/volvo/v60": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "dc811ed5f8e48fe5"
+ },
+ "bilmarken/volvo/v70": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "117f94b8acf2e7c5"
+ },
+ "bilmarken/volvo/v90": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "d2085560ff56e2ea"
+ },
+ "bilmarken/volvo/xc40": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "38d1435138968471"
+ },
+ "bilmarken/volvo/xc60": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "5ab00804907df85d"
+ },
+ "bilmarken/volvo/xc90": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "f4ad0f55c3c5f689"
+ },
+ "bilmarken/xpeng": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "63e542d8f310b33a"
+ },
+ "bilmarken/xpeng/g6": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "18fc3817b9bc6601"
+ },
+ "bilmarken/xpeng/g9": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "bfbf02b7f33b978b"
+ },
+ "bilmarken/xpeng/p7": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "67f15f8ce5c35371"
+ },
+ "bilmarken/xpeng/x9": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "ba8995cfa8b2db08"
+ },
+ "bilmarken/zeekr": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "238f15882fcd8d80"
+ },
+ "bilmarken/zeekr/001": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "9519e70fc615d1e9"
+ },
+ "bilmarken/zeekr/7x": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "5a02d47f4dfb6589"
+ },
+ "bilmarken/zeekr/x": {
+  "pub": "2026-08-25",
+  "mod": "2026-10-19",
+  "hash": "471a960d3a319ce3"
+ },
+ "bonus-och-skadefria-ar": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "4fc6d110267f9fd0"
+ },
+ "byta-bilforsakring": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "2e11070b5447b4f2"
+ },
+ "cookiepolicy": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "0facf16e69df1812"
+ },
+ "forsakringsbolag": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "74af8c34da5f1bb5"
+ },
+ "forsakringsbolag/aktsam": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "800077ede5fae8d4"
+ },
+ "forsakringsbolag/dina-forsakringar": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "5f184c24e1a1ec24"
+ },
+ "forsakringsbolag/evoli": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "6d8895d4646f4f35"
+ },
+ "forsakringsbolag/folksam": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "aaedda05f6f74840"
+ },
+ "forsakringsbolag/gjensidige": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "760befe9127602ca"
+ },
+ "forsakringsbolag/gofido": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "13ea7c4897e2eacd"
+ },
+ "forsakringsbolag/hedvig": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "c779ba8469ddbcad"
+ },
+ "forsakringsbolag/ica-forsakring": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "eb00cc3fa3fccb72"
+ },
+ "forsakringsbolag/if": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "8f13be8a2ada4704"
+ },
+ "forsakringsbolag/lansforsakringar": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "8739b8ad917dd8c5"
+ },
+ "forsakringsbolag/moderna-forsakringar": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "009a015487d47f83"
+ },
+ "forsakringsbolag/paydrive": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "265ea300aacaf72a"
+ },
+ "forsakringsbolag/svedea": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "ad9e5bc99fe93971"
+ },
+ "forsakringsbolag/trygg-hansa": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "655ff3789f1a6337"
+ },
+ "forsakringsbolag/volvia": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "e79ff97f883ea775"
+ },
+ "forsakringsbolag/watercircles": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "4274e96f40f6709c"
+ },
+ "glasskada-bil": {
+  "pub": "2026-10-19",
+  "mod": "2026-10-19",
+  "hash": "7527eebdd5cae82d"
+ },
+ "halvforsakring": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "027985b339c7b374"
+ },
+ "helforsakring": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "8b9e0beb6e6622c5"
+ },
+ "integritetspolicy": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "a2a020b1c5c5cd12"
+ },
+ "jamfor-bilforsakring": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "677cc2e182856109"
+ },
+ "kopa-bil-forsakring": {
+  "pub": "2026-10-19",
+  "mod": "2026-10-19",
+  "hash": "498702de33a58ce4"
+ },
+ "korstracka-mil-per-ar": {
+  "pub": "2026-10-19",
+  "mod": "2026-10-19",
+  "hash": "1bc943026389d366"
+ },
+ "leasingbil-forsakring": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "5979982d80d2e1db"
+ },
+ "om-oss": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "32c9dbbe2a782275"
+ },
+ "redaktionell-metod": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "6d3bcc21375e11c2"
+ },
+ "saga-upp-bilforsakring": {
+  "pub": "2026-10-19",
+  "mod": "2026-10-19",
+  "hash": "c1f064a2661c5b58"
+ },
+ "sjalvrisk": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "97f3cba1f75f1219"
+ },
+ "trafikforsakring": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "236cca332233b9c6"
+ },
+ "trafikforsakringsavgift": {
+  "pub": "2026-08-24",
+  "mod": "2026-10-19",
+  "hash": "fc2b5f1de0a8cc7f"
+ },
+ "vagnskadegaranti": {
+  "pub": "2026-10-19",
+  "mod": "2026-10-19",
+  "hash": "8845af1f588d11cd"
+ },
+ "viltolycka-forsakring": {
+  "pub": "2026-10-19",
+  "mod": "2026-10-19",
+  "hash": "0a43ba8df29f8594"
+ }
+}

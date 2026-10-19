@@ -283,7 +283,7 @@ MODELLER_3 = {
  'slug': 'i20', 'namn': 'i20', 'typ': 'liten halvkombi', 'ar': '2020–',
  'drivlina': 'bensin och mildhybrid',
  'kort': 'Hyundais småbil och ett vanligt val som förstabil och andrabil.',
- 'vinkel': 'i20 är en av de billigaste bilarna att försäkra i Sverige. Låg vikt, lågt '
+ 'vinkel': 'i20 är en av de bilar som kostar minst att försäkra i Sverige. Låg vikt, lågt '
            'ersättningsvärde och en femårsgaranti som följer bilen gör den attraktiv både '
            'som förstabil och som andrabil. Det som drar upp genomsnittspremien är '
            'förarprofilen — en stor del av beståndet körs av unga utan uppbyggd bonus.',

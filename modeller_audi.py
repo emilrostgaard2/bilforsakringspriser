@@ -106,7 +106,7 @@ MODELLER_AUDI = {
  'vinkel': 'Q5 ligger i den storleksklass där både ersättningsvärde och skadefrekvens börjar '
            'bli kännbara. Bilen är tung, bred och ofta utrustad med luftfjädring och '
            'quattro — komponenter som var för sig driver reparationskostnad. Samtidigt är '
-           'beståndet stort nog för säker skadestatistik, vilket håller osäkerhetspåslaget '
+           'beståndet stort nog för stabil skadestatistik, vilket håller osäkerhetspåslaget '
            'nere.',
  'punkter': ['Quattro innehåller delar som blir dyra vid påkörning bakifrån',
              'Luftfjädring på många exemplar — kontrollera maskinskademomentet',

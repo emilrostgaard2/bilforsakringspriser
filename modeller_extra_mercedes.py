@@ -86,7 +86,7 @@ EXTRA_MERCEDES = {
  'direktsvar':
   'Mercedes A-Klass är den modell där ägarprofilen påverkar premien mest. Medelåldern i '
   'beståndet är den lägsta i märkets utbud, eftersom A-Klass för många är den första '
-  'premiumbilen. Det väger tyngre än att bilen är den minsta och billigaste.',
+  'premiumbilen. Det väger tyngre än att bilen är den minsta och minst kostsamma.',
  'agare':
   'A-Klass köps ofta begagnad i tjugofemårsåldern av någon som vill ha stjärnan i grillen '
   'till ett pris som går att motivera. Det ger ett bestånd med lägre medelålder än resten av '
@@ -180,7 +180,7 @@ EXTRA_MERCEDES = {
   'allt på grund av reservdelspriser. Mot EQA, den eldrivna versionen, är plåtskadorna '
   'identiska medan drivlinan skiljer — och det är drivlinan premien speglar.',
  'kostnad':
-  'GLA är den billigaste vägen in i Mercedes SUV-utbud, både i inköp och drift. Försäkringen '
+  'GLA är den mest prisvärda vägen in i Mercedes SUV-utbud, både i inköp och drift. Försäkringen '
   'är måttlig för segmentet, medan däcken kan bli en oväntat stor post om bilen har AMG '
   'Line-fälgar. Det är en kostnad som inte syns i någon prislista men som märks tydligt vid '
   'första däckbytet.',

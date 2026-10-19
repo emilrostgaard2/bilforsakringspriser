@@ -126,7 +126,7 @@ EXTRA_VW = {
 'polo': {
  'meta': 'Volkswagens minsta modell',
  'direktsvar':
-  'Volkswagen Polo hör till de billigaste bilarna att försäkra i Sverige. Låg vikt, lågt '
+  'Volkswagen Polo hör till de bilar som kostar minst att försäkra i Sverige. Låg vikt, lågt '
   'ersättningsvärde och delad teknik med Skoda Fabia och Seat Ibiza drar alla åt samma håll. '
   'Det som höjer genomsnittet är förarprofilen — Polo är en av landets vanligaste förstabilar.',
  'agare':
@@ -202,7 +202,7 @@ EXTRA_VW = {
 'id3': {
  'meta': 'Volkswagens eldrivna Golf',
  'direktsvar':
-  'Volkswagen ID.3 är den billigaste elbilen att försäkra i Volkswagens utbud. Den är mindre '
+  'Volkswagen ID.3 är den elbil som kostar minst att försäkra i Volkswagens utbud. Den är mindre '
   'och lättare än ID.4, har lägre ersättningsvärde och delar hela sin teknik med Cupra Born '
   'och Skoda Elroq — vilket ger ett verkstadsnät långt bredare än beståndets storlek antyder.',
  'agare':

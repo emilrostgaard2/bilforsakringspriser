@@ -14,9 +14,7 @@ import jamforelse
 import kort
 from modellkatalog import MODELLER
 import uppskattning as upp
-
-TODO = ('<div class="warn"><strong>PLATSHÅLLARE — ersätts före lansering.</strong> '
-        'Beloppen är exempelsiffror, inte insamlade marknadspriser.</div>')
+import data
 
 PROFIL = ('<div class="src"><p><strong>Jämförelseprofil.</strong> 40 år, 1 500 mil per år, '
           'ort utanför storstad, sex skadefria år och 4 000 kr i självrisk. '
@@ -165,6 +163,66 @@ def _sec_alt(inner):
 
 
 # ═══ BOLAGSSIDOR ════════════════════════════════════════════════════
+def _strikt_avsnitt(b):
+    """Sakliga avsnitt för annonsörer med strikta regler (Dina).
+
+    Bara uppgifter ur companies.py och allmän fakta om hur svensk
+    bilförsäkring är uppbyggd. Inga betyg, inga jämförelser, inga råd om
+    val och inga superlativ."""
+    f = dict(b['fakta'])
+    nivaer = ''.join(
+        f'<tr><th scope="row">{namn}</th><td>{"Ja" if t else "Nej"}</td>'
+        f'<td>{"Ja" if h else "Nej"}</td><td>{"Ja" if hel else "Nej"}</td></tr>'
+        for namn, t, h, hel in data.MOMENT if namn != 'Allrisk / drulle')
+    return {
+     'om': (f'<h2>Vad är {b["namn"]}?</h2>'
+            f'<p>{b["namn"]} är en federation, det vill säga en sammanslutning av '
+            f'självständiga, lokala försäkringsbolag som samarbetar under ett gemensamt namn. '
+            f'Varje bolag har sitt eget verksamhetsområde och egna kontor runt om i Sverige. '
+            f'{b["namn"]} grundades {b["grundat"]}.</p>'
+            f'<p>Bolagen är kundägda, vilket innebär att de ägs av sina kunder och inte av '
+            f'externa aktieägare. Kontakten med kunderna sker i första hand via de lokala '
+            f'kontoren. Tillsammans försäkrar bolagen över 374 000 fordon i Sverige.</p>'
+            f'<div class="tbl"><table><caption>{b["namn"]} i korthet</caption><tbody>'
+            f'<tr><th scope="row">Bolagsform</th><td>{b["typ"]}</td></tr>'
+            f'<tr><th scope="row">Ägande</th><td>{f.get("Kundägt", "")}</td></tr>'
+            f'<tr><th scope="row">Struktur</th><td>{f.get("Lokalt ägande", "")}</td></tr>'
+            f'<tr><th scope="row">Kundkontakt</th><td>{f.get("Personlig kontakt", "")}</td></tr>'
+            f'<tr><th scope="row">Försäkrade fordon</th><td>Över 374 000 i Sverige</td></tr>'
+            f'<tr><th scope="row">Grundat</th><td>{b["grundat"]}</td></tr>'
+            f'</tbody></table></div>'),
+     'nivaer': (f'<h2>Skyddsnivåer för bilförsäkring</h2>'
+                f'<p>Bilförsäkring i Sverige är uppbyggd i tre nivåer: trafikförsäkring, '
+                f'halvförsäkring och helförsäkring. Trafikförsäkringen är lagstadgad för '
+                f'alla påställda fordon. Halv- och helförsäkring är frivilliga och lägger till '
+                f'skydd för den egna bilen. Exakt vad som ingår, vilka självrisker som gäller '
+                f'och vilka tillägg som går att välja står i {b["namn"]}s förköpsinformation '
+                f'och villkor.</p>'
+                f'<div class="tbl"><table><caption>Moment som normalt ingår per nivå</caption>'
+                f'<thead><tr><th scope="col">Moment</th><th scope="col">Trafik</th>'
+                f'<th scope="col">Halv</th><th scope="col">Hel</th></tr></thead>'
+                f'<tbody>{nivaer}</tbody></table></div>'
+                f'<p class="swipe">&larr; Dra i sidled för att se alla kolumner</p>'
+                f'<p>Tabellen visar hur nivåerna normalt är uppdelade på den svenska '
+                f'marknaden. Enskilda villkor kan avvika. Läs mer om varje nivå under '
+                f'<a href="/trafikforsakring/">trafikförsäkring</a>, '
+                f'<a href="/halvforsakring/">halvförsäkring</a> och '
+                f'<a href="/helforsakring/">helförsäkring</a>.</p>'),
+     'kontakt': (f'<h2>Så får du ett pris och tar kontakt</h2>'
+                 f'<p>Premien räknas fram individuellt, och ett pris för just din bil får du '
+                 f'genom att ange registreringsnummer och dina uppgifter hos bolaget. Det '
+                 f'går att göra på bolagets webbplats, och eftersom {b["namn"]} består av '
+                 f'lokala bolag med egna kontor går det också att ta kontakt med kontoret '
+                 f'där du bor.</p>'
+                 f'<p>Inför en offertförfrågan är det praktiskt att ha följande till hands:</p>'
+                 f'<ul><li>Bilens registreringsnummer</li>'
+                 f'<li>Ungefärlig körsträcka per år</li>'
+                 f'<li>Var bilen står parkerad nattetid</li>'
+                 f'<li>Antal skadefria år och intyg från ditt nuvarande bolag</li>'
+                 f'<li>Vilken skyddsnivå och självrisk du vill få pris på</li></ul>'),
+    }
+
+
 def bolagssidor():
     sidor = []
     for i, b in enumerate(BOLAG):
@@ -231,9 +289,15 @@ def bolagssidor():
         }
 
         # Strikta annonsörer (Dina): inga betyg och ingen passar/passar inte-
-        # sektion, eftersom deras regler förbjuder betyg och råd om val.
-        ordning = [k for k in b['ordning']
-                   if not (b.get('strikt') and k in ('betyg', 'passar'))]
+        # sektion, eftersom deras regler förbjuder betyg och råd om val. I
+        # stället två rent sakliga avsnitt byggda på uppgifterna i companies.py.
+        if b.get('strikt'):
+            S.update(_strikt_avsnitt(b))
+            # Prisavsnittet utelämnas: marknadens uppskattade spann är inte
+            # bolagets pris och ska inte stå under bolagets namn.
+            ordning = ['om', 'nivaer', 'kontakt', 'skada', 'byta']
+        else:
+            ordning = b['ordning']
         body = ''.join((_sec_alt if n % 2 else _sec)(S[k])
                        for n, k in enumerate(ordning))
         # Bolag med annonsavtal får en direktlänk till sin bilförsäkring.
@@ -248,8 +312,10 @@ def bolagssidor():
                 f'<p class="pk-upp" style="margin-top:10px">Annonslänk. Vi kan få ersättning om du '
                 f'klickar, det påverkar inte ditt pris.</p></div></div>')
         body += _sec(
-            f'<div class="cta"><h2>Jämför {b["kort"]} med andra bolag</h2>'
-            f'<p>Ange registreringsnumret och se vad du får betala hos flera bolag.</p>'
+            (f'<div class="cta"><h2>Se vad din bil kostar att försäkra</h2>'
+             if b.get('strikt') else
+             f'<div class="cta"><h2>Jämför {b["kort"]} med andra bolag</h2>')
+            + f'<p>Ange registreringsnumret och se vad du får betala hos flera bolag.</p>'
             f'<div class="cta-inner">{{PLATE}}</div></div>')
 
         faq = [
@@ -285,23 +351,29 @@ def bolagssidor():
                ('/jamfor-bilforsakring/', 'Så jämför du rätt'),
                ('/halvforsakring/', 'Halvförsäkring — vad ingår?'),
                ('/helforsakring/', 'Helförsäkring — när behövs den?')]
-        for o in BOLAG:
-            if o['slug'] != b['slug'] and len(rel) < 6:
-                rel.append((f'/forsakringsbolag/{o["slug"]}/', f'{o["namn"]} — omdöme'))
+        andra = [o for o in BOLAG if o['slug'] != b['slug']]
+        for k in range(2):
+            o = andra[(i * 3 + k * 5) % len(andra)]
+            rel.append((f'/forsakringsbolag/{o["slug"]}/',
+                        f'Om {o["namn"]}' if b.get('strikt') else f'{o["namn"]} — omdöme'))
 
         sidor.append({
          'slug': f'forsakringsbolag/{b["slug"]}', 'key': True,
-         'title': (f'{b["namn"]} bilförsäkring 2026 — villkor, självrisk och pris'
-                   if b.get('strikt') else _meta(BOLAG_TITEL, b['namn'], i)),
-         'desc': (f'Fakta om {b["namn"]}s bilförsäkring: skyddsnivåer, självrisk, hur du '
-                  f'tecknar och hur du säger upp.'
-                  if b.get('strikt') else _meta(BOLAG_DESC, b['namn'], i)),
+         'title': (_titel([f'{b["namn"]} bilförsäkring — skyddsnivåer och villkor',
+                           f'{b["namn"]} bilförsäkring'])
+                   if b.get('strikt') else _bolag_titel(b, i)),
+         'desc': (_desc(f'Fakta om {b["namn"]}s bilförsäkring: kundägda lokala bolag, '
+                        f'skyddsnivåerna trafik, halv och hel, hur du begär pris och hur du '
+                        f'säger upp.', b['namn'])
+                  if b.get('strikt') else _desc(_meta(BOLAG_DESC, b['namn'], i), b['namn'])),
          'eyebrow': b['typ'],
          'h1': f'{b["namn"]} bilförsäkring',
          'lead': b['sammanfattning'].split('. ')[0] + '.',
          'checks': [f'{k}: {v}' for k, v in b['fakta'][:3]],
-         'card_t': f'Jämför {b["kort"]} med marknaden',
-         'sticky': f'Jämför {b["kort"]} med andra bolag',
+         'card_t': ('Se vad din bil kostar att försäkra' if b.get('strikt')
+                    else f'Jämför {b["kort"]} med marknaden'),
+         'sticky': ('Se pris på din bilförsäkring' if b.get('strikt')
+                    else f'Jämför {b["kort"]} med andra bolag'),
          'body': body, 'faq': faq, 'rel': rel,
          'faq_h2': f'Vanliga frågor om {b["namn"]}',
         })
@@ -486,25 +558,26 @@ MARKE_TITEL = [
  'Så mycket kostar bilförsäkring till {n} ({ar})',
 ]
 MARKE_DESC = [
- 'Vad kostar det att försäkra en {n}? Se vad som påverkar premien, vilken skyddsnivå som '
- 'passar och hur du jämför bolagen.',
- '{n} bilförsäkring: uppskattat prisspann per modell, rätt skyddsnivå och villkoren som '
- 'skiljer bolagen åt.',
- 'Så mycket kostar en {n} att försäkra. Prisspann per modell, skadebild och tips för att '
- 'sänka premien.',
- 'Ska du försäkra en {n}? Se prisspann, vilken nivå bilen behöver och var bolagen skiljer '
- 'sig mest.',
- 'Prisspann per {n}-modell, vad som styr premien och vilka villkor du bör läsa innan du '
- 'tecknar.',
- 'Allt om bilförsäkring till {n}: kostnad, skyddsnivåer, vanliga skador och jämförelse '
- 'mellan bolag.',
- '{n}: uppskattade priser per modell, rätt försäkringsnivå och de villkor som avgör vid '
- 'en skada.',
- 'Guide till {n} bilförsäkring — prisspann, självrisk, tillägg och hur du jämför rätt.',
- 'Vad bör du betala för att försäkra en {n}? Se prisspann per modell och villkoren som '
- 'väger tyngst.',
- 'Jämför bilförsäkring till {n}. Prisspann per modell, skadeprofil och bolag att '
- 'begära offert från.',
+ 'Vad kostar det att försäkra en {n}? Se uppskattat prisspann per modell, vad som påverkar '
+ 'premien, vilken skyddsnivå som passar och hur du jämför.',
+ '{n} bilförsäkring: uppskattat prisspann per modell, rätt skyddsnivå för bilens ålder och '
+ 'de villkor som skiljer bolagen åt vid en skada.',
+ 'Så mycket kan en {n} kosta att försäkra. Uppskattade prisspann per modell, typisk skadebild '
+ 'och konkreta sätt att sänka premien.',
+ 'Ska du försäkra en {n}? Se uppskattat prisspann, vilken skyddsnivå bilen behöver och var '
+ 'villkoren skiljer sig mest mellan bolagen.',
+ 'Uppskattat prisspann per {n}-modell, vad som styr premien och vilka villkor du bör läsa '
+ 'innan du tecknar trafik-, halv- eller helförsäkring.',
+ 'Allt om bilförsäkring till {n}: uppskattad kostnad per modell, skyddsnivåer, vanliga skador '
+ 'och hur du jämför offerter rätt.',
+ '{n}: uppskattade prisspann per modell, rätt försäkringsnivå och de villkor som avgör '
+ 'ersättningen vid en skada. Med källor och metod.',
+ 'Guide till {n} bilförsäkring: uppskattat prisspann, självrisk, tillägg och hur du jämför '
+ 'offerter på samma villkor.',
+ 'Vad bör du räkna med att betala för att försäkra en {n}? Se prisspann per modell och de '
+ 'villkor som väger tyngst vid en skada.',
+ 'Jämför bilförsäkring till {n}: uppskattat prisspann per modell, skadeprofil och vad du '
+ 'ska kontrollera innan du begär offert.',
 ]
 BOLAG_TITEL = [
  '{n} bilförsäkring — omdöme, villkor och pris {ar}',
@@ -519,23 +592,53 @@ BOLAG_TITEL = [
  '{n} bilförsäkring — villkor, betyg och jämförelse {ar}',
 ]
 BOLAG_DESC = [
- '{n} bilförsäkring: villkor, betyg, vem det passar för och hur du säger upp. Jämför med '
- 'andra bolag på ditt registreringsnummer.',
- 'Genomgång av {n} bilförsäkring — vad som ingår, oberoende betyg och vem bolaget passar '
- 'bäst för.',
- 'Är {n} rätt bolag för dig? Se villkor, betyg från Konsumenternas, självrisker och vem '
- 'det passar.',
- '{n}: omdöme, villkorens innehåll, prisspann och vad du bör kontrollera innan du tecknar.',
- 'Allt om {n} bilförsäkring — skyddsnivåer, betyg, uppsägning och jämförelse mot marknaden.',
- 'Vad ingår i {n} bilförsäkring? Villkor, självrisk, oberoende betyg och vem bolaget '
- 'lämpar sig för.',
- '{n} bilförsäkring granskad: betyg, villkor, prisspann och de för- och nackdelar som '
- 'väger tyngst.',
- 'Så fungerar {n} bilförsäkring. Se betyg, villkor, vem den passar och hur du byter bolag.',
+ '{n} bilförsäkring: villkor, oberoende betyg, vem det passar och hur du säger upp. Jämför '
+ 'sedan med andra bolag på ditt registreringsnummer.',
+ 'Genomgång av {n} bilförsäkring: vad som ingår, oberoende betyg, uppskattat prisspann och '
+ 'vem bolaget passar bäst för.',
+ 'Är {n} rätt bolag för dig? Se villkor, betyg från Konsumenternas och SKI, självrisker och '
+ 'vilka förare bolaget passar.',
+ '{n}: omdöme, villkorens innehåll, uppskattat prisspann och vad du bör kontrollera i '
+ 'villkoren innan du tecknar bilförsäkring.',
+ 'Allt om {n} bilförsäkring: skyddsnivåer, oberoende betyg, uppsägning och hur bolaget står '
+ 'sig mot resten av marknaden.',
+ 'Vad ingår i {n} bilförsäkring? Villkor, självrisk, oberoende betyg och vem bolaget lämpar '
+ 'sig för, med källa för varje uppgift.',
+ '{n} bilförsäkring granskad: oberoende betyg, villkor, uppskattat prisspann och de för- och '
+ 'nackdelar som väger tyngst.',
+ 'Så fungerar {n} bilförsäkring. Se oberoende betyg, villkor, vem den passar och hur du '
+ 'byter bolag utan att tappa bonus.',
  'Omdöme om {n}: oberoende betyg, villkorens omfattning och vad som skiljer bolaget från '
- 'marknaden.',
- '{n} bilförsäkring — vad du får, vad det kostar och vem som bör välja bolaget.',
+ 'marknaden i övrigt. Med källhänvisningar.',
+ '{n} bilförsäkring: vad du får, vad det kan kosta, vilka betyg bolaget har och vem som '
+ 'har mest nytta av bolagets upplägg.',
 ]
+
+
+def _titel(kandidater, gräns=60):
+    """Första kandidaten som ryms inom gränsen; sista är reserv."""
+    for t in kandidater:
+        if len(t) <= gräns:
+            return t
+    return kandidater[-1][:gräns].rsplit(' ', 1)[0]
+
+
+def _bolag_titel(b, i):
+    return _titel([_meta(BOLAG_TITEL, b['namn'], i),
+                   f'{b["namn"]} bilförsäkring 2026 — villkor och betyg',
+                   f'{b["namn"]} bilförsäkring 2026'])
+
+
+def _desc(t, n=None, lo=120, hi=155):
+    """Håller beskrivningen inom 120–155 tecken."""
+    if len(t) > hi:
+        t = t[:hi - 1].rsplit(' ', 1)[0].rstrip(',.:;—- ') + '.'
+    if len(t) < lo:
+        for till in (f' Senast kontrollerad {data.UPPDATERAD_TEXT}.', ' Med källor.'):
+            if lo <= len(t + till) <= hi:
+                return t + till
+        t = t + f' Senast kontrollerad {data.UPPDATERAD_TEXT}.'
+    return t
 
 
 def _meta(mallar, n, i, ar='2026'):
@@ -547,27 +650,27 @@ def _meta(mallar, n, i, ar='2026'):
 
 # Avslutningen på sparavsnittet stod identisk på trettiosju märkessidor.
 LANK_SLUT = [
- 'Fler åtgärder — och en genomgång av vilka som faktiskt ger mest — finns samlade under '
- '<a href="/billigaste-bilforsakringen/">billigaste bilförsäkringen</a>. Reglerna för '
+ 'Fler åtgärder — och en genomgång av vilka som faktiskt ger mest — finns samlade i '
+ '<a href="/billigaste-bilforsakringen/">guiden om vad som styr premien</a>. Reglerna för '
  'uppsägning står under <a href="/byta-bilforsakring/">byta bilförsäkring</a>.',
- 'Resten av åtgärderna, sorterade efter vad de brukar ge, hittar du på sidan om '
- '<a href="/billigaste-bilforsakringen/">billigaste bilförsäkringen</a>. Ska du byta bolag '
- 'börjar du med <a href="/byta-bilforsakring/">huvudförfallodagen</a>.',
+ 'Resten av åtgärderna, sorterade efter vad de brukar ge, hittar du i '
+ '<a href="/billigaste-bilforsakringen/">vår genomgång av premiefaktorerna</a>. Ska du byta '
+ 'bolag börjar du med <a href="/byta-bilforsakring/">huvudförfallodagen</a>.',
  'Vill du gå vidare finns hela listan under '
  '<a href="/billigaste-bilforsakringen/">vad som styr priset</a>, och en genomgång av '
  '<a href="/sjalvrisk/">självriskens alla typer</a> för den som vill räkna noga.',
  'Fler sätt att sänka premien står på sidan om '
- '<a href="/billigaste-bilforsakringen/">billigaste bilförsäkringen</a>. Handlar det om '
- 'bonusen hittar du reglerna under <a href="/bonus-och-skadefria-ar/">skadefria år</a>.',
+ '<a href="/billigaste-bilforsakringen/">hur du får ned priset på bilförsäkringen</a>. Handlar '
+ 'det om bonusen hittar du reglerna under <a href="/bonus-och-skadefria-ar/">skadefria år</a>.',
  'Nästa steg är att jämföra på lika villkor — hur du gör det står under '
  '<a href="/jamfor-bilforsakring/">jämför bilförsäkring</a>, och prisfaktorerna finns '
- 'samlade på <a href="/billigaste-bilforsakringen/">billigaste bilförsäkringen</a>.',
+ 'samlade i <a href="/billigaste-bilforsakringen/">genomgången av premiens delar</a>.',
  'Hela genomgången av vad som styr premien ligger på '
  '<a href="/billigaste-bilforsakringen/">billigaste bilförsäkringen</a>. Är bilen äldre är '
  '<a href="/halvforsakring/">halvförsäkring</a> ofta nästa fråga att ställa.',
- 'Fortsättningen finns under <a href="/billigaste-bilforsakringen/">billigaste '
- 'bilförsäkringen</a>, och vill du veta när du får byta står det på sidan om '
- '<a href="/byta-bilforsakring/">byta bilförsäkring</a>.',
+ 'Fortsättningen finns i <a href="/billigaste-bilforsakringen/">listan över sätt att sänka '
+ 'premien</a>, och vill du veta vilka bolag som har starka villkorsbetyg finns de i '
+ '<a href="/basta-bilforsakringen/">sammanställningen av bolagen</a>.',
 ]
 
 
@@ -587,6 +690,27 @@ def _prisrader(namn, klass):
     return (f'<div class="tbl"><table><caption>{namn} — uppskattat prisspann</caption>'
             f'<thead><tr><th scope="col">Nivå</th><th scope="col">Per år</th>'
             f'<th scope="col">Per månad</th></tr></thead><tbody>{tr}</tbody></table></div>')
+
+
+MARKE_ANKARE = ['{n} bilförsäkring', 'Försäkring till {n}', 'Försäkra en {n}',
+                'Vad kostar {n} att försäkra?', '{n} — premie och skyddsnivå']
+BASTA_ANKARE = ['Bolagens villkorsbetyg', 'Sammanställning av bolagen',
+                'Bästa bilförsäkringen', 'Oberoende betyg per bolag']
+
+
+def _relaterade_marken(m, antal=4):
+    """Fyra märken ur samma grupp, roterat så att varje märke länkas från
+    lika många andra. Grupper med färre än fem märken slås ihop till en
+    gemensam pool, så att ingen sida hamnar med en enda inlänk."""
+    storlek = {}
+    for o in MARKEN:
+        storlek[o['grupp']] = storlek.get(o['grupp'], 0) + 1
+    if storlek[m['grupp']] > antal:
+        pool = [o for o in MARKEN if o['grupp'] == m['grupp']]
+    else:
+        pool = [o for o in MARKEN if storlek[o['grupp']] <= antal]
+    j = next(k for k, o in enumerate(pool) if o['slug'] == m['slug'])
+    return [pool[(j + k) % len(pool)] for k in range(1, min(antal, len(pool) - 1) + 1)]
 
 
 def markessidor():
@@ -612,19 +736,23 @@ def markessidor():
                     f'<td>{upp.spann(k, "hel")}</td>'
                     f'<td>{upp.KLASS_TEXT[k]}</td></tr>')
 
+        def _fullt(mo):
+            # "Polestar 2" ska inte bli "Polestar Polestar 2".
+            return mo if mo.lower().startswith(n.lower()) else f'{n} {mo}'
+
         rader_mod = []
         for mo in m['modeller']:
             if mo in modellsidor_slug:
                 lank = (f'<a href="/bilmarken/{m["slug"]}/{modellsidor_slug[mo]}/">'
-                        f'{n} {mo}</a>')
+                        f'{_fullt(mo)}</a>')
                 rader_mod.append(_modellrad(lank, modellsidor_slug[mo]).replace(
                     f'<th scope="row">{lank}</th>', f'<th scope="row">{lank}</th>'))
             else:
-                rader_mod.append(_modellrad(f'{n} {mo}'))
+                rader_mod.append(_modellrad(_fullt(mo)))
         # Modeller som bara finns som egen sida läggs till sist.
         for x in MODELLER.get(m['slug'], []):
             if x['namn'] not in m['modeller']:
-                lank = (f'<a href="/bilmarken/{m["slug"]}/{x["slug"]}/">{n} {x["namn"]}</a>')
+                lank = (f'<a href="/bilmarken/{m["slug"]}/{x["slug"]}/">{_fullt(x["namn"])}</a>')
                 rader_mod.append(_modellrad(lank, x['slug']))
         modeller = ''.join(rader_mod)
         spara = SPARA[(i * 5 + 2) % len(SPARA)]
@@ -709,14 +837,16 @@ def markessidor():
             rel.append(('/leasingbil-forsakring/', 'Försäkring vid leasing'))
         else:
             rel.append(('/billigaste-bilforsakringen/', 'Billigaste bilförsäkringen'))
-        samma = [o for o in MARKEN if o['grupp'] == m['grupp'] and o['slug'] != m['slug']][:2]
-        for o in samma:
-            rel.append((f'/bilmarken/{o["slug"]}/', f'{o["namn"]} bilförsäkring'))
+        rel.append(('/basta-bilforsakringen/', BASTA_ANKARE[i % len(BASTA_ANKARE)]))
+        for k, o in enumerate(_relaterade_marken(m)):
+            rel.append((f'/bilmarken/{o["slug"]}/',
+                        MARKE_ANKARE[(i + k) % len(MARKE_ANKARE)].replace('{n}', o['namn'])))
 
         sidor.append({
          'slug': f'bilmarken/{m["slug"]}', 'key': True,
-         'title': _meta(MARKE_TITEL, n, i),
-         'desc': _meta(MARKE_DESC, n, i),
+         'title': _titel([_meta(MARKE_TITEL, n, i), f'{n} bilförsäkring {"2026"} — pris och villkor',
+                          f'{n} bilförsäkring 2026']),
+         'desc': _desc(_meta(MARKE_DESC, n, i), n),
          'eyebrow': f'{m["ursprung"]}',
          'h1': f'{n} bilförsäkring',
          'lead': m['karakteristik'].split('. ')[0] + '.',
@@ -799,7 +929,7 @@ def hubbar():
      ],
      'rel': [('/jamfor-bilforsakring/', 'Så jämför du rätt'),
              ('/bilmarken/', 'Alla bilmärken'),
-             ('/redaktionell-metod/', 'Så samlar vi in data'),
+             ('/redaktionell-metod/', 'Vår redaktionella metod'),
              ('/', 'Vad kostar bilförsäkring?')],
      'faq_h2': 'Vanliga frågor om försäkringsbolag',
     }

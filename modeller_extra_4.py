@@ -281,7 +281,7 @@ EXTRA_4 = {
  'meta': 'Hyundais storsäljare bland SUV:ar',
  'direktsvar':
   'Hyundai Tucson ligger i volymklassen, alltså omkring 280–400 kr i månaden för '
-  'halvförsäkring i uppskattning. Beståndet är stort nog för säker skadestatistik och '
+  'halvförsäkring i uppskattning. Beståndet är stort nog för stabil skadestatistik och '
   'ägarprofilen gynnsam. Laddhybriden ligger högre eftersom ersättningsvärdet är större.',
  'agare':
   'Tucson är familjebilen i Hyundais utbud, med en ägarprofil som liknar Tiguans och Karoqs: '
@@ -501,7 +501,7 @@ EXTRA_4 = {
 'i20': {
  'meta': 'Hyundais småbil',
  'direktsvar':
-  'Hyundai i20 är en av de billigaste bilarna att försäkra i Sverige. Låg vikt, lågt '
+  'Hyundai i20 är en av de bilar som kostar minst att försäkra i Sverige. Låg vikt, lågt '
   'ersättningsvärde och en femårsgaranti som följer bilen drar alla åt samma håll. Det som '
   'höjer genomsnittet är förarprofilen — i20 är en av landets vanligaste förstabilar.',
  'agare':

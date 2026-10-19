@@ -64,6 +64,14 @@ PARTNERS = [
                 'publicerade prisexempel. Digitalt bolag utan kontor — allt sköts på '
                 'nätet, vilket är en del av förklaringen till prisbilden.',
         'taggar': ['Ofta lägst i prisexempel', 'Helt digitalt', 'Villkorsbetyg 4,1 av 5'],
+        # Visas i stället när Dina står i samma lista. Dinas annonsregler
+        # tillåter inga betyg eller prisjämförelser bredvid deras annons,
+        # så Gofido beskrivs då bara med fakta om upplägget.
+        'neutral': {
+            'badge': 'Digitalt försäkringsbolag',
+            'text': 'Digitalt bolag utan kontor. Offert, tecknande och ärenden sköts på nätet.',
+            'taggar': ['Helt digitalt', 'Allt sköts på nätet'],
+        },
         'sida': '/forsakringsbolag/gofido/',
         # Adtraction, godkänd januari 2026.
         'aff': 'https://go.adt231.net/t/t?a=1720558515&as=2105554353&t=2&tk=1',
@@ -94,7 +102,11 @@ def _knapp(p, text='Se ditt pris'):
     return f'<a class="pk-cta" href="{p["sida"]}">Läs om {p["namn"]} \u2192</a>'
 
 
-def _pris(slug):
+def _pris(slug, strikt=False):
+    # Strikta annonsörer (Dina) får inget pris på kortet — ett pris bredvid
+    # ett annat bolags blir en jämförelse, vilket deras regler förbjuder.
+    if strikt:
+        return ''
     p = data.PRIS.get(slug, {})
     trafik, hel = p.get('trafik'), p.get('hel')
     if trafik or hel:
@@ -102,8 +114,9 @@ def _pris(slug):
                 f'<strong>{data.kr(trafik)}</strong><small>per år</small></div>'
                 f'<div><span>Hel från</span><strong>{data.kr(hel)}</strong>'
                 f'<small>per år</small></div></div>')
-    return ('<div class="pk-pris tom"><p>Pris visas när vår egen insamling är klar. '
-            '<a href="/redaktionell-metod/">Så gör vi den</a></p></div>')
+    # Inget pris insamlat: visa ingenting. En platshållare mitt i kortet
+    # säger bara att sajten saknar data, precis bredvid knappen.
+    return ''
 
 
 def _tagg(t):
@@ -116,7 +129,10 @@ def kort(ordning=None, kompakt=False):
         index = {p['slug']: p for p in PARTNERS}
         lista = [index[x] for x in ordning if x in index]
     ut = []
+    med_dina = any(x.get('strikt') for x in lista)
     for p in lista:
+        if med_dina and p.get('neutral'):
+            p = {**p, **p['neutral']}
         taggar = ''.join(_tagg(t) for t in p['taggar'])
         if kompakt:
             # Kompakt läge för djupa sidor: samma kort utan de långa
@@ -138,7 +154,7 @@ def kort(ordning=None, kompakt=False):
  loading="lazy" decoding="async"></div>
 <div class="pk-txt"><h3>{p['namn']}</h3><p>{p['text']}</p>
 <div class="pk-taggar">{taggar}</div></div>
-<div class="pk-hoger">{_pris(p['slug'])}{_knapp(p)}
+<div class="pk-hoger">{_pris(p['slug'], p.get('strikt'))}{_knapp(p)}
 <a class="pk-lank" href="{p['sida']}">Läs vår genomgång</a></div>
 </div></article>''')
 
@@ -173,21 +189,26 @@ def sektion(rubrik='Bolag att börja med', ingress=None, ordning=None,
     sponsrat = any(p.get('aff') for p in PARTNERS) or bool(TJANST.get('aff'))
     upplysning = (
         '<p class="pk-upp"><strong>Så finansieras sajten.</strong> '
-        + ('Vissa länkar nedan är annonslänkar. Klickar du på dem kan vi få ersättning '
-           'av bolaget, vilket inte påverkar vilket pris du får. Ordningen bygger på '
-           'kriterierna i vår '
+        + ('Korten visar våra samarbetspartner och länkarna är annonslänkar. Klickar du '
+           'kan vi få ersättning av bolaget, vilket inte påverkar vilket pris du får. '
+           'Ordningen är ingen rangordning. '
            if sponsrat else
            'Vi har i dag inga annonsavtal med bolagen nedan, och länkarna går till våra '
-           'egna genomgångar. Ordningen bygger på kriterierna i vår ')
-        + '<a href="/redaktionell-metod/">redaktionella metod</a>, inte på ersättning.</p>')
+           'egna genomgångar. ')
+        + '<a href="/redaktionell-metod/">Så arbetar vi</a>.</p>')
 
     if kompakt and ingress is None:
         ingress = 'Två bolag med olika profil att begära offert från.'
     if ingress is None:
-        ingress = ('Två bolag med olika profil — lokal närvaro och digitalt upplägg — '
-                   'plus en jämförelsetjänst för fler offerter. Etiketterna hänvisar till '
-                   'uppgifter från bolagen själva och publicerade prisexempel, aldrig till '
-                   'egna omdömen.')
+        ingress = ('Två bolag med olika upplägg — lokala kontor och helt digitalt — plus en '
+                   'jämförelsetjänst som hämtar offerter från flera bolag på en gång. '
+                   'Uppgifterna på korten kommer från bolagen själva.')
+
+    lista_html = kort(ordning, kompakt)
+    # Fotnoten om jämförelseprofilen bara när ett pris faktiskt visas.
+    fot = (f'<p class="pk-fot">Priserna avser {data.PROFIL_TEXT}. En annan profil ger ett '
+           f'annat pris — begär alltid egen offert. Senast kontrollerad: '
+           f'{data.UPPDATERAD_TEXT}.</p>' if 'class="pk-pris"' in lista_html else '')
 
     wrap = 'wrap narrow' if smal else 'wrap'
     klass = 'sec pk-sek smal' if smal else 'sec pk-sek'
@@ -197,7 +218,6 @@ def sektion(rubrik='Bolag att börja med', ingress=None, ordning=None,
 <p class="pk-ing">{ingress} Hela marknaden finns under
 <a href="/forsakringsbolag/">försäkringsbolag</a>.</p>
 {upplysning}
-<div class="pk-lista">{kort(ordning, kompakt)}</div>
-<p class="pk-fot">Priserna avser {data.PROFIL_TEXT}. En annan profil ger ett annat pris —
-begär alltid egen offert. Senast kontrollerad: {data.UPPDATERAD_TEXT}.</p>
+<div class="pk-lista">{lista_html}</div>
+{fot}
 </div></section>'''

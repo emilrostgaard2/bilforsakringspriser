@@ -19,8 +19,8 @@
   --navy-2:#1d3b5c;
   --blue:#2f6f9f;
   --blue-deep:#245a82;
-  --orange:#e0741f;
-  --orange-deep:#c9600f;
+  --orange:#b85a10;
+  --orange-deep:#9c4b0b;
   --blue-soft:#e8f2f9;
   --blue-line:#bcd9ec;
   --green:#2d7a4f;
@@ -31,7 +31,7 @@
   --red-soft:#fdf0f0;
   --ink:#12263f;
   --ink-2:#3b4f66;
-  --muted:#6a7c91;
+  --muted:#5a6b80;
   --line:#dde5ee;
   --line-2:#c4d2e0;
   --paper:#fff;
@@ -339,7 +339,7 @@ tbody tr:last-child td,tbody tr:last-child th{border-bottom:0}
 .ft{background:var(--navy);color:#c6d5e4;margin-top:44px;padding-block:38px 26px;font-size:.88rem}
 .ft-grid{display:grid;gap:26px;margin-bottom:26px}
 @media(min-width:700px){.ft-grid{grid-template-columns:1.4fr 1fr 1fr}}
-.ft h3{color:#fff;font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin:0 0 12px}
+.ft h3,.ft-h{color:#fff;font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin:0 0 12px}
 .ft ul{list-style:none;padding:0;margin:0;display:grid;gap:8px;color:#c6d5e4}
 .ft li{margin:0}
 .ft a{color:#c6d5e4;text-decoration:none}
@@ -601,3 +601,29 @@ tbody tr:last-child td,tbody tr:last-child th{border-bottom:0}
   margin:10px 0 0;font-size:.78rem;line-height:1.5;color:var(--ink-2);
 }
 .plate-ad a{text-decoration:underline}
+
+/* ── Översyn okt 2026 ─────────────────────────────────────────── */
+.btn-ghost{min-height:44px}
+button.hd-cta{border:0;cursor:pointer;font-family:inherit}
+.upd{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;margin:10px 0 0;font-size:.82rem;color:var(--muted)}
+.upd a{color:var(--muted)}
+.upd time{font-weight:600;color:var(--ink-2)}
+.kalk{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;margin:18px 0}
+.kalk-rad{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end}
+.kalk label{display:flex;flex-direction:column;gap:5px;font-size:.84rem;font-weight:700;color:var(--ink-2);flex:1;min-width:160px}
+.kalk select,.kalk input{font:inherit;font-size:1rem;padding:10px 12px;border:1px solid var(--line);border-radius:8px;min-height:44px;background:#fff;color:var(--ink)}
+.kalk-res{margin:14px 0 0;font-size:1.05rem;color:var(--ink)}
+.kalk-res b{font-size:1.3rem}
+.kalk-not{margin:8px 0 0;font-size:.78rem;color:var(--muted)}
+/* Zmarta-knappen har samma färg överallt (blå = jämför flera bolag),
+   orange är för de enskilda bolagen. Samma handling, samma färg. */
+.pk.tjanst .pk-cta{background:var(--blue)}
+.pk.tjanst .pk-cta:hover{background:var(--blue-deep)}
+/* Mobil: få upp registreringsfältet och knappen i första skärmen.
+   Kontrollpunkterna kortas till två och luften mellan block minskas. */
+@media(max-width:699px){
+  .hero-in{gap:20px;padding-block:22px 26px}
+  .checks{margin-top:14px;gap:7px}
+  .checks li:nth-child(n+3){display:none}
+  .upd{margin-top:8px}
+}

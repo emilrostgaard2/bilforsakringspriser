@@ -64,7 +64,7 @@ MODELLER_MERCEDES = {
  'vinkel': 'A-Klass är den Mercedes där ägarprofilen påverkar premien mest. Modellen är för '
            'många den första premiumbilen, ofta köpt begagnad i tjugofemårsåldern, och '
            'medelåldern i beståndet är den lägsta i märkets utbud. Det väger tyngre än att '
-           'bilen är den minsta och billigaste.',
+           'bilen är den minsta och minst kostsamma.',
  'punkter': ['Yngst ägarprofil i Mercedes utbud',
              'Framhjulsdriven grund till skillnad från märkets större modeller',
              'AMG A 35 och A 45 ligger i en helt annan effektklass'],

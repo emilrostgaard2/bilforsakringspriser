@@ -63,7 +63,7 @@ MODELLER_BMW = {
  'slug': 'x1', 'namn': 'X1', 'typ': 'kompakt SUV', 'ar': '2022–',
  'drivlina': 'bensin, mildhybrid och laddhybrid',
  'kort': 'BMW:s minsta SUV och märkets mest sålda modell i Sverige de senaste åren.',
- 'vinkel': 'X1 är den billigaste vägen in i BMW:s SUV-utbud och därmed den modell där '
+ 'vinkel': 'X1 är den mest prisvärda vägen in i BMW:s SUV-utbud och därmed den modell där '
            'ägarprofilen är yngst. Det påverkar premien mer än bilen gör. Tekniskt är X1 '
            'framhjulsdriven i grunden, till skillnad från märkets större modeller, vilket '
            'också gör en typisk reparation billigare.',

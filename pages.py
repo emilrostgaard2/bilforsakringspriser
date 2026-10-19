@@ -1,39 +1,45 @@
 # -*- coding: utf-8 -*-
 """Innehållet till bilforsakringspriser.se.
 
-VIKTIGT OM PRISERNA
-Alla belopp nedan är markerade med klassen "warn" och texten PLATSHÅLLARE.
-De är INTE verifierade marknadspriser. Innan lansering ska de ersättas med
-egna siffror insamlade från bolagens offentliga prislistor och från
-Konsumenternas Försäkringsbyrå. Se README.md.
+OM PRISERNA
+Vi har ännu ingen egen prisinsamling publicerad. Belopp som visas är andra
+sajters publicerade prisexempel (marknad.py, med källa och datum) eller
+uppskattade spann (uppskattning.py, tydligt märkta). Skriv aldrig in egna
+belopp här i filen.
 """
 
-TODO = ('<div class="warn"><strong>PLATSHÅLLARE — ska ersättas före lansering.</strong> '
-        'Beloppen på den här sidan är exempelsiffror och inte insamlade marknadspriser. '
-        'Fyll i egna uppgifter från bolagens prislistor innan sidan publiceras.</div>')
+METOD = ('<div class="src"><p><strong>Om priserna.</strong> Vi har ännu inte publicerat '
+         'någon egen prisinsamling. De belopp som förekommer på sajten är antingen andra '
+         'sajters publicerade prisexempel, redovisade med källa och datum, eller uppskattade '
+         'spann som är märkta som uppskattningar. Ditt eget pris beror på bil, ålder, '
+         'bostadsort, körsträcka och självrisk. Läs mer i vår '
+         '<a href="/redaktionell-metod/">redaktionella metod</a>.</p></div>')
 
-METOD = ('<div class="src"><p><strong>Så räknar vi.</strong> Alla priser gäller samma '
-         'jämförelseprofil: 40 år, 15 000 km/år, ort utanför storstad, sex skadefria år '
-         'och 4 000 kr i självrisk. Ändras en förutsättning ändras priset — ofta mycket. '
-         'Läs mer i vår <a href="/redaktionell-metod/">redaktionella metod</a>.</p></div>')
+# Externa källor — riktiga länkar till organisationerna.
+def _ext(url, namn):
+    return f'<a href="{url}" rel="noopener" target="_blank">{namn}</a>'
 
-import kort
+KONS = _ext('https://www.konsumenternas.se/', 'Konsumenternas Försäkringsbyrå')
+TFF = _ext('https://www.tff.se/', 'Trafikförsäkringsföreningen')
+TS = _ext('https://www.transportstyrelsen.se/', 'Transportstyrelsen')
+
+import kort, data
 
 PAGES = [
 
 # ═══ START ═════════════════════════════════════════════════════════
 {
  'slug': '', 'key': True,
- 'title': 'Bilförsäkringspriser 2026 — jämför pris på trafik, halv och hel',
+ 'title': 'Bilförsäkring 2026 — jämför pris på trafik, halv och hel',
  'desc': 'Vad kostar en bilförsäkring? Jämför priser på trafikförsäkring, '
          'halvförsäkring och helförsäkring. Ange registreringsnumret och se ditt pris.',
- 'eyebrow': 'Uppdaterad januari 2026',
+ 'eyebrow': 'Bilförsäkring 2026',
  'h1': 'Vad kostar din bilförsäkring?',
- 'lead': 'Skillnaden mellan billigaste och dyraste bolag är ofta flera tusen kronor om året '
-         'för exakt samma bil. Här ser du vad de olika skyddsnivåerna kostar — och vad du '
+ 'lead': 'Skillnaden mellan det lägsta och det högsta priset är ofta flera tusen kronor om '
+         'året för exakt samma bil. Här ser du vad de olika skyddsnivåerna kostar — och vad du '
          'faktiskt får för pengarna.',
  'checks': ['Tre skyddsnivåer förklarade: trafik, halv och hel',
-            'Priser på samma jämförelseprofil, så att de går att ställa mot varandra',
+            'Publicerade prisexempel med källa och datum',
             'Oberoende betyg från Konsumenternas Försäkringsbyrå'],
  'card_note': 'Det tar under två minuter',
  'sticky': 'Jämför bilförsäkring gratis',
@@ -41,10 +47,13 @@ PAGES = [
 {kort.sektion()}
 
 <section class="sec"><div class="wrap start">
-<div class="note"><p><strong>Kort sagt.</strong> Trafikförsäkring är det lagstadgade minimum
-och täcker bara skador på andra. Halvförsäkring lägger till stöld, brand, glas och
-räddning. Helförsäkring är den enda som ersätter skador på din egen bil vid en olycka
-du själv orsakat.</p></div>
+<div class="note"><p><strong>Kort sagt.</strong> En bilförsäkring i Sverige kostade i
+genomsnitt 5 406 kronor per år (451 kr/mån) räknat över alla skyddsnivåer, enligt
+<a href="https://www.zmarta.se/forsakring/bilforsakring" rel="nofollow noopener" target="_blank">Zmartas</a>
+statistik för 2025. Ditt eget pris styrs av bil, ålder, bostadsort, körsträcka och självrisk.
+Trafikförsäkring är det lagstadgade minimum och täcker bara skador på andra, halvförsäkring
+lägger till stöld, brand, glas och räddning, och helförsäkring är den enda nivån som ersätter
+din egen bil vid en olycka du själv orsakat.</p></div>
 
 <div class="stats">
 <div class="stat"><span class="stat-n">36</span><span class="stat-l">bilförsäkringar granskade av Konsumenternas</span></div>
@@ -122,7 +131,7 @@ korrekt — annars börjar du om från noll.</p>
 
 <section class="sec"><div class="wrap start">
 <h2>Oberoende betyg — och varför de är värda att läsa</h2>
-<p>Konsumenternas Försäkringsbyrå granskar villkoren i svenska bilförsäkringar och sätter
+<p>{KONS} granskar villkoren i svenska bilförsäkringar och sätter
 betyg från 1 till 5. De säljer ingenting och arbetar inte på uppdrag av något bolag, vilket
 gör dem till den mest opartiska källan på marknaden.</p>
 <p>I deras genomgång av 36 bilförsäkringar delade Länsförsäkringar, Paydrive och
@@ -183,7 +192,7 @@ den vanligaste situationen först.</p>
          ('/trafikforsakring/', 'Trafikförsäkring — lagkravet förklarat'),
          ('/halvforsakring/', 'Halvförsäkring — vad ingår?'),
          ('/helforsakring/', 'Helförsäkring — när behövs den?'),
-         ('/redaktionell-metod/', 'Så samlar vi in priserna')],
+         ('/redaktionell-metod/', 'Så redovisar vi källor och priser')],
 },
 
 # ═══ JÄMFÖR ════════════════════════════════════════════════════════
@@ -202,13 +211,14 @@ den vanligaste situationen först.</p>
  'sticky': 'Hämta din offert',
  'body': f'''
 {kort.sektion('Bolag att begära offert från',
-    'Behöver du en startpunkt för de tre offerterna: här är två bolag med olika profil — lokala kontor och låga premier i publicerade prisexempel — plus en jämförelsetjänst för den tredje.',
+    'Två försäkringsbolag med olika upplägg — lokala kontor respektive ett helt digitalt bolag — samt en jämförelsetjänst som hämtar offerter från flera anslutna bolag.',
     ['dina-forsakringar', 'gofido'], smal=True)}
 
 <section class="sec"><div class="wrap narrow">
-<div class="note"><p><strong>Kort sagt.</strong> Ett listpris säger nästan ingenting.
-Två offerter till samma belopp kan ha olika självrisk, olika tillägg och olika
-verkstadsvillkor. Ställ in samma förutsättningar hos alla bolag — sedan är siffran meningsfull.</p></div>
+<div class="note"><p><strong>Kort sagt.</strong> Att jämföra bilförsäkring innebär att hämta
+offerter från flera bolag på exakt samma skyddsnivå, självrisk och tillägg, och sedan
+jämföra årspremien. Ett listpris säger nästan ingenting, eftersom två offerter till samma
+belopp kan ha olika självrisk, olika tillägg och olika verkstadsvillkor.</p></div>
 
 <h2>Steg 1: Bestäm skyddsnivån först</h2>
 <p>Innan du tittar på en enda krona ska du veta om du behöver trafik, halv eller hel.
@@ -225,8 +235,8 @@ och begär offert med exakt det hos samtliga.</p>
 
 <h2>Steg 3: Kontrollera vad som redan ingår</h2>
 <p>Bolagen paketerar olika. Assistans, hyrbil, maskinskada och allrisk kan vara inkluderade
-hos ett bolag och kosta extra hos ett annat. Det billigaste grundpriset blir ibland det
-dyraste totalpriset när du lagt till det du faktiskt behöver.</p>
+hos ett bolag och kosta extra hos ett annat. Det lägsta grundpriset blir ibland det
+högsta totalpriset när du lagt till det du faktiskt behöver.</p>
 
 <div class="tbl"><table>
 <caption>Kontrollista att gå igenom för varje offert</caption>
@@ -250,7 +260,6 @@ dyraste totalpriset när du lagt till det du faktiskt behöver.</p>
 <p>Den nya försäkringen ska börja gälla samma dag som den gamla upphör. Ett enda dygn
 utan trafikförsäkring är olagligt och kan kosta betydligt mer än du sparat.</p>
 
-{TODO}
 {METOD}
 
 <h2>Jämförelseschema — fyll i innan du väljer</h2>
@@ -392,7 +401,7 @@ vilka du ska begära offert från.</p>
  'rel': [('/', 'Vad kostar bilförsäkring?'),
          ('/halvforsakring/', 'Halvförsäkring — vad ingår?'),
          ('/helforsakring/', 'Helförsäkring — när behövs den?'),
-         ('/redaktionell-metod/', 'Så samlar vi in priserna')],
+         ('/redaktionell-metod/', 'Så redovisar vi källor och priser')],
 },
 
 # ═══ TRAFIKFÖRSÄKRING ══════════════════════════════════════════════
@@ -411,13 +420,14 @@ vilka du ska begära offert från.</p>
  'sticky': 'Se pris på trafikförsäkring',
  'body': f'''
 {kort.sektion('Bolag att jämföra trafikförsäkring hos',
-    'Trafikförsäkringen är samma lagstadgade skydd överallt, så det som skiljer är pris, service och hur snabbt ett ärende hanteras.',
+    'Trafikförsäkringens omfattning följer trafikskadelagen och är densamma hos alla bolag. Här är två bolag och en jämförelsetjänst där du kan se priset för din bil.',
     ['gofido', 'dina-forsakringar'], smal=True)}
 
 <section class="sec"><div class="wrap narrow">
-<div class="note"><p><strong>Kort sagt.</strong> Trafikförsäkring är enligt trafikskadelagen
-obligatorisk för alla fordon i trafik. Den ersätter personskador — både dina och andras —
-samt skador du orsakar på annans egendom. Din egen bil ingår inte.</p></div>
+<div class="note"><p><strong>Kort sagt.</strong> Trafikförsäkring är den försäkring som
+enligt trafikskadelagen är obligatorisk för alla fordon som är påställda i vägtrafikregistret.
+Den ersätter personskador — både dina och andras — samt skador du orsakar på annans egendom.
+Skador på din egen bil ingår inte.</p></div>
 
 <h2>Vad trafikförsäkringen täcker</h2>
 <ul>
@@ -441,10 +451,11 @@ med enbart trafikförsäkring.</p></div>
 
 <h2>Om du kör utan försäkring</h2>
 <p>Ett fordon som är påställt i vägtrafikregistret ska vara trafikförsäkrat. Saknas
-försäkringen tar Trafikförsäkringsföreningen ut en trafikförsäkringsavgift för varje dag
+försäkringen tar {TFF} ut en trafikförsäkringsavgift för varje dag
 fordonet varit oförsäkrat. Avgiften är medvetet satt högre än vad en försäkring hade kostat,
 just för att det inte ska löna sig att avstå.</p>
-<p>Ska bilen stå still en period är lösningen att ställa av den i vägtrafikregistret — då
+<p>Ska bilen stå still en period är lösningen att ställa av den i vägtrafikregistret hos
+{TS} — då
 upphör både skatt och försäkringsplikt. Men den får inte köras, inte ens en kort sträcka.</p>
 
 <h2>När räcker trafikförsäkring?</h2>
@@ -452,7 +463,6 @@ upphör både skatt och försäkringsplikt. Men den får inte köras, inte ens e
 göras, eller så används den i princip inte. För allt däröver blir mellanskillnaden till
 halvförsäkring liten i förhållande till vad du får.</p>
 
-{TODO}
 {METOD}
 
 <div class="cta">
@@ -561,13 +571,14 @@ lagstadgade skyddet handlar om andra, inte om din egen egendom.</p>
  'sticky': 'Se pris på halvförsäkring',
  'body': f'''
 {kort.sektion('Bolag att jämföra halvförsäkring hos',
-    'På halvförsäkring är det momenten som skiljer — glassjälvrisk, maskinskadans åldersgräns och kraven på stöldskydd. Här är två bolag med olika profil att ställa mot varandra.',
+    'Två försäkringsbolag med olika upplägg och en jämförelsetjänst. Innehållet i en halvförsäkring beskrivs i genomgången nedan.',
     ['dina-forsakringar', 'gofido'], smal=True)}
 
 <section class="sec"><div class="wrap narrow">
-<div class="note"><p><strong>Kort sagt.</strong> Halvförsäkring är trafikförsäkring plus ett
-antal delmoment: stöld, brand, glas, räddning, rättsskydd och hos de flesta bolag även
-maskinskada. Det som saknas är vagnskadan.</p></div>
+<div class="note"><p><strong>Kort sagt.</strong> Halvförsäkring är trafikförsäkring plus
+skydd för stöld, brand, glas, räddning, rättsskydd och hos de flesta bolag även maskinskada.
+Det som saknas är vagnskada, vilket betyder att skador på din egen bil vid en olycka du själv
+orsakat inte ersätts. Det är den enda skillnaden mot helförsäkring.</p></div>
 
 <h2>Vad som normalt ingår</h2>
 <div class="tbl"><table>
@@ -603,7 +614,6 @@ skada vagnskadan täcker.</li>
 gäller normalt bara upp till en viss ålder och körsträcka — ofta åtta år eller tio tusen mil.
 Passerar bilen gränsen försvinner momentet utan att premien nödvändigtvis sjunker.</p></div>
 
-{TODO}
 {METOD}
 
 <div class="cta">
@@ -666,6 +676,9 @@ och de drabbar bilar oavsett värde. Står bilen i garage på landsbygden är ha
 oftast rätt långt ned i värdeskalan — står den på gatan i
 <a href="/bilforsakring-stockholm/">Stockholm</a> eller
 <a href="/bilforsakring-malmo/">Malmö</a> förskjuts gränsen uppåt.</p>
+<p>När du bestämt nivån är nästa fråga vilka bolag du ska begära offert från. Vår
+<a href="/basta-bilforsakringen/">sammanställning av bolagen på villkor och kundnöjdhet</a>
+redovisar de oberoende betygen med källa.</p>
 
 <h2>Jämför halvförsäkring</h2>
 <p>Ange registreringsnumret och se vad de olika bolagen tar.</p>
@@ -708,13 +721,14 @@ oftast rätt långt ned i värdeskalan — står den på gatan i
  'sticky': 'Se pris på helförsäkring',
  'body': f'''
 {kort.sektion('Bolag att jämföra helförsäkring hos',
-    'Helförsäkring är den dyraste nivån, och därför den där skillnaden mellan bolagen ger störst utslag i kronor. Kundnöjdheten väger tyngre här, eftersom det är på vagnskadeärenden handläggningen märks.',
+    'Två försäkringsbolag med olika upplägg och en jämförelsetjänst. Vad vagnskadan omfattar beskrivs i genomgången nedan.',
     ['dina-forsakringar', 'gofido'], smal=True)}
 
 <section class="sec"><div class="wrap narrow">
-<div class="note"><p><strong>Kort sagt.</strong> Helförsäkring är halvförsäkring plus
-vagnskada. Vagnskadan ersätter skador på din egen bil vid trafikolycka, skadegörelse och
-annan yttre olyckshändelse — även när du själv orsakat dem.</p></div>
+<div class="note"><p><strong>Kort sagt.</strong> Helförsäkring är den högsta skyddsnivån:
+halvförsäkring plus vagnskada. Vagnskadan ersätter skador på din egen bil vid trafikolycka,
+skadegörelse och annan yttre olyckshändelse — även när du själv orsakat dem. Vid leasing och
+billån krävs helförsäkring i praktiken alltid.</p></div>
 
 <h2>Vad vagnskadan täcker</h2>
 <ul>
@@ -725,9 +739,10 @@ annan yttre olyckshändelse — även när du själv orsakat dem.</p></div>
 </ul>
 
 <h2>När helförsäkring är nödvändig</h2>
-<p><strong>Vid leasing och billån.</strong> Långivaren har säkerhet i bilen och kräver
-i praktiken alltid helförsäkring. Kontraktet sätter ofta även ett tak för självrisken,
-vilket betyder att det bästa spartipset — att höja självrisken — inte är tillgängligt för dig.</p>
+<p><strong>Vid leasing och billån.</strong> Bilen är pant för lånet, och långivaren kräver
+därför i praktiken alltid helförsäkring. Kontraktet sätter ofta även ett tak för självrisken,
+vilket betyder att det mest effektiva spartipset — att höja självrisken — inte är tillgängligt
+för dig.</p>
 <p><strong>På nyare bilar utan garanti kvar.</strong> När vagnskadegarantin gått ut och
 bilen fortfarande är värd hundratusen eller mer är helförsäkring det enda som står mellan
 dig och en oväntad räkning.</p>
@@ -750,7 +765,6 @@ antal dagar och om du får bil eller kontant ersättning.</li>
 <li><strong>Allrisk.</strong> Täcker missöden som inte passar in någon annanstans.</li>
 </ul>
 
-{TODO}
 {METOD}
 
 <div class="cta">
@@ -806,7 +820,9 @@ marknadsvärdet minus självrisken, inte vad du en gång betalade och inte vad e
 kostar hos en handlare. Skillnaden överraskar många, särskilt på bilar som är tre till fem år
 gamla och har tappat mycket i värde. Det är också därför bilens restvärde är en faktor värd
 att väga in redan vid bilköpet — märken som håller värdet ger mer tillbaka den dagen, vilket
-du kan läsa mer om på våra <a href="/bilmarken/">märkessidor</a>.</p>
+du kan läsa mer om på våra <a href="/bilmarken/">märkessidor</a>. Vilka bolag som har
+starkast villkorsbetyg hos Konsumenternas Försäkringsbyrå framgår av
+<a href="/basta-bilforsakringen/">vår genomgång av bolagens betyg</a>.</p>
 
 <h2>Jämför helförsäkring</h2>
 <p>Ange registreringsnumret och se vad full täckning kostar hos olika bolag.</p>
@@ -822,7 +838,7 @@ du kan läsa mer om på våra <a href="/bilmarken/">märkessidor</a>.</p>
     'Nej. Under garantitiden täcker tillverkaren vagnskadan, och en helförsäkring innebär att '
     'du köper samma skydd två gånger. Kontrollera garantins slutdatum i bilens papper.'),
    ('Krävs helförsäkring vid leasing?',
-    'I praktiken alltid. Leasingbolaget har säkerhet i bilen och accepterar sällan lägre '
+    'I praktiken alltid. Leasingbolaget äger bilen och accepterar sällan lägre '
     'skydd. Kontraktet kan dessutom sätta ett tak för hur hög självrisk du får välja.'),
    ('Lönar sig helförsäkring på en gammal bil?',
     'Sällan. Ersättningen begränsas av marknadsvärdet, så på en bil värd under ungefär '
@@ -837,7 +853,7 @@ du kan läsa mer om på våra <a href="/bilmarken/">märkessidor</a>.</p>
 # ═══ OM OSS ════════════════════════════════════════════════════════
 {
  'slug': 'om-oss',
- 'title': 'Om Bilförsäkringspriser.se — oberoende jämförelse av bilförsäkring',
+ 'title': 'Om oss — Bilförsäkringspriser.se och vem som står bakom',
  'desc': 'Vilka vi är, hur vi arbetar och hur vi finansierar sajten. Vi säljer inga '
          'försäkringar och företräder inget bolag.',
  'eyebrow': 'Om sajten',
@@ -852,8 +868,8 @@ du kan läsa mer om på våra <a href="/bilmarken/">märkessidor</a>.</p>
 <section class="sec"><div class="wrap narrow">
 <h2>Vad vi gör</h2>
 <p>Vi samlar och förklarar priser och villkor på svenska bilförsäkringar, så att du kan
-fatta ett beslut utan att först behöva lära dig branschens språk. Vi räknar på samma
-jämförelseprofil varje gång, så att siffrorna går att ställa mot varandra.</p>
+fatta ett beslut utan att först behöva lära dig branschens språk. Prisuppgifter från andra
+källor redovisas alltid med källa och datum, så att du själv kan se var siffran kommer ifrån.</p>
 
 <h2>Vad vi inte gör</h2>
 <p>Vi är inte försäkringsförmedlare. Vi ger inte individuell rådgivning, tecknar inga
@@ -881,7 +897,7 @@ dig. Jag rättar sakfel så snart jag kan och noterar väsentliga rättelser på
 <h2>Kontakt</h2>
 <p>E-post: <a href="mailto:info@bilforsakringspriser.se">info@bilforsakringspriser.se</a></p>
 
-<div class="src"><p>Läs mer om hur vi samlar in priser, vad som avgör en placering och hur
+<div class="src"><p>Läs mer om hur vi väljer källor, hur partnerkorten fungerar och hur
 sajten finansieras i vår <a href="/redaktionell-metod/">redaktionella metod</a>.</p></div>
 </div></section>''',
  'rel': [('/redaktionell-metod/', 'Redaktionell metod'),
@@ -893,38 +909,43 @@ sajten finansieras i vår <a href="/redaktionell-metod/">redaktionella metod</a>
 # ═══ REDAKTIONELL METOD ════════════════════════════════════════════
 {
  'slug': 'redaktionell-metod',
- 'title': 'Redaktionell metod — så samlar vi in priser och tjänar pengar',
- 'desc': 'Vår jämförelseprofil, våra källor, vad som avgör en placering och hur sajten '
-         'finansieras. Full transparens.',
+ 'title': 'Redaktionell metod — källor, partner och rättelser',
+ 'desc': 'Så väljer vi källor, redovisar andras prisexempel, hanterar rättelser och '
+         'tjänar pengar via Adtraction. Med datum för varje ändring av metoden.',
  'eyebrow': 'Transparens',
  'h1': 'Redaktionell metod',
- 'lead': 'Den här sidan beskriver hur innehållet blir till, så att du själv kan bedöma om '
-         'våra siffror är att lita på — och var du bör vara kritisk.',
- 'checks': ['En fast jämförelseprofil för alla priser',
-            'Källorna anges alltid',
-            'Ingen placering kan köpas'],
+ 'lead': 'Den här sidan beskriver hur innehållet blir till, var siffrorna kommer ifrån och '
+         'hur sajten tjänar pengar — så att du själv kan bedöma vad som går att lita på och '
+         'var du bör vara kritisk.',
+ 'checks': ['Varje prisuppgift redovisas med källa och datum',
+            'Partnerkortens ordning är ingen rankning',
+            'Rättelser dateras och redovisas'],
  'sticky': 'Jämför bilförsäkring gratis',
- 'body': '''
+ 'body': f'''
 <section class="sec"><div class="wrap narrow">
-<h2>Jämförelseprofilen</h2>
-<p>Alla priser räknas på samma profil, så att de går att jämföra mellan bolag och sidor:</p>
-<div class="tbl"><table>
-<thead><tr><th scope="col">Parameter</th><th scope="col">Värde</th></tr></thead>
-<tbody>
-<tr><th scope="row">Ålder</th><td>40 år</td></tr>
-<tr><th scope="row">Skadefria år</th><td>6</td></tr>
-<tr><th scope="row">Körsträcka</th><td>1 500 mil per år</td></tr>
-<tr><th scope="row">Bostadsort</th><td>Ort utanför de tre storstadsregionerna</td></tr>
-<tr><th scope="row">Självrisk</th><td>4 000 kr</td></tr>
-</tbody></table></div>
-<p>Ändras en parameter ändras priset, ofta kraftigt. Siffrorna på sajten är därför
-<strong>uppskattningar för jämförelse</strong> — inte offerter. Ditt eget pris ska alltid
-hämtas hos bolaget.</p>
+<div class="note"><p><strong>Kort sagt.</strong> Vi har ännu inte publicerat någon egen
+prisinsamling. De priser som visas är andra jämförelsesajters publicerade prisexempel,
+redovisade med källa och datum och märkta som andras siffror, eller uppskattade spann som är
+märkta som uppskattningar. Sajten finansieras av provision från samarbetspartner via
+Adtraction.</p></div>
+
+<h2>Var priserna kommer ifrån</h2>
+<p>Bilförsäkring prissätts individuellt, och vår egen offertinsamling på en fast
+jämförelseprofil är inte klar. Tills den är det använder vi två typer av prisuppgifter, och
+de hålls alltid isär:</p>
+<ul>
+<li><strong>Publicerade prisexempel från andra.</strong> Belopp som andra jämförelsesajter
+och bolag själva har publicerat. De återges med källa, länk, datum och den profil källan
+uppger, och de är tydligt märkta som andras siffror. Eftersom varje källa använder sin egen
+bil och förare går beloppen inte att jämföra rakt av med varandra.</li>
+<li><strong>Uppskattade spann.</strong> På märkes- och modellsidorna visar vi spann som är
+framräknade ur publicerade marknadssiffror och bilens prisklass. De är uppskattningar, inte
+offerter, och det står utskrivet vid varje tabell.</li>
+</ul>
+<p>Jämförelseprofilen som den egna insamlingen kommer att använda är {data.PROFIL_TEXT}.
+Ändras en parameter ändras priset, ofta kraftigt. Ditt eget pris ska alltid hämtas hos bolaget.</p>
 
 <h2>Uppskattade prisspann — så räknas de fram</h2>
-<p>På märkes- och modellsidorna visar vi uppskattade prisspann i väntan på att vår egen
-insamling ska bli klar. Ett spann är inte en offert och inte ett insamlat pris, och det står
-utskrivet vid varje tabell. Så här går uträkningen till, så att du kan granska den.</p>
 <p>Vi utgår från publicerade marknadssiffror: genomsnittspremien enligt Zmarta och
 Försäkras.se, spannet för trafikförsäkring enligt Tryggvi, samt de lägsta och högsta
 publicerade exemplen för halv- och helförsäkring. Därefter placeras varje modell i en av sju
@@ -945,41 +966,72 @@ och högsta värden ryms inom skalan som helhet.</p>
 <p class="swipe">&larr; Dra i sidled för att se alla kolumner</p>
 <p>Klassindelningen är vår bedömning, inte en uppmätt siffra, och det är den svagaste länken
 i kedjan. Vi redovisar den öppet just därför. Vi anger medvetet spann i stället för exakta
-belopp — ett "från 549 kr/mån" på en modell vi inte har offererat vore ett påhittat tal med
+belopp — ett exakt belopp på en modell vi inte har offererat vore ett påhittat tal med
 falsk precision. När vår egen insamling är klar ersätts uppskattningarna av insamlade priser,
 och den här sidan uppdateras samtidigt.</p>
 
-<h2>Källor</h2>
+<h2>Så väljer vi källor</h2>
+<p>Vi föredrar primärkällor: myndigheter, branschorgan, oberoende granskare och bolagens egna
+villkor. Prisexempel från andra jämförelsesajter används som sekundärkälla, eftersom det i dag
+saknas en oberoende prisstatistik per bolag. De källor vi använder mest är:</p>
 <ul>
-<li>Konsumenternas Försäkringsbyrå — oberoende betygsättning av villkor</li>
-<li>Bolagens egna offentligt tillgängliga prislistor och villkor</li>
-<li>Finansinspektionens register över tillståndspliktiga bolag</li>
-<li>Trafikförsäkringsföreningen för uppgifter om trafikförsäkringsavgift</li>
+<li>{KONS} — oberoende betygsättning av villkor och kundnöjdhet</li>
+<li>{_ext('https://www.fi.se/', 'Finansinspektionen')} — register över bolag med tillstånd</li>
+<li>{TFF} — trafikförsäkringsavgift och skador orsakade av oförsäkrade fordon</li>
+<li>{TS} — avställning, påställning och ägarbyte</li>
+<li>{_ext('https://www.svenskforsakring.se/', 'Svensk Försäkring')} — branschens gemensamma uppgifter</li>
+<li>Bolagens egna offentligt tillgängliga villkor och prislistor</li>
+<li>Andra jämförelsesajters publicerade prisexempel — alltid med källa och datum, och alltid
+märkta som andras siffror</li>
 </ul>
-<p>Vi använder aldrig den egna sajten som källa till egna påståenden, och vi hänvisar inte
-till konkurrerande jämförelsesajter som dokumentation.</p>
+<p>Vi tar aldrig med en uppgift där källa eller datum saknas, och vi återger högst ett par
+uppgifter per källa. En uppgift som blivit inaktuell tas bort hellre än att stå kvar.</p>
 
-<h2>Vad som avgör en placering</h2>
-<p>Rangordningar bygger på pris för jämförelseprofilen. Betyg och omdömen som kommer från
-Konsumenternas Försäkringsbyrå återges med källhänvisning och är inte våra egna
-bedömningar. <strong>Ingen placering kan köpas.</strong> Ordningen skulle vara densamma
-utan våra kommersiella avtal.</p>
+<h2>Partnerkort och betyg</h2>
+<p>På flera sidor visas kort för försäkringsbolag och en jämförelsetjänst. Korten visar
+kommersiella samarbetspartner. <strong>Kortens ordning är ingen rankning</strong> och säger
+ingenting om vilket bolag som är billigast eller har bäst villkor för dig. Etiketterna på
+korten bygger på uppgifter från bolagen själva eller på publicerade prisexempel.</p>
+<p>Betyg från Konsumenternas Försäkringsbyrå och Svenskt Kvalitetsindex återges med källa och
+datum och är inte våra egna bedömningar. Sammanställningen på
+<a href="/basta-bilforsakringen/">sidan om bolagens betyg</a> räknas fram med publicerade
+vikter, och den publiceras inte som rankning förrän underlaget räcker.</p>
+
+<h2>Så väljer vi samarbetspartner</h2>
+<p>Vi samarbetar bara med bolag som har tillstånd att bedriva försäkringsverksamhet eller
+förmedling i Sverige. Ett samarbete förutsätter att vi får beskriva bolaget sakligt, och
+partnern får inte läsa eller godkänna texter före publicering. Har en partner egna regler för
+hur de får omnämnas — till exempel att inga betyg eller rankningar får visas intill deras
+annons — följer vi dem på de sidor där annonsen visas.</p>
 
 <h2>Så finansieras sajten</h2>
-<p>Sajten är gratis att använda. Vi får ersättning när någon klickar vidare via en
-jämförelselänk och därefter tecknar en försäkring. Ersättningen påverkar inte ditt pris
-och inte vår rangordning. Alla kommersiella länkar är märkta i koden med
-<code>rel="sponsored"</code>.</p>
+<p>Sajten är gratis att använda. Vi får betalt via affiliatenätverket Adtraction per godkänd
+ansökan eller försäljning som sker efter att du klickat vidare via en annonslänk. Ersättningen
+påverkar inte vilket pris du får hos bolaget. Alla kommersiella länkar är märkta som
+annonslänkar och har <code>rel="sponsored"</code> i koden.</p>
 
-<h2>Uppdatering och rättelser</h2>
-<p>Priser kontrolleras kvartalsvis. Ändrar ett bolag sina villkor mellan två kontroller kan
-det dröja innan det slår igenom här. Hittar du ett fel, skriv till
-<a href="mailto:info@bilforsakringspriser.se">info@bilforsakringspriser.se</a> — vi rättar
-och skriver vad som rättats.</p>
+<h2>Så rättar vi</h2>
+<p>Hittar du ett sakfel, en inaktuell siffra eller en trasig källa — skriv till
+<a href="mailto:info@bilforsakringspriser.se">info@bilforsakringspriser.se</a>. Vi går igenom
+alla påpekanden och rättar bekräftade sakfel inom fem arbetsdagar. Väsentliga rättelser
+noteras med datum i ändringsloggen nedan eller på den sida som rättats. Prisuppgifter och
+källor gås igenom minst en gång per kvartal; senaste genomgång gjordes i
+{data.UPPDATERAD_TEXT}.</p>
 
 <h2>Oberoende</h2>
-<p>Vi ägs inte av, är inte anställda hos och finansieras inte av något försäkringsbolag.
-Inget bolag får läsa texter innan publicering eller påverka formuleringar och placeringar.</p>
+<p>Vi ägs inte av, är inte anställda hos och finansieras inte av något försäkringsbolag
+utöver provisionen som beskrivs ovan. Inget bolag får läsa texter innan publicering eller
+påverka formuleringar.</p>
+
+<h2>Ändringslogg</h2>
+<div class="tbl"><table><caption>Ändringar av innehåll och metod</caption>
+<thead><tr><th scope="col">Datum</th><th scope="col">Ändring</th></tr></thead>
+<tbody>
+<tr><th scope="row">2026-10-19</th><td>Översyn av innehåll, källor och sidstruktur.
+Metodsidan skrevs om så att den beskriver hur andras prisexempel redovisas, att
+partnerkortens ordning inte är en rankning, hur partner väljs och hur rättelser hanteras.
+Platshållartexter togs bort och källhänvisningar gjordes till länkar.</td></tr>
+</tbody></table></div>
 </div></section>''',
  'rel': [('/om-oss/', 'Om oss'),
          ('/integritetspolicy/', 'Integritetspolicy'),
@@ -995,7 +1047,7 @@ Inget bolag får läsa texter innan publicering eller påverka formuleringar och
  'eyebrow': 'Juridik',
  'h1': 'Integritetspolicy',
  'lead': 'Vilka uppgifter vi behandlar, på vilken grund, hur länge vi sparar dem och vilka '
-         'rättigheter du har. Senast uppdaterad januari 2026.',
+         f'rättigheter du har. Senast uppdaterad {data.UPPDATERAD_TEXT}.',
  'checks': ['Du behöver inget konto för att läsa sajten',
             'Vi sparar inga registreringsnummer',
             'Du kan när som helst återkalla ditt samtycke'],
@@ -1003,11 +1055,9 @@ Inget bolag får läsa texter innan publicering eller påverka formuleringar och
  'body': '''
 <section class="sec"><div class="wrap narrow">
 <h2>1. Personuppgiftsansvarig</h2>
-<p>Bilförsäkringspriser.se är personuppgiftsansvarig för behandlingen av de uppgifter som
-samlas in i samband med att du använder sajten. Kontakt:
-<a href="mailto:info@bilforsakringspriser.se">info@bilforsakringspriser.se</a>.</p>
-<div class="warn"><p><strong>Att fylla i före lansering:</strong> juridiskt namn,
-organisationsnummer och postadress.</p></div>
+<p>Personuppgiftsansvarig: Emil Rostgaard Clausen, kontakt
+<a href="mailto:info@bilforsakringspriser.se">info@bilforsakringspriser.se</a>. Det gäller
+behandlingen av de uppgifter som samlas in när du använder Bilförsäkringspriser.se.</p>
 
 <h2>2. Vilka uppgifter vi behandlar</h2>
 <p>Du kan läsa hela sajten utan att skapa konto eller lämna personuppgifter.</p>
@@ -1073,11 +1123,12 @@ startsidan.</p>
 {
  'slug': 'cookiepolicy',
  'title': 'Cookiepolicy — Bilförsäkringspriser.se',
- 'desc': 'Vilka cookies vi sätter, vad de gör, hur länge de lever och hur du väljer bort dem.',
+ 'desc': 'Vilka cookies Bilförsäkringspriser.se sätter, vad de gör, hur länge de lever, när '
+         'samtycke krävs och hur du ändrar ditt val eller tar bort dem.',
  'eyebrow': 'Juridik',
  'h1': 'Cookiepolicy',
  'lead': 'Vilka cookies som används, vad de gör och hur du ändrar ditt val. Senast '
-         'uppdaterad januari 2026.',
+         f'uppdaterad {data.UPPDATERAD_TEXT}.',
  'checks': ['Nödvändiga cookies kräver inget samtycke',
             'Statistik och marknadsföring kräver att du aktivt säger ja',
             'Du kan ändra ditt val när som helst'],
@@ -1111,8 +1162,8 @@ egen domän — det ligger utanför vår kontroll, och du bör läsa deras cooki
 vår <a href="/redaktionell-metod/">redaktionella metod</a>.</p>
 
 <h2>Så ändrar du ditt val</h2>
-<p>Du kan när som helst ändra ditt samtycke via cookieinställningarna längst ned på sidan.
-Du kan också radera cookies direkt i webbläsaren:</p>
+<p>Du kan när som helst återkalla ett lämnat samtycke och radera cookies direkt i
+webbläsaren:</p>
 <ul>
 <li><strong>Chrome:</strong> Inställningar → Sekretess och säkerhet → Cookies</li>
 <li><strong>Safari:</strong> Inställningar → Avancerat → Hantera webbplatsdata</li>
@@ -1120,9 +1171,7 @@ Du kan också radera cookies direkt i webbläsaren:</p>
 <li><strong>Edge:</strong> Inställningar → Cookies och webbplatsbehörigheter</li>
 </ul>
 
-<div class="warn"><p><strong>Att göra före lansering:</strong> installera en cookiebanner
-som blockerar statistik- och marknadsföringscookies tills samtycke lämnats, och länka den
-till den här sidan.</p></div>
+<p>Statistik- och marknadsföringscookies sätts först när du har lämnat ditt samtycke.</p>
 
 <h2>Kontakt</h2>
 <p>Frågor om cookies skickas till

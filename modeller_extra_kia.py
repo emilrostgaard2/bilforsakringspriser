@@ -7,7 +7,7 @@ EXTRA_KIA = {
  'meta': 'Kias mest sålda modell',
  'direktsvar':
   'Kia Sportage ligger i volymklassen, alltså omkring 280–400 kr i månaden för '
-  'halvförsäkring i uppskattning. Beståndet är stort nog för säker skadestatistik och delarna '
+  'halvförsäkring i uppskattning. Beståndet är stort nog för stabil skadestatistik och delarna '
   'delas med Hyundai Tucson. Laddhybriden ligger högre eftersom ersättningsvärdet är större.',
  'agare':
   'Sportage är familjebilen i Kias utbud och köps av hushåll som tidigare hade en kombi. '
@@ -304,7 +304,7 @@ EXTRA_KIA = {
 'picanto': {
  'meta': 'Kias minsta bil',
  'direktsvar':
-  'Kia Picanto är bland de billigaste bilarna att försäkra som säljs ny i Sverige. Lägst '
+  'Kia Picanto är bland de bilar som kostar minst att försäkra som säljs ny i Sverige. Lägst '
   'ersättningsvärde i Kias utbud och låg vikt begränsar både premien och den skada bilen kan '
   'orsaka på motparten. För en ung förare är det den kombination som betyder mest.',
  'agare':

@@ -176,6 +176,30 @@
     });
   }
 
+  /* ── Kalkylator: trafikförsäkringsavgift ───────────────────────
+     Satserna ligger i data-attribut på formuläret och kommer från
+     data.py, så de uppdateras på ett ställe. Avgiften sjunker till
+     50 % från dag 91 och 25 % från dag 181, med en minimiavgift.     */
+  $$('[data-tfa]').forEach(function (f) {
+    var typ = $('select', f), dagar = $('input', f), ut = $('.kalk-res', f);
+    var min = parseFloat(f.getAttribute('data-min')) || 0;
+    function rakna() {
+      var sats = parseFloat(typ.value) || 0;
+      var d = Math.max(0, Math.min(3650, parseInt(dagar.value, 10) || 0));
+      var sum = 0;
+      for (var i = 1; i <= d; i++) {
+        sum += i <= 90 ? sats : (i <= 180 ? Math.max(sats * 0.5, 7) : Math.max(sats * 0.25, 7));
+      }
+      if (d > 0) sum = Math.max(sum, min);
+      ut.innerHTML = d > 0
+        ? 'Uppskattad avgift: <b>' + Math.round(sum).toLocaleString('sv-SE') + ' kr</b> för ' + d + ' dagar'
+        : 'Ange antal dagar utan trafikförsäkring.';
+    }
+    typ.addEventListener('change', rakna);
+    dagar.addEventListener('input', rakna);
+    rakna();
+  });
+
   /* ── FAQ ───────────────────────────────────────────────────────── */
   $$('.q-btn').forEach(function (btn) {
     btn.setAttribute('aria-expanded', 'false');
@@ -188,7 +212,9 @@
 
   /* ── Klibbig CTA — visas när hjältekortet lämnat vyn ───────────── */
   var sticky = $('.sticky');
-  var anchor = $('#heroPlate') || $('#pagePlate') || $('.plate');
+  // Hela hjältekortet, inte bara fältet: annars dyker baren upp medan
+  // den stora knappen fortfarande syns och täcker den på mobil.
+  var anchor = $('.hero .card') || $('#pagePlate') || $('.plate');
   if (sticky && anchor && 'IntersectionObserver' in window) {
     new IntersectionObserver(function (e) {
       sticky.classList.toggle('show', !e[0].isIntersecting);
