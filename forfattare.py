@@ -60,6 +60,7 @@ GRANSKARE = {'namn': '', 'titel': '', 'text': ''}
 # Författarens profiler på andra ställen (schema.org sameAs).
 SAMEAS = [
     'https://billigste-bilforsikring.dk/author/admin/',
+    'https://bilforsikringer.nu/',
 ]
 
 

@@ -882,9 +882,10 @@ driver jämförelsesajter — inte med försäkringar. Jag är alltså ingen fö
 den här sajten bygger inte på branschbakgrund utan på ett hantverk: att samla in uppgifter
 systematiskt, ställa dem mot varandra på ett sätt som faktiskt går att jämföra, och alltid
 redovisa var siffrorna kommer ifrån.</p>
-<p>Bakgrunden är att jag sedan flera år driver motsvarande jämförelsesajter i Danmark, och
-att jag där märkte hur svårt det är att få ett rakt svar på vad en bilförsäkring egentligen
-kostar. Samma sak gäller i Sverige. Allt innehåll här är skrivet av mig utifrån bolagens
+<p>Bakgrunden är att jag sedan flera år driver motsvarande jämförelsesajter i Danmark,
+bland annat <a href="https://bilforsikringer.nu/" target="_blank" rel="noopener">Bilforsikringer.nu</a>
+om dansk bilförsäkring, och att jag där märkte hur svårt det är att få ett rakt svar på vad
+en bilförsäkring egentligen kostar. Samma sak gäller i Sverige. Allt innehåll här är skrivet av mig utifrån bolagens
 egna villkor och offentliga källor.</p>
 <p>Det innebär också en gräns jag håller: jag skriver om hur försäkringarna fungerar och vad
 de kostar, men jag rekommenderar inte vilken försäkring just du ska välja. Behöver du
